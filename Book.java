@@ -1,10 +1,10 @@
 public class Book {
-	private String Name;
-	private String Author;
-	private String ISBN;
-	private int price;
-	private String condition;
-	private Owner owner;
+	public String Name;
+	public String Author;
+	public String ISBN;
+	public int price;
+	public String condition;
+	public Owner owner;
 	
 	public Book(String name, String author, String isbn){
 		this.Name=name;
