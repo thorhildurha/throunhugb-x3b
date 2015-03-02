@@ -8,5 +8,10 @@ public class Owner {
 	public Owner(){
 		
 	}
+	
+	public String[] getinfo(){
+		String[] results = {this.name, this.location, this.email, this.phone};
+		return results;
+	}
 
 }
