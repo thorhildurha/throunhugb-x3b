@@ -1,12 +1,13 @@
 public class Book {
-	public String Name;
-	public String Author;
-	public String ISBN;
-	public int price;
-	public String condition;
-	public Owner owner;
+	public String Name; //same as prototype, available search input
+	public String Author; //same as prototype, available search input
+	public String ISBN; //same as prototype, available search input
+	public int price; //controlled by owner 
+	public String condition; //controlled by owner
+	public String course; //same as prototype, available search input
+	public Owner owner; //logged in user (location, name, email, phone number)
 	
-	public Book(String name, String author, String isbn){
+	public Book(String name, String author, String isbn){//search 
 		this.Name=name;
 		this.Author=author;
 		this.ISBN=isbn;
