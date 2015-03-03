@@ -1,7 +1,6 @@
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,8 +48,11 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
+				JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");
+				/*
 				JOptionPane.showMessageDialog(source, source.getText()
-						+ " button has been pressed");
+						+ " button has been pressed " + userText.getText());
+						*/
 			}
 		};
 		
