@@ -53,16 +53,6 @@ public class Login {
 				} else {
 					JOptionPane.showMessageDialog(source, "Invalid username or password");	
 				}
-				
-				
-				
-				
-				/*
-				JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");
-				
-				JOptionPane.showMessageDialog(source, source.getText()
-						+ " button has been pressed " + userText.getText());
-						*/
 			}
 		};
 		
