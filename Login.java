@@ -48,8 +48,18 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
-				JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");
+				if (Login.authenticate(userText.getText(), passwordText.getText())) {
+					JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
+				} else {
+					JOptionPane.showMessageDialog(source, "Invalid username or password");	
+				}
+				
+				
+				
+				
 				/*
+				JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");
+				
 				JOptionPane.showMessageDialog(source, source.getText()
 						+ " button has been pressed " + userText.getText());
 						*/
@@ -70,5 +80,14 @@ public class Login {
 		registerButton.addActionListener(registerButtonListener);
 	}
 	
+	public static boolean authenticate(String username, String password) {
+        // hardcoded username and password
+        if (username.equals("bob") && password.equals("secret")) {
+            return true;
+        }
+        return false;
+    }
+	
+
 
 }
