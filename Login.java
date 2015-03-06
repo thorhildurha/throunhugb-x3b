@@ -12,8 +12,8 @@ import javax.swing.JTextField;
 
 public class Login extends JFrame {
 	public static void main(String[] args) {
-//		new Login().loginDialog();
-		new Login().NewUserForm();
+		new Login().loginDialog();
+//		new Login().NewUserForm();
 
 	}
 	
@@ -92,7 +92,33 @@ public class Login extends JFrame {
 		JButton cancelButton = new JButton("cancel");
 		cancelButton.setBounds(180, 200, 80, 25);
 		frame.add(cancelButton);
-
+		
+		ActionListener submitButtonListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton source = (JButton) e.getSource();
+				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
+					JOptionPane.showMessageDialog(source, "You have to fill out required fields (*)");	
+				} else {
+					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
+//					Búa til nýjan notanda
+				}
+			}
+		};
+		
+		submitButton.addActionListener(submitButtonListener);
+		
+		ActionListener cancelButtonListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton source = (JButton) e.getSource();
+				new Login().loginDialog();
+				frame.setVisible(false);
+				frame.dispose();
+			}
+		};
+		
+		cancelButton.addActionListener(cancelButtonListener);
 	}
 	
 	private static void placeLoginComponents(JFrame frame) {
@@ -140,8 +166,11 @@ public class Login extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
-				JOptionPane.showMessageDialog(source, source.getText()
-						+ " button has been pressed");
+				new Login().NewUserForm();
+				frame.setVisible(false);
+				frame.dispose();
+//				JOptionPane.showMessageDialog(source, source.getText()
+//						+ " button has been pressed");
 			}
 		};
 		
