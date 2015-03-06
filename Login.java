@@ -13,10 +13,11 @@ import javax.swing.JTextField;
 public class Login extends JFrame {
 	public static void main(String[] args) {
 		new Login().loginDialog();
-//		new Login().NewUserForm();
-
 	}
 	
+//	Use: new a().loginDialog();
+//	Before: a is a class
+//	After: loginDialog has been created
 	public void loginDialog() {
 		JFrame frame = new JFrame("Login application");
 		frame.setSize(300, 150);
@@ -25,15 +26,20 @@ public class Login extends JFrame {
 		frame.setVisible(true);
 	}
 	
+//	Use: new a().NewUserForm();
+//	Before: a is a class
+//	After: NewUserForm has been created
 	public void NewUserForm() {
 		JFrame frame = new JFrame("New user application");
 		frame.setSize(400, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		placeNewUserComponents(frame);
 		frame.setVisible(true);
-		
 	}
 	
+//	Use: placeNewUserComponents(x);
+//	Before: x is a JFrame
+//	After: Components in NewUserForm have been placed
 	private static void placeNewUserComponents(JFrame frame) {
 		frame.setLayout(null);
 	
@@ -98,7 +104,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
 				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
-					JOptionPane.showMessageDialog(source, "You have to fill out required fields (*)");	
+					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
 				} else {
 					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
 //					Búa til nýjan notanda
@@ -121,6 +127,9 @@ public class Login extends JFrame {
 		cancelButton.addActionListener(cancelButtonListener);
 	}
 	
+//	Use: placeLoginComponents(x);
+//	Before: x is a JFrame
+//	After: Components in loginDialog have been placed
 	private static void placeLoginComponents(JFrame frame) {
 		frame.setLayout(null);
 
@@ -177,7 +186,9 @@ public class Login extends JFrame {
 		registerButton.addActionListener(registerButtonListener);
 	}
 
-	
+//	Use: a.authenticate(x,y);
+//	Before: a is a class, x is a string, y is a char[]
+//	After: Check if x is the correct username and y is the correct password
 	public static boolean authenticate(String username, char[] password) {
         // hardcoded username and password
 		char[] correctPassword = "secret".toCharArray();
