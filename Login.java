@@ -1,6 +1,8 @@
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +18,7 @@ public class Login {
 		placeComponents(frame);
 		frame.setVisible(true);
 	}
+	
 	
 	private static void placeComponents(JFrame frame) {
 		frame.setLayout(null);
@@ -48,7 +51,7 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
-				if (Login.authenticate(userText.getText(), passwordText.getText())) {
+				if (Login.authenticate(userText.getText(), passwordText.getPassword())) {
 					JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
 				} else {
 					JOptionPane.showMessageDialog(source, "Invalid username or password");	
@@ -69,10 +72,12 @@ public class Login {
 		
 		registerButton.addActionListener(registerButtonListener);
 	}
+
 	
-	public static boolean authenticate(String username, String password) {
+	public static boolean authenticate(String username, char[] password) {
         // hardcoded username and password
-        if (username.equals("bob") && password.equals("secret")) {
+		char[] correctPassword = "secret".toCharArray();
+        if (username.equals("bob") && Arrays.equals(password, correctPassword)) {
             return true;
         }
         return false;
