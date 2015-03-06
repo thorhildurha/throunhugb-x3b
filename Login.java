@@ -107,7 +107,7 @@ public class Login extends JFrame {
 					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
 				} else {
 					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
-//					Búa til nýjan notanda
+//					Login.createUser();
 				}
 			}
 		};
@@ -197,6 +197,16 @@ public class Login extends JFrame {
         }
         return false;
     }
+	
+//	public void createUser(name, email, location, phone, username); {
+//		Owner a = new Owner(name,email,location,phone,username);
+//		a.Owner();
+//		this.name = name;
+//		this.email = email;
+//		this.location = location;
+//		this.phone = phone;
+//		this.username = username;
+//	}
 	
 
 
