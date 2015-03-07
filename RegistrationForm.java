@@ -1,23 +1,28 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 
 import java.awt.Container;
 
 import javax.swing.JComponent;
 import javax.swing.GroupLayout;
 
-public class RegistrationForm extends JFrame{
+public class RegistrationForm extends JPanel{
 	private Book registerbook; //The book to register
-	private JFrame frame; //The frame for the program, we certainly 
-						 //do not want the size to change depending on which form is open
+	private JFrame frame; //The frame for the program 
+	private JPanel buttonpanel;
+	private JPanel center;
 	
 	public RegistrationForm(Book x, JFrame frame){
 		this.registerbook=x;
@@ -27,9 +32,9 @@ public class RegistrationForm extends JFrame{
 	private void initUI(){
 		frame.setTitle("Registration Form"); // Set a new title to the frame
 		//Create elements
-		JPanel buttonpanel=new JPanel();
+		buttonpanel=new JPanel();
 		JPanel labelpane=new JPanel();
-		JPanel center=new JPanel();
+		center=new JPanel();
 		BoxLayout centering=new BoxLayout(center,BoxLayout.Y_AXIS);
 		center.setLayout(centering);
 		
@@ -42,9 +47,33 @@ public class RegistrationForm extends JFrame{
 		JLabel price=new JLabel("Price:");
 		JLabel conditionLabel = new JLabel("Condition:");
 		JTextField pricefield=new JTextField();
-		
 		String[] conditions={"like new","very good","good","fair","bad","very bad"};
 		JComboBox conditionField=new JComboBox(conditions);
+		JButton register=new JButton("Register");
+		register.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				String inputprice=pricefield.getText();
+				String inputcondition=conditionField.getSelectedItem().toString();
+				Boolean registered=registerbook.register(inputprice,inputcondition);
+				if(registered){
+					frame.remove(buttonpanel);
+					frame.remove(center);
+					frame.validate();
+					frame.repaint();
+					JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully registered your book");
+				}
+				else{
+					JOptionPane.showMessageDialog(frame,
+						    "Something went wrong! \n Please try again",
+						    "Registration Error",
+						    JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		
 		//Create Groups for Labels and values/inputfields
 		GroupLayout inputs=new GroupLayout(labelpane);
@@ -93,13 +122,13 @@ public class RegistrationForm extends JFrame{
 		inputs.setVerticalGroup(vGroup);
 		
 		buttonpanel.setSize(50, 30);
-		JButton register=new JButton("Register");
 		buttonpanel.add(register);
 		center.add(labelpane);
 		frame.add(center);
 		frame.add(buttonpanel,BorderLayout.PAGE_END);
 		frame.setVisible(true);
 	}
+	
 	public static void main(String[] args){
 		Book register=new Book("Litla gula hænan","Andrés Pétursson","02024");
 		JFrame frame = new JFrame("Your app");
@@ -113,5 +142,7 @@ public class RegistrationForm extends JFrame{
             }
         });
 	}
+	
+	
 
 }
