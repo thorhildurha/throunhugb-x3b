@@ -17,16 +17,18 @@ import java.awt.Container;
 
 import javax.swing.JComponent;
 import javax.swing.GroupLayout;
-
+//This class draws a UI interface for a registration form
 public class RegistrationForm extends JPanel{
+	private Database database;
 	private Book registerbook; //The book to register
 	private JFrame frame; //The frame for the program 
 	private JPanel buttonpanel;
 	private JPanel center;
 	
-	public RegistrationForm(Book x, JFrame frame){
+	public RegistrationForm(Book x, JFrame frame, Database data){
 		this.registerbook=x;
 		this.frame=frame;
+		this.database=data;
 		initUI();	
 	}
 	private void initUI(){
@@ -39,11 +41,11 @@ public class RegistrationForm extends JPanel{
 		center.setLayout(centering);
 		
 		JLabel NameLabel= new JLabel("Name: ");
-		JLabel NameVal=new JLabel(this.registerbook.Name);
+		JLabel NameVal=new JLabel(this.registerbook.getName());
 		JLabel AuthorLabel=new JLabel("Author: ");
-		JLabel AuthorVal = new JLabel(this.registerbook.Author);
+		JLabel AuthorVal = new JLabel(this.registerbook.getAuthor());
 		JLabel IsbnLabel=new JLabel("ISBN: ");
-		JLabel IsbnVal=new JLabel(this.registerbook.ISBN);
+		JLabel IsbnVal=new JLabel(this.registerbook.getIsbn());
 		JLabel price=new JLabel("Price:");
 		JLabel conditionLabel = new JLabel("Condition:");
 		JTextField pricefield=new JTextField();
@@ -57,8 +59,9 @@ public class RegistrationForm extends JPanel{
 			{
 				String inputprice=pricefield.getText();
 				String inputcondition=conditionField.getSelectedItem().toString();
-				Boolean registered=registerbook.register(inputprice,inputcondition);
-				if(registered){
+				Boolean updated=registerbook.update(inputprice,inputcondition);
+				Boolean registered = database.register(registerbook);
+				if(updated&&registered){
 					frame.remove(buttonpanel);
 					frame.remove(center);
 					frame.validate();
@@ -130,6 +133,7 @@ public class RegistrationForm extends JPanel{
 	}
 	
 	public static void main(String[] args){
+		MockDatabase database=new MockDatabase();
 		Book register=new Book("Litla gula hænan","Andrés Pétursson","02024");
 		JFrame frame = new JFrame("Your app");
 		frame.setSize(300,200);
@@ -138,7 +142,7 @@ public class RegistrationForm extends JPanel{
 	        
             @Override
             public void run() {
-                RegistrationForm ex = new RegistrationForm(register,frame);
+                RegistrationForm ex = new RegistrationForm(register,frame,database);
             }
         });
 	}
