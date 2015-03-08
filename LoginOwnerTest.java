@@ -28,9 +28,14 @@ public class LoginOwnerTest {
 	}
 
 	@Test
-	public void test() {
-		login.authenticate("dude", "test");
+	public void testcorrect() {
+		login.authenticate("dude", "secret");
 		assertEquals("dude",user.getUsername());
+	}
+	@Test
+	public void testwrong(){
+		login.authenticate("dude","lol");
+		assertNull(user.getUsername());
 	}
 
 }
