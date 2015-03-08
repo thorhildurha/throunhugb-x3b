@@ -1,4 +1,3 @@
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -10,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Login extends JFrame {
+public class Login {
 	public static void main(String[] args) {
 		new Login().loginDialog();
 	}
@@ -39,7 +38,8 @@ public class Login extends JFrame {
 	
 //	Use: placeNewUserComponents(x);
 //	Before: x is a JFrame
-//	After: Components in NewUserForm have been placed
+//	After: Components in NewUserForm have been placed 
+//	and a new user has been created
 	private static void placeNewUserComponents(JFrame frame) {
 		frame.setLayout(null);
 	
@@ -92,11 +92,11 @@ public class Login extends JFrame {
 		frame.add(passwordText);
 
 		JButton submitButton = new JButton("submit");
-		submitButton.setBounds(10, 200, 80, 25);
+		submitButton.setBounds(180, 200, 80, 25);
 		frame.add(submitButton);
 
 		JButton cancelButton = new JButton("cancel");
-		cancelButton.setBounds(180, 200, 80, 25);
+		cancelButton.setBounds(10, 200, 80, 25);
 		frame.add(cancelButton);
 		
 		ActionListener submitButtonListener = new ActionListener() {
@@ -106,8 +106,15 @@ public class Login extends JFrame {
 				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
 					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
 				} else {
+					@SuppressWarnings("unused")
+					Owner newuser = new Owner(nameText.getText(), locationText.getText(), emailText.getText(), phoneText.getText(), userText.getText());
 					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
-//					Login.createUser();
+				
+//					TODO: Setja newuser inn í gagnagrunn
+					
+//					JOptionPane.showMessageDialog(source, newuser.getinfo());
+					frame.setVisible(false);
+					frame.dispose();
 				}
 			}
 		};
@@ -117,7 +124,7 @@ public class Login extends JFrame {
 		ActionListener cancelButtonListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton source = (JButton) e.getSource();
+//				JButton source = (JButton) e.getSource();
 				new Login().loginDialog();
 				frame.setVisible(false);
 				frame.dispose();
@@ -153,7 +160,7 @@ public class Login extends JFrame {
 		loginButton.setBounds(10, 80, 80, 25);
 		frame.add(loginButton);
 
-		JButton registerButton = new JButton("register");
+		JButton registerButton = new JButton("sign up");
 		registerButton.setBounds(180, 80, 80, 25);
 		frame.add(registerButton);
 		
@@ -174,7 +181,7 @@ public class Login extends JFrame {
 		ActionListener registerButtonListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JButton source = (JButton) e.getSource();
+//				JButton source = (JButton) e.getSource();
 				new Login().NewUserForm();
 				frame.setVisible(false);
 				frame.dispose();
@@ -197,17 +204,10 @@ public class Login extends JFrame {
         }
         return false;
     }
-	
-//	public void createUser(name, email, location, phone, username); {
-//		Owner a = new Owner(name,email,location,phone,username);
-//		a.Owner();
-//		this.name = name;
-//		this.email = email;
-//		this.location = location;
-//		this.phone = phone;
-//		this.username = username;
-//	}
-	
+
+
+
+
 
 
 }
