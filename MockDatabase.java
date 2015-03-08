@@ -14,7 +14,12 @@ public class MockDatabase implements Database {
 		return searchfor;
 	}
 	public Boolean ispassword(String user, String password){
-		return true;
+		if(password=="secret"){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 }
