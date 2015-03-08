@@ -10,6 +10,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Login {
+	private static Owner newuser = null;
+	
 	public static void main(String[] args) {
 		new Login().loginDialog();
 	}
@@ -21,7 +23,7 @@ public class Login {
 		JFrame frame = new JFrame("Login application");
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		placeLoginComponents(frame);
+		placeLoginComponents(frame, newuser);
 		frame.setVisible(true);
 	}
 	
@@ -106,13 +108,13 @@ public class Login {
 				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
 					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
 				} else {
-					@SuppressWarnings("unused")
-					Owner newuser = new Owner(nameText.getText(), locationText.getText(), emailText.getText(), phoneText.getText(), userText.getText());
-					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
+					Owner user0 = new Owner(nameText.getText(), locationText.getText(), emailText.getText(), phoneText.getText(), userText.getText());
+					newuser = user0;
+//					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
 				
 //					TODO: Setja newuser inn í gagnagrunn
 					
-//					JOptionPane.showMessageDialog(source, newuser.getinfo());
+					JOptionPane.showMessageDialog(source, newuser.getinfo());
 					frame.setVisible(false);
 					frame.dispose();
 				}
@@ -137,7 +139,7 @@ public class Login {
 //	Use: placeLoginComponents(x);
 //	Before: x is a JFrame
 //	After: Components in loginDialog have been placed
-	private static void placeLoginComponents(JFrame frame) {
+	private static void placeLoginComponents(JFrame frame, Owner newuser) {
 		frame.setLayout(null);
 
 		JLabel userLabel = new JLabel("User");
@@ -207,10 +209,5 @@ public class Login {
         }
         return false;
     }
-f
-
-
-
-
 
 }
