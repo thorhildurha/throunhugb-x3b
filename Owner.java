@@ -15,13 +15,16 @@ public class Owner {
 	}
 	
 	//Use: String[] info=owner.getinfo();
-	//Before: nothing
+	//Before: owner is an Owner
 	//After: info contains owners information [name, location, email, phone]
 	public String[] getinfo(){
 		String[] results = {this.name, this.location, this.email, this.phone, this.username};
 		return results;
 	}
 	
+//	Use: x = a.getUsername()
+//	Before: a is an Owner
+//	After: x is a String and is the username of a
 	public String getUsername() {
 		return this.username;
 	}
