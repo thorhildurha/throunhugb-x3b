@@ -4,7 +4,7 @@ public class MockDatabase implements Database {
 	public MockDatabase(){
 	}
 	public Boolean register(Book x){
-		return false;
+		return true;
 	}
 	public Boolean update(Book x){
 		return true;
@@ -13,7 +13,7 @@ public class MockDatabase implements Database {
 		Book[] searchfor={};
 		return searchfor;
 	}
-	public Boolean ispassword(String user){
+	public Boolean ispassword(String user, String password){
 		return true;
 	}
 	
