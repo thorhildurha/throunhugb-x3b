@@ -20,7 +20,8 @@ public class Login {
 	}
 	public static void main(String[] args) {
 		Owner someone=null;
-		Login login = new Login(someone);
+		MockDatabase database = new MockDatabase();
+		Login login = new Login(someone, database);
 	}
 	
 //	Use: new Login().loginDialog();
