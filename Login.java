@@ -10,10 +10,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Login {
+	private Database database;
 	private Owner newuser;
 	
-	public Login(Owner owner){
-		newuser = owner;
+	public Login(Owner owner, Database data){
+		this.newuser = owner;
+		this.database = data;
 		loginDialog();
 	}
 	public static void main(String[] args) {
