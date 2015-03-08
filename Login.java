@@ -213,9 +213,9 @@ public class Login {
 		
         // hardcoded username and password
 		
-		Boolean correctpw=database.ispassword(username, password);
+		Boolean correctpw=database.isuser(username, password);
 		if(correctpw){
-			newuser=new Owner("","","","",username);
+			newuser.setUsername(username);
 			return true;	
 		}
 		else{

@@ -13,7 +13,7 @@ public class MockDatabase implements Database {
 		Book[] searchfor={};
 		return searchfor;
 	}
-	public Boolean ispassword(String user, String password){
+	public Boolean isuser(String user, String password){
 		if(password=="secret"){
 			return true;
 		}
