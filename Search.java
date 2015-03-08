@@ -1,6 +1,6 @@
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,31 +24,31 @@ public class Search extends JFrame
 	private static void placeSearchcomponents (JFrame frame)
 	{
 		JLabel titleLabel = new JLabel ("Book title");
-		titleLabel.setBounds(10, 10, 80, 35);
+		titleLabel.setBounds(10, 10, 80, 25);
 		frame.add(titleLabel);
-		JTextField titleText = new JTextField(30);
-		titleText.setBounds(100, 10, 160, 35);
+		JTextField titleText = new JTextField(20);
+		titleText.setBounds(100, 10, 160, 25);
 		frame.add(titleText);
 		
 		JLabel authorLabel = new JLabel ("Author");
-		authorLabel.setBounds(10, 40, 80, 35);
+		authorLabel.setBounds(10, 40, 80, 25);
 		frame.add(authorLabel);
-		JTextField authorText = new JTextField(30);
-		authorText.setBounds(100, 40, 160, 35);
+		JTextField authorText = new JTextField(20);
+		authorText.setBounds(100, 40, 160, 25);
 		frame.add(authorText);
 		
 		JLabel isbnLabel = new JLabel ("ISBN");
-		isbnLabel.setBounds(10, 70, 80, 35);
+		isbnLabel.setBounds(10, 70, 80, 25);
 		frame.add(isbnLabel);
-		JTextField isbnText = new JTextField(30);
-		isbnText.setBounds(100, 70, 160, 35);
+		JTextField isbnText = new JTextField(20);
+		isbnText.setBounds(100, 70, 160, 25);
 		frame.add(isbnText);
 		
 		JLabel courseLabel= new JLabel ("Course");
-		courseLabel.setBounds(10, 100, 80, 35);
+		courseLabel.setBounds(10, 100, 80, 25);
 		frame.add(courseLabel);
-		JTextField courseText = new JTextField(30);
-		courseText.setBounds(100, 100, 160, 35);
+		JTextField courseText = new JTextField(20);
+		courseText.setBounds(100, 100, 160, 25);
 		frame.add(courseText);
 		
 		JButton searchButton = new JButton("Search");
