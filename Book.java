@@ -1,11 +1,11 @@
 public class Book {
-	public String Name; //same as prototype, available search input
-	public String Author; //same as prototype, available search input
-	public String ISBN; //same as prototype, available search input
-	public int price; //controlled by owner 
-	public String condition; //controlled by owner
-	public String course; //same as prototype, available search input
-	public Owner owner; //logged in user (location, name, email, phone number)
+	private String Name; //same as prototype, available search input
+	private String Author; //same as prototype, available search input
+	private String ISBN; //same as prototype, available search input
+	private String price; //controlled by owner 
+	private String condition; //controlled by owner
+	private String course; //same as prototype, available search input
+	private Owner owner; //logged in user (location, name, email, phone number
 	
 	public Book(String name, String author, String isbn){//search 
 		this.Name=name;
@@ -13,15 +13,22 @@ public class Book {
 		this.ISBN=isbn;
 	}
 	
-	public Boolean register(){ //Returns true if no Error in registration method
-		return true; 
-	}
-	
-	public Book[] search(){ //Returns an array of Books that match our current object of Book
-		Book[] results=null;
-		return results;
-	}
-	public Boolean update(){ //Returns true if no Error in update method, only possible to update if Owner?
+	public Boolean update(String price, String condition){ //Returns true if no Error in registration method
+		this.price=price;
+		this.condition=condition;
 		return true;
 	}
+	
+	public String getName(){
+		return this.Name;
+	}
+	public String getAuthor(){
+		return this.Author;
+	}
+	public String getIsbn(){
+		return this.ISBN;
+	}
+	
+	
+	
 }
