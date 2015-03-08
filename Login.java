@@ -10,10 +10,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Login {
-	private static Owner newuser = null;
+	private Owner newuser;
 	
+	public Login(Owner owner){
+		newuser = owner;
+		loginDialog();
+	}
 	public static void main(String[] args) {
-		new Login().loginDialog();
+		Owner someone=null;
+		Login login = new Login(someone);
 	}
 	
 //	Use: new Login().loginDialog();
@@ -42,7 +47,7 @@ public class Login {
 //	Before: x is a JFrame
 //	After: Components in NewUserForm have been placed 
 //	and a new user has been created
-	private static void placeNewUserComponents(JFrame frame) {
+	private void placeNewUserComponents(JFrame frame) {
 		frame.setLayout(null);
 	
 		JLabel nameLabel = new JLabel("Name *");
@@ -117,7 +122,7 @@ public class Login {
 					JOptionPane.showMessageDialog(source, newuser.getinfo());
 					frame.setVisible(false);
 					frame.dispose();
-					new Login().loginDialog();
+					loginDialog();
 				}
 			}
 		};
@@ -128,7 +133,7 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				JButton source = (JButton) e.getSource();
-				new Login().loginDialog();
+				loginDialog();
 				frame.setVisible(false);
 				frame.dispose();
 			}
@@ -140,7 +145,7 @@ public class Login {
 //	Use: placeLoginComponents(x);
 //	Before: x is a JFrame
 //	After: Components in loginDialog have been placed
-	private static void placeLoginComponents(JFrame frame, Owner newuser) {
+	private void placeLoginComponents(JFrame frame, Owner newuser) {
 		frame.setLayout(null);
 
 		JLabel userLabel = new JLabel("User");
@@ -171,7 +176,7 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
-				if (Login.authenticate(userText.getText(), passwordText.getPassword())) {
+				if (Login.authenticate(userText.getText(), passwordText.getPassword(), newuser)) {
 					JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
 				} else {
 					JOptionPane.showMessageDialog(source, "Invalid username or password");	
@@ -185,7 +190,7 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				JButton source = (JButton) e.getSource();
-				new Login().NewUserForm();
+				NewUserForm();
 				frame.setVisible(false);
 				frame.dispose();
 //				JOptionPane.showMessageDialog(source, source.getText()
@@ -199,16 +204,25 @@ public class Login {
 //	Use: a.authenticate(x,y);
 //	Before: a is a class, x is a string, y is a char[]
 //	After: Check if x is the correct username and y is the correct password
-	public static boolean authenticate(String username, char[] password) {
+	public static boolean authenticate(String username, char[] password, Owner newuser) {
 //		TODO: Tjékkum hvort username og lykilorð passi við eitthvað í gagnagrunninum, 
 //			  þá true annars false
 		
         // hardcoded username and password
+		
+		
 		char[] correctPassword = "secret".toCharArray();
-        if (username.equals(newuser.getUsername()) && Arrays.equals(password, correctPassword)) {
-            return true;
-        }
-        return false;
+		if(newuser == null) {
+			if(username.equals("bob") && Arrays.equals(password, correctPassword)) {
+				return true;
+			}
+			}else {
+				if (username.equals(newuser.getUsername()) && Arrays.equals(password, correctPassword)) {
+		            return true;
+			}
+				}
+				return false;
+			
     }
 
 }
