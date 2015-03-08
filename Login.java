@@ -197,6 +197,9 @@ public class Login {
 //	Before: a is a class, x is a string, y is a char[]
 //	After: Check if x is the correct username and y is the correct password
 	public static boolean authenticate(String username, char[] password) {
+//		TODO: Tjékkum hvort username og lykilorð passi við eitthvað í gagnagrunninum, 
+//			  þá true annars false
+		
         // hardcoded username and password
 		char[] correctPassword = "secret".toCharArray();
         if (username.equals("bob") && Arrays.equals(password, correctPassword)) {
@@ -204,7 +207,7 @@ public class Login {
         }
         return false;
     }
-
+f
 
 
 

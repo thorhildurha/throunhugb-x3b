@@ -24,10 +24,26 @@ public class OwnerTest {
 	}
 
 	@Test
-	public void testGetUsername() {
+	public void testGet() {
 		assertEquals("totahotty", user1.getUsername());
 		assertEquals("guddabeib", user2.getUsername());
 		assertEquals("", user3.getUsername());
+		assertEquals("Reykjavík", user1.getLocation());
+		assertEquals("guddan@gmail.com", user2.getEmail());
+		assertEquals("8888888", user3.getPhone());
+		
+	}
+	
+	@Test
+	public void testSetandGet() {
+		user1.setName("Birta");
+		assertEquals("Birta", user1.getName());
+		user2.setUsername("Nonni");
+		assertEquals("Nonni", user2.getUsername());
+		user3.setUsername("Kobban");
+		assertEquals("Kobban",user3.getUsername());
+		user2.setPhone("5689999");
+		assertEquals("5689999",user2.getPhone());
 	}
 
 }

@@ -6,12 +6,12 @@ public class Owner {
 	private String phone;
 	private String username;
 	
-	public Owner(String name0, String location0, String email0, String phone0, String username0){
-		name = name0;
-		location = location0;
-		email = email0;
-		phone = phone0;
-		username = username0;
+	public Owner(String name, String location, String email, String phone, String username){
+		this.name = name;
+		this.location = location;
+		this.email = email;
+		this.phone = phone;
+		this.username = username;
 	}
 	
 	//Use: String[] info=owner.getinfo();
@@ -22,11 +22,75 @@ public class Owner {
 		return results;
 	}
 	
+	
 //	Use: x = a.getUsername()
 //	Before: a is an Owner
 //	After: x is a String and is the username of a
 	public String getUsername() {
 		return this.username;
+	}
+	
+//	Use: x = a.getName()
+//	Before: a is an Owner
+//	After: x is a String and is the name of a
+	public String getName() {
+		return this.name;
+	}
+	
+//	Use: x = a.getLocation()
+//	Before: a is an Owner
+//	After: x is a String and is the location of a
+	public String getLocation() {
+		return this.location;
+	}
+	
+//	Use: x = a.getEmail()
+//	Before: a is an Owner
+//	After: x is a String and is the email of a
+	public String getEmail() {
+		return this.email;
+	}
+	
+//	Use: x = a.getPhone()
+//	Before: a is an phone
+//	After: x is a String and is the phone of a	
+	public String getPhone() {
+		return this.phone;
+	}
+	
+//	Use: x = a.getUsername()
+//	Before: a is an username
+//	After: x is a String and is the username of a
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+//	Use: x = a.setName(x)
+//	Before: a is an Owner, x is a string
+//	After: x is the new name of a
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+//	Use: x = a.setLocation(x)
+//	Before: a is an Owner, x is a string
+//	After: x is the new location of a
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+//	Use: x = a.setEmail(x)
+//	Before: a is an Owner, x is a string
+//	After: x is the new email of a
+	public void setEmail(String email){
+		this.email = email;
+	}
+	
+//	Use: x = a.setPhone(x)
+//	Before: a is an Owner, x is a string
+//	After: x is the new phone of a
+	public void setPhone(String phone){
+		this.phone = phone;
 	}
 
 }
