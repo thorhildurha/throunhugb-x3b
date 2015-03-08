@@ -117,6 +117,7 @@ public class Login {
 					JOptionPane.showMessageDialog(source, newuser.getinfo());
 					frame.setVisible(false);
 					frame.dispose();
+					new Login().loginDialog();
 				}
 			}
 		};
@@ -204,7 +205,7 @@ public class Login {
 		
         // hardcoded username and password
 		char[] correctPassword = "secret".toCharArray();
-        if (username.equals("bob") && Arrays.equals(password, correctPassword)) {
+        if (username.equals(newuser.getUsername()) && Arrays.equals(password, correctPassword)) {
             return true;
         }
         return false;
