@@ -179,7 +179,7 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
-				if (Login.authenticate(userText.getText(), passwordText.getPassword(), newuser)) {
+				if (authenticate(userText.getText(), passwordText.getPassword().toString())) {
 					JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
 				} else {
 					JOptionPane.showMessageDialog(source, "Invalid username or password");	
@@ -207,25 +207,22 @@ public class Login {
 //	Use: a.authenticate(x,y);
 //	Before: a is a class, x is a string, y is a char[]
 //	After: Check if x is the correct username and y is the correct password
-	public static boolean authenticate(String username, char[] password, Owner newuser) {
+	public boolean authenticate(String username, String password) {
 //		TODO: Tjékkum hvort username og lykilorð passi við eitthvað í gagnagrunninum, 
 //			  þá true annars false
 		
         // hardcoded username and password
 		
+		Boolean correctpw=database.ispassword(username, password);
+		if(correctpw){
+			newuser=new Owner("","","","",username);
+			return true;	
+		}
+		else{
+			return false;
+		}
 		
-		char[] correctPassword = "secret".toCharArray();
-		if(newuser == null) {
-			if(username.equals("bob") && Arrays.equals(password, correctPassword)) {
-				return true;
-			}
-			}else {
-				if (username.equals(newuser.getUsername()) && Arrays.equals(password, correctPassword)) {
-		            return true;
-			}
-				}
-				return false;
-			
+
     }
 
 }
