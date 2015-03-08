@@ -15,6 +15,7 @@ public class LoginOwnerTest {
 	@Before
 	
 	public void setUp() throws Exception {
+		user=new Owner(null,null,null,null,null);
 		database= new MockDatabase();
 		login=new Login(user,database);
 		
@@ -29,7 +30,7 @@ public class LoginOwnerTest {
 	@Test
 	public void test() {
 		login.authenticate("dude", "test");
-		assertEquals(user.getUsername(),"dude");
+		assertEquals("dude",user.getUsername());
 	}
 
 }
