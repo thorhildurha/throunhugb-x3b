@@ -21,5 +21,9 @@ public class Owner {
 		String[] results = {this.name, this.location, this.email, this.phone, this.username};
 		return results;
 	}
+	
+	public String getUsername() {
+		return this.username;
+	}
 
 }

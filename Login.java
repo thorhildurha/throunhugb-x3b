@@ -14,8 +14,8 @@ public class Login {
 		new Login().loginDialog();
 	}
 	
-//	Use: new a().loginDialog();
-//	Before: a is a class
+//	Use: new Login().loginDialog();
+//	Before: nothing
 //	After: loginDialog has been created
 	public void loginDialog() {
 		JFrame frame = new JFrame("Login application");
@@ -25,8 +25,8 @@ public class Login {
 		frame.setVisible(true);
 	}
 	
-//	Use: new a().NewUserForm();
-//	Before: a is a class
+//	Use: new Login().NewUserForm();
+//	Before: nothing
 //	After: NewUserForm has been created
 	public void NewUserForm() {
 		JFrame frame = new JFrame("New user application");
