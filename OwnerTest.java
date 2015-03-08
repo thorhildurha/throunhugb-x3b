@@ -20,6 +20,7 @@ public class OwnerTest {
 	public void tearDown() throws Exception {
 		user1 = null;
 		user2 = null;
+		user3 = null;
 	}
 
 	@Test
