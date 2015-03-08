@@ -1,8 +1,10 @@
 
 public class MockDatabase implements Database {
 
+	public MockDatabase(){
+	}
 	public Boolean register(Book x){
-		return true;
+		return false;
 	}
 	public Boolean update(Book x){
 		return true;
