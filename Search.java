@@ -1,10 +1,15 @@
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
@@ -23,36 +28,66 @@ public class Search extends JFrame
 	}
 	private static void placeSearchcomponents (JFrame frame)
 	{
+		JPanel buttonpanel=new JPanel();
+		JPanel inputpanel=new JPanel();
+		GroupLayout inputs=new GroupLayout(inputpanel);
+		inputs.setAutoCreateGaps(true);
+		GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
+		inputpanel.setLayout(inputs);
+		GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
+		GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/fields
+
 		JLabel titleLabel = new JLabel ("Book title");
-		titleLabel.setBounds(10, 10, 80, 25);
-		frame.add(titleLabel);
-		JTextField titleText = new JTextField(20);
-		titleText.setBounds(100, 10, 160, 25);
-		frame.add(titleText);
+		labels.addComponent(titleLabel);
 		
 		JLabel authorLabel = new JLabel ("Author");
-		authorLabel.setBounds(10, 40, 80, 25);
-		frame.add(authorLabel);
-		JTextField authorText = new JTextField(20);
-		authorText.setBounds(100, 40, 160, 25);
-		frame.add(authorText);
+		labels.addComponent(authorLabel);
 		
 		JLabel isbnLabel = new JLabel ("ISBN");
-		isbnLabel.setBounds(10, 70, 80, 25);
-		frame.add(isbnLabel);
-		JTextField isbnText = new JTextField(20);
-		isbnText.setBounds(100, 70, 160, 25);
-		frame.add(isbnText);
+		labels.addComponent(isbnLabel);
 		
 		JLabel courseLabel= new JLabel ("Course");
-		courseLabel.setBounds(10, 100, 80, 25);
-		frame.add(courseLabel);
-		JTextField courseText = new JTextField(20);
-		courseText.setBounds(100, 100, 160, 25);
-		frame.add(courseText);
+		labels.addComponent(courseLabel);
 		
+		JTextField titleText = new JTextField(20);
+		fields.addComponent(titleText);
+		
+		JTextField authorText = new JTextField(20);
+		fields.addComponent(authorText);
+		
+		JTextField isbnText = new JTextField(20);
+		fields.addComponent(isbnText);
+		
+		JTextField courseText = new JTextField(20);
+		fields.addComponent(courseText);
+		hGroup.addGroup(labels);
+		hGroup.addGroup(fields);
+		
+		inputs.setHorizontalGroup(hGroup);
+		
+		GroupLayout.SequentialGroup vGroup = inputs.createSequentialGroup();
+		
+		GroupLayout.ParallelGroup IsbnGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+		GroupLayout.ParallelGroup TitleGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+		GroupLayout.ParallelGroup AuthorGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+		GroupLayout.ParallelGroup CourseGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+		IsbnGroup.addComponent(isbnLabel);
+		IsbnGroup.addComponent(isbnText);
+		TitleGroup.addComponent(titleLabel);
+		TitleGroup.addComponent(titleText);
+		AuthorGroup.addComponent(authorLabel);
+		AuthorGroup.addComponent(authorText);
+		CourseGroup.addComponent(courseLabel);
+		CourseGroup.addComponent(courseText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);		
+		vGroup.addGroup(IsbnGroup);
+		vGroup.addGroup(TitleGroup);
+		vGroup.addGroup(AuthorGroup);
+		vGroup.addGroup(CourseGroup);
+		inputs.setVerticalGroup(vGroup);
 		JButton searchButton = new JButton("Search");
-    searchButton.setBounds(10, 80, 80, 25);
-    frame.add(searchButton);
+		searchButton.setBounds(10, 80, 80, 25);
+		buttonpanel.add(searchButton);
+		frame.add(inputpanel);
+		frame.add(buttonpanel,BorderLayout.SOUTH);
 }
 }
