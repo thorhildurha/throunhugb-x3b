@@ -5,9 +5,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 
 public class MyPages {
 
@@ -36,8 +33,8 @@ public class MyPages {
 		gula.setOwner(someone);
 //		gula.setOwner(beib);
 		kukur.setOwner(someone);
-		Book[] baekur = {gula,kukur};
-		MyPages mypages = new MyPages(someone, baekur);
+		Book[] somebooks = {gula,kukur};
+		MyPages mypages = new MyPages(someone, somebooks);
 
 	}
 	
@@ -51,7 +48,10 @@ public class MyPages {
 		displayBooks(frame, user, books);
 		frame.setVisible(true);
 	}
-	
+
+//	Use: displayBooks(x,y,z);
+//	Before: x is a JFrame, y is an Owner, z is a Book[]
+//	After: Shows information about the Owner and the books that he is selling.
 	private void displayBooks(JFrame frame, Owner user, Book[] books) {
 		frame.setLayout(null);
 		
