@@ -126,7 +126,7 @@ public class MyPages {
 				frame.add(BookVal);
 				
 				JButton updateBookButton = new JButton("Update ISBN:" + books[i].getIsbn() );
-				updateBookButton.setBounds(220, 220+30*i, 160, 25);
+				updateBookButton.setBounds(220, 220+30*i, 142, 25);
 				frame.add(updateBookButton);
 				
 				ActionListener updateBookButtonListener = new ActionListener() {
