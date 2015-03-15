@@ -65,6 +65,7 @@ public class Owner {
 		this.username = username;
 	}
 	
+	
 //	Use: x = a.setName(x)
 //	Before: a is an Owner, x is a string
 //	After: x is the new name of a

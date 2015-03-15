@@ -26,10 +26,20 @@ public class MyPages {
 //		Owner someone=null;
 //		MockDatabase database = new MockDatabase();
 //		MyPages mypages = new MyPages(someone, database);
-		Owner someone = new Owner("Þórhildur Hafsteinsdóttir", "Reykjavík", "totan@gmail.com", "6666666", "totahotty");
-		Owner beib= new Owner("Jón Jónsson", "Reykjavík", "totan@gmail.com", "6666666", "totahotty");
+		Owner someone = new Owner();
+		someone.setName("Þórhildur Hafsteinsdóttir");
+		someone.setLocation("Reykjavík");
+		someone.setEmail("totan@gmail.com");
+		someone.setPhone("6666666");
+		someone.setUsername("totahotty");
+		Owner beib = new Owner();
+		beib.setName("Jón Jónsson");
+		beib.setLocation("Akureyri");
+		beib.setEmail("nonni@gmail.com");
+		beib.setPhone("7777777");
+		beib.setUsername("nonnibeib");
 		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
-		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02024");
+		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02025");
 		gula.setOwner(someone);
 //		gula.setOwner(beib);
 		kukur.setOwner(someone);
@@ -106,7 +116,8 @@ public class MyPages {
 		for(int i = 0; i< books.length; i++){
 			if(books[i].getOwner().equals(user))
 			{
-				JLabel BookLabel = new JLabel("Book :");
+				int k = i+1;
+				JLabel BookLabel = new JLabel("Book "+ k +" :");
 				BookLabel.setBounds(10, 220+30*i, 80, 25);
 				frame.add(BookLabel);
 				
@@ -114,15 +125,19 @@ public class MyPages {
 				BookVal.setBounds(100, 220+30*i, 160, 25);
 				frame.add(BookVal);
 				
-				JButton updateBookButton = new JButton("Update");
-				updateBookButton.setBounds(220, 220+30*i, 80, 25);
+				JButton updateBookButton = new JButton("Update ISBN:" + books[i].getIsbn() );
+				updateBookButton.setBounds(220, 220+30*i, 160, 25);
 				frame.add(updateBookButton);
 				
 				ActionListener updateBookButtonListener = new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JButton source = (JButton) e.getSource();
-						JOptionPane.showMessageDialog(source, "Guðrún forritar þetta");
+						for(int i = 0; i< books.length; i++){
+							if(source.getText().equals("Update ISBN:"+ books[i].getIsbn())){
+								JOptionPane.showMessageDialog(source, books[i].getAuthor() + " is the Author of "+ books[i].getName());
+							}
+						}
 					}
 				};
 				updateBookButton.addActionListener(updateBookButtonListener);

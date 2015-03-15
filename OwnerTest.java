@@ -11,9 +11,26 @@ public class OwnerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		user1 = new Owner("Þórhildur", "Reykjavík", "totan@gmail.com", "6666666", "totahotty");
-		user2 = new Owner("Guðrún Erla", "Reykjavík", "guddan@gmail.com", "777777", "guddabeib");
-		user3 = new Owner("Kolbrún", "Reykjavík", "kobba@gmail.com", "8888888", "");
+		user1 = new Owner();
+		user1.setName("Þórhildur");
+		user1.setLocation("Reykjavík");
+		user1.setEmail("totan@gmail.com");
+		user1.setPhone("6666666");
+		user1.setUsername("totahotty");
+		
+		user2 = new Owner();
+		user2.setName("Guðrún Erla");
+		user2.setLocation("Reykjavík");
+		user2.setEmail("guddan@gmail.com");
+		user2.setPhone("7777777");
+		user2.setUsername("guddabeib");
+		
+		user3 = new Owner();
+		user3.setName("Kolbrún");
+		user3.setLocation("Reykjavík");
+		user3.setEmail("kobban@gmail.com");
+		user3.setPhone("8888888");
+		user3.setUsername("");
 	}
 
 	@After
