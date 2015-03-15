@@ -131,6 +131,7 @@ public class RegistrationForm extends JPanel{
 		frame.add(buttonpanel,BorderLayout.PAGE_END);
 		frame.setVisible(true);
 	}
+
 	
 	public static void main(String[] args){
 		MockDatabase database=new MockDatabase();
