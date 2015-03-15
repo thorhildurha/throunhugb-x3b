@@ -12,6 +12,10 @@ import javax.swing.JOptionPane;
 //Bjó til nýjan klasa fyrir Kolbrúnu
 public class Search2 extends JFrame
 {
+	private Owner user;
+	public Search2(Owner loggedin){
+		this.user=loggedin;
+	}
 	public static void main(String[] args)
 	{
 		new Search().searchDialog();
@@ -57,5 +61,13 @@ public class Search2 extends JFrame
     searchButton.setBounds(10, 80, 80, 25);
     frame.add(searchButton);
   }
+	public Boolean isloggedin(){
+		if(this.user!=null){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }
 

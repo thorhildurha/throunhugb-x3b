@@ -114,8 +114,11 @@ public class Login {
 				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
 					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
 				} else {
-					Owner user0 = new Owner(nameText.getText(), locationText.getText(), emailText.getText(), phoneText.getText(), userText.getText());
-					newuser = user0;
+					newuser.setName(nameText.getText());
+					newuser.setLocation(locationText.getText());
+					newuser.setEmail(emailText.getText());
+					newuser.setPhone(phoneText.getText());
+					newuser.setUsername(userText.getText());
 //					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
 				
 //					TODO: Setja newuser inn í gagnagrunn

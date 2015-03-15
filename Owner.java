@@ -6,7 +6,7 @@ public class Owner {
 	private String phone;
 	private String username;
 	
-	public Owner(String name, String location, String email, String phone, String username){
+	public Owner(){
 		this.name = name;
 		this.location = location;
 		this.email = email;

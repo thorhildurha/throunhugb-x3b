@@ -12,10 +12,11 @@ public class LoginOwnerTest {
 	private Owner user; 
 	private Login login;
 	private Database database;
+
 	@Before
 	
 	public void setUp() throws Exception {
-		user=new Owner(null,null,null,null,null); //The logged in user is no one at first 
+		user=new Owner();											//The logged in user is no one at first 
 		database= new MockDatabase(); 				//We use a mock database
 		login=new Login(user,database);				//Create the new login form
 		
@@ -42,4 +43,5 @@ public class LoginOwnerTest {
 		login.authenticate("dude","lol");
 		assertNull(user.getUsername());
 	}
+
 }
