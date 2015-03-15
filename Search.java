@@ -50,16 +50,16 @@ public class Search extends JFrame
 		labels.addComponent(courseLabel);
 		
 		JTextField titleText = new JTextField(20);
-		fields.addComponent(titleText);
+		fields.addComponent(titleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		
 		JTextField authorText = new JTextField(20);
-		fields.addComponent(authorText);
+		fields.addComponent(authorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		
 		JTextField isbnText = new JTextField(20);
-		fields.addComponent(isbnText);
+		fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		
 		JTextField courseText = new JTextField(20);
-		fields.addComponent(courseText);
+		fields.addComponent(courseText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		hGroup.addGroup(labels);
 		hGroup.addGroup(fields);
 		
@@ -72,11 +72,11 @@ public class Search extends JFrame
 		GroupLayout.ParallelGroup AuthorGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup CourseGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		IsbnGroup.addComponent(isbnLabel);
-		IsbnGroup.addComponent(isbnText);
+		IsbnGroup.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		TitleGroup.addComponent(titleLabel);
-		TitleGroup.addComponent(titleText);
+		TitleGroup.addComponent(titleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		AuthorGroup.addComponent(authorLabel);
-		AuthorGroup.addComponent(authorText);
+		AuthorGroup.addComponent(authorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		CourseGroup.addComponent(courseLabel);
 		CourseGroup.addComponent(courseText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);		
 		vGroup.addGroup(IsbnGroup);
@@ -89,5 +89,5 @@ public class Search extends JFrame
 		buttonpanel.add(searchButton);
 		frame.add(inputpanel);
 		frame.add(buttonpanel,BorderLayout.SOUTH);
-}
+	}
 }
