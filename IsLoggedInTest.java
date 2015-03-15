@@ -21,9 +21,11 @@ public class IsLoggedInTest {
 
 	@Test
 	public void test() {
+		//If no owner exists we do not want to be able to register
 		assertFalse(search.isloggedin());
 		loggedin=new Owner();
 		search=new Search2(loggedin);
+		//However if someone is logged in, an owner exists and we want to be able to register
 		assertTrue(search.isloggedin());
 	}
 
