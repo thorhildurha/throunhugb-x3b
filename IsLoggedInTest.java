@@ -18,15 +18,26 @@ public class IsLoggedInTest {
 		loggedin=null;
 		search=null;
 	}
-
+	
+	/* This test checks if the method isloggedin returns false, as it should,
+	 * if there is no user logged in. This method is used to check if a user should be able
+	 * to register.
+	 */
 	@Test
-	public void test() {
-		//If no owner exists we do not want to be able to register
+	public void testwrong() {
 		assertFalse(search.isloggedin());
+	}
+	/*This test checks if the method returns true, as it should, 
+	 * if there is a logged in user. This method is used to check if a user should be able
+	 * to register.
+	 */
+	@Test
+	public void testcorrect(){
 		loggedin=new Owner();
 		search=new Search(loggedin);
 		//However if someone is logged in, an owner exists and we want to be able to register
 		assertTrue(search.isloggedin());
+		
 	}
 
 }
