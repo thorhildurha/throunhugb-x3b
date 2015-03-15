@@ -15,10 +15,12 @@ import javax.swing.JOptionPane;
 
 public class Search extends JFrame
 {
-	public static void main(String[] args)
-	{
-		new Search().searchDialog();
+	private Owner user;
+	
+	public Search(Owner loggedin){
+		this.user=loggedin;
 	}
+
 	public void searchDialog()
 	{
 		JFrame frame = new JFrame ("Book search");
@@ -89,5 +91,13 @@ public class Search extends JFrame
 		buttonpanel.add(searchButton);
 		frame.add(inputpanel);
 		frame.add(buttonpanel,BorderLayout.SOUTH);
+	}
+	public Boolean isloggedin(){
+		if(this.user!=null){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

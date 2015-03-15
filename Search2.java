@@ -17,8 +17,9 @@ public class Search2 extends JFrame
 		this.user=loggedin;
 	}
 	public static void main(String[] args)
-	{
-		new Search().searchDialog();
+	{	
+		Owner lol=new Owner();
+		new Search2(lol).searchDialog();
 	}
 	public void searchDialog()
 	{

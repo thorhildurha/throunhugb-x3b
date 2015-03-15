@@ -7,10 +7,10 @@ import org.junit.Test;
 
 public class IsLoggedInTest {
 	private Owner loggedin;
-	private Search2 search;
+	private Search search;
 	@Before
 	public void setUp() throws Exception {
-		search=new Search2(loggedin);
+		search=new Search(loggedin);
 	}
 
 	@After
@@ -24,7 +24,7 @@ public class IsLoggedInTest {
 		//If no owner exists we do not want to be able to register
 		assertFalse(search.isloggedin());
 		loggedin=new Owner();
-		search=new Search2(loggedin);
+		search=new Search(loggedin);
 		//However if someone is logged in, an owner exists and we want to be able to register
 		assertTrue(search.isloggedin());
 	}
