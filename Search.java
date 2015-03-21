@@ -24,7 +24,7 @@ public class Search extends JFrame
 	public void searchDialog()
 	{
 		JFrame frame = new JFrame ("Book search");
-		frame.setSize (300, 150);
+		frame.setSize (400, 200);
 		placeSearchcomponents(frame);
 		frame.setVisible(true);
 	}
@@ -51,6 +51,9 @@ public class Search extends JFrame
 		JLabel courseLabel= new JLabel ("Course");
 		labels.addComponent(courseLabel);
 		
+		JLabel priceLabel= new JLabel ("Price (optional) <=");
+		labels.addComponent(priceLabel);
+		
 		JTextField titleText = new JTextField(20);
 		fields.addComponent(titleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		
@@ -62,6 +65,10 @@ public class Search extends JFrame
 		
 		JTextField courseText = new JTextField(20);
 		fields.addComponent(courseText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+		
+		JTextField priceText = new JTextField(6);
+		fields.addComponent(priceText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+		
 		hGroup.addGroup(labels);
 		hGroup.addGroup(fields);
 		
@@ -73,6 +80,7 @@ public class Search extends JFrame
 		GroupLayout.ParallelGroup TitleGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup AuthorGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup CourseGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+		GroupLayout.ParallelGroup PriceGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		IsbnGroup.addComponent(isbnLabel);
 		IsbnGroup.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		TitleGroup.addComponent(titleLabel);
@@ -80,11 +88,15 @@ public class Search extends JFrame
 		AuthorGroup.addComponent(authorLabel);
 		AuthorGroup.addComponent(authorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 		CourseGroup.addComponent(courseLabel);
-		CourseGroup.addComponent(courseText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);		
+		CourseGroup.addComponent(courseText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+		PriceGroup.addComponent(priceLabel);
+		PriceGroup.addComponent(priceText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+		
 		vGroup.addGroup(IsbnGroup);
 		vGroup.addGroup(TitleGroup);
 		vGroup.addGroup(AuthorGroup);
 		vGroup.addGroup(CourseGroup);
+		vGroup.addGroup(PriceGroup);
 		inputs.setVerticalGroup(vGroup);
 		JButton searchButton = new JButton("Search");
 		searchButton.setBounds(10, 80, 80, 25);
