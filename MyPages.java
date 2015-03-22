@@ -11,36 +11,25 @@ import javax.swing.JTabbedPane;
 public class MyPages extends JPanel{
 
 //	private Database database;
-	private JFrame frame;
-	private Owner user;
 	private Book[] books;
-	private Database database;
 	public static JPanel panel = new JPanel();
+	private Owner user;
 //	private Book book1;
 //	private Book book2;
 	
-	public MyPages(JFrame frame, Owner owner, Database database){
-		this.user = owner;
+	public MyPages(Owner owner){
 //		this.book1 = book1;
 //		this.book2 = book2;
 //		this.database = data;
-		this.books = database.searchByUser(user);
-		this.database=database;
-		this.frame=frame;
+		this.user=owner;
+		this.books = View.database.searchByUser(user);
 		mypagesForm();
 	}
 	
-//	Use: mypagesForm();
-//	Before: nothing
-//	After: mypagesForm has been created
-	public void mypagesForm() {
-		displayBooks(user, books);
-	}
-
 //	Use: displayBooks(x,y,z);
 //	Before: x is a JFrame, y is an Owner, z is a Book[]
 //	After: Shows information about the Owner and the books that he is selling.
-	private void displayBooks(Owner user, Book[] books) {
+	private void mypagesForm() {
 		panel.setLayout(null);
 		
 		JLabel nameLabel = new JLabel("Name :");
@@ -115,10 +104,10 @@ public class MyPages extends JPanel{
 							if(source.getText().equals("Update ISBN:"+ books[i].getIsbn())){
 								panel.setVisible(false);
 								JPanel updating= new JPanel();
-								Update updateForm=new Update(books[i],frame,database);
+								Update updateForm=new Update(books[i]);
 								updating=updateForm.initUI();
-								frame.add(updating);
-								frame.setVisible(true);
+								View.frame.add(updating);
+								View.frame.setVisible(true);
 								break;
 							}
 						}

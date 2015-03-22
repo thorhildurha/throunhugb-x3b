@@ -16,24 +16,19 @@ import javax.swing.JTextField;
 
 
 public class Update extends JPanel{
-	private Database database;
 	private Book registerbook; //The book to update
-	private JFrame frame; //The frame for the program 
-	private JPanel buttonpanel;
-	private JPanel center;
+	private JPanel panel;
 	
-	public Update(Book x, JFrame frame, Database data){
+	public Update(Book x){
 		this.registerbook=x;
-		this.frame=frame;
-		this.database=data;
 	}
 	public JPanel initUI(){
-		frame.setTitle("Update"); // Set a new title to the frame
+		View.frame.setTitle("Update"); // Set a new title to the frame
 		//Create elements
 		JPanel labelpane=new JPanel();
-		center=new JPanel();
-		BoxLayout centering=new BoxLayout(center,BoxLayout.Y_AXIS);
-		center.setLayout(centering);
+		panel=new JPanel();
+		BoxLayout paneling=new BoxLayout(panel,BoxLayout.Y_AXIS);
+		panel.setLayout(paneling);
 
 		JLabel SoldLabel= new JLabel("Sold:");
 		JCheckBox Sold = new JCheckBox();
@@ -114,17 +109,15 @@ public class Update extends JPanel{
 				String inputprice=pricefield.getText();
 				String inputcondition=conditionField.getSelectedItem().toString();
 				Boolean updated=registerbook.update(inputprice,inputcondition);
-				Boolean registered = database.register(registerbook);
+				Boolean registered = View.database.register(registerbook);
 				if(updated&&registered){
-					center.setVisible(false);
-					Owner user= new Owner();
-					MyPages mypage= new MyPages(frame, user , database);
-					mypage.panel.setVisible(true);
-					JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully updated your book");
+					panel.setVisible(false);
+					MyPages.panel.setVisible(true);
+					JOptionPane.showMessageDialog(View.frame, "Thank you! \n We have successfully updated your book");
 					
 				}
 				else{
-					JOptionPane.showMessageDialog(frame,
+					JOptionPane.showMessageDialog(View.frame,
 						    "Something went wrong! \n Please try again",
 						    "Registration Error",
 						    JOptionPane.ERROR_MESSAGE);
@@ -132,26 +125,10 @@ public class Update extends JPanel{
 				
 			}
 		});
-		center.add(labelpane);
-		return center;
+		panel.add(labelpane);
+		return panel;
 
 	}
 
-	
-	public static void main(String[] args){
-		MockDatabase database=new MockDatabase();
-		Book update=new Book("Litla gula hænan","Andrés Pétursson","02024");
-		JFrame frame = new JFrame("Your app");
-		frame.setSize(300,200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		EventQueue.invokeLater(new Runnable() {
-	        
-            @Override
-            public void run() {
-                Update ex = new Update(update,frame,database);
-                ex.initUI();
-            }
-        });
-	}
 
 }
