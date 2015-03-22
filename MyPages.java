@@ -41,7 +41,6 @@ public class MyPages extends JPanel{
 //	Before: x is a JFrame, y is an Owner, z is a Book[]
 //	After: Shows information about the Owner and the books that he is selling.
 	private void displayBooks(Owner user, Book[] books) {
-		JTabbedPane tabbedPane=new JTabbedPane();
 		panel.setLayout(null);
 		
 		JLabel nameLabel = new JLabel("Name :");

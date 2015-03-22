@@ -36,6 +36,13 @@ public class Book {
 	public void setOwner(Owner owner){
 		this.owner = owner;
 	}
+	
+	public String getPrice(){
+		return this.price;
+	}
+	public void setPrice(String price){
+		this.price=price;
+	}
 
 	
 	

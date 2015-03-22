@@ -45,7 +45,7 @@ public class Update extends JPanel{
 		JLabel IsbnVal=new JLabel(this.registerbook.getIsbn());
 		JLabel price=new JLabel("Price:");
 		JLabel conditionLabel = new JLabel("Condition:");
-		JTextField pricefield=new JTextField();
+		JTextField pricefield=new JTextField(registerbook.getPrice());
 		String[] conditions={"like new","very good","good","fair","bad","very bad"};
 		JComboBox conditionField=new JComboBox(conditions);
 		JButton update=new JButton("Update");
@@ -120,7 +120,7 @@ public class Update extends JPanel{
 					Owner user= new Owner();
 					MyPages mypage= new MyPages(frame, user , database);
 					mypage.panel.setVisible(true);
-					JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully registered your book");
+					JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully updated your book");
 					
 				}
 				else{

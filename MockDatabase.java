@@ -26,6 +26,8 @@ public class MockDatabase implements Database {
 		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02025");
 		gula.setOwner(user);
 		kukur.setOwner(user);
+		gula.setPrice("3000");
+		kukur.setPrice("4000");
 		Book[] somebooks = {gula,kukur};
 		return somebooks;
 	}
