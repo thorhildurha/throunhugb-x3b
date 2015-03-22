@@ -26,9 +26,8 @@ public class Update extends JPanel{
 		this.registerbook=x;
 		this.frame=frame;
 		this.database=data;
-		initUI();	
 	}
-	private void initUI(){
+	public void initUI(){
 		frame.setTitle("Update"); // Set a new title to the frame
 		//Create elements
 		JPanel labelpane=new JPanel();
@@ -148,6 +147,7 @@ public class Update extends JPanel{
             @Override
             public void run() {
                 Update ex = new Update(update,frame,database);
+                ex.initUI();
             }
         });
 	}
