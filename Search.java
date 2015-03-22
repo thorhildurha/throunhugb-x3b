@@ -30,7 +30,7 @@ public class Search extends JFrame
   public void searchDialog()
   {
     JFrame frame = new JFrame ("Book search");
-    frame.setSize (400, 200);
+    frame.setSize (400, 220);
     placeSearchcomponents(frame);
     frame.setVisible(true);
   }
@@ -40,6 +40,7 @@ public class Search extends JFrame
     JPanel inputpanel=new JPanel();
     GroupLayout inputs=new GroupLayout(inputpanel);
     inputs.setAutoCreateGaps(true);
+    inputs.setAutoCreateContainerGaps(true);
     GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
     inputpanel.setLayout(inputs);
     GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
@@ -115,7 +116,6 @@ public class Search extends JFrame
         {
     		JButton source = (JButton) e.getSource();
     		JOptionPane.showMessageDialog(source, source.getText() + " button has been pressed");	
-    		
 //            leit.leitarfunction();
         }
     };
