@@ -108,7 +108,7 @@ public class Search extends JFrame
     searchButton.setBounds(10, 80, 80, 25);
     buttonpanel.add(searchButton);
 
-    ActionListener searchButton = new ActionListener
+    ActionListener searchButton = new ActionListener()
     {
         public void actionPerformed(ActionEvent e)
         {
