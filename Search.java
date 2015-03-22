@@ -111,8 +111,12 @@ public class Search extends JFrame
         public void actionPerformed(ActionEvent e)
         {
     		JButton source = (JButton) e.getSource();
-    		JOptionPane.showMessageDialog(source, source.getText() + " button has been pressed");	
-//            leit.leitarfunction();
+    		if(priceText.getText().trim().isEmpty()) {
+    			JOptionPane.showMessageDialog(source, "Nú keyrum við venjulegt leitarfall");
+//    			leit.leitarfunction();
+    		} else {
+    			JOptionPane.showMessageDialog(source, "Nú keyrum við leitarfall sem finnur bækur sem kosta max "+ priceText.getText() + " krónur");
+    		}
         }
     };
     searchButton.addActionListener(searchButtonListener);
