@@ -27,7 +27,7 @@ public class Update extends JPanel{
 		this.frame=frame;
 		this.database=data;
 	}
-	public void initUI(){
+	public JPanel initUI(){
 		frame.setTitle("Update"); // Set a new title to the frame
 		//Create elements
 		JPanel labelpane=new JPanel();
@@ -116,10 +116,12 @@ public class Update extends JPanel{
 				Boolean updated=registerbook.update(inputprice,inputcondition);
 				Boolean registered = database.register(registerbook);
 				if(updated&&registered){
-					frame.remove(center);
-					frame.validate();
-					frame.repaint();
+					center.setVisible(false);
+					Owner user= new Owner();
+					MyPages mypage= new MyPages(frame, user , database);
+					mypage.panel.setVisible(true);
 					JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully registered your book");
+					
 				}
 				else{
 					JOptionPane.showMessageDialog(frame,
@@ -131,8 +133,8 @@ public class Update extends JPanel{
 			}
 		});
 		center.add(labelpane);
-		frame.add(center);
-		frame.setVisible(true);
+		return center;
+
 	}
 
 	

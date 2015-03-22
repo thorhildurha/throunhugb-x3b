@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class MyPages extends JPanel{
 
@@ -14,64 +15,33 @@ public class MyPages extends JPanel{
 	private Owner user;
 	private Book[] books;
 	private Database database;
+	public static JPanel panel = new JPanel();
 //	private Book book1;
 //	private Book book2;
 	
-	public MyPages(JFrame frame, Owner owner, Book[] books, Database database){
+	public MyPages(JFrame frame, Owner owner, Database database){
 		this.user = owner;
 //		this.book1 = book1;
 //		this.book2 = book2;
 //		this.database = data;
-		this.books = books;
+		this.books = database.searchByUser(user);
 		this.database=database;
 		this.frame=frame;
-	}
-	public static void main(String[] args) {
-//		Owner someone=null;
-//		MockDatabase database = new MockDatabase();
-//		MyPages mypages = new MyPages(someone, database);
-		Owner someone = new Owner();
-		someone.setName("Þórhildur Hafsteinsdóttir");
-		someone.setLocation("Reykjavík");
-		someone.setEmail("totan@gmail.com");
-		someone.setPhone("6666666");
-		someone.setUsername("totahotty");
-		Owner beib = new Owner();
-		beib.setName("Jón Jónsson");
-		beib.setLocation("Akureyri");
-		beib.setEmail("nonni@gmail.com");
-		beib.setPhone("7777777");
-		beib.setUsername("nonnibeib");
-		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
-		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02025");
-		gula.setOwner(someone);
-//		gula.setOwner(beib);
-		kukur.setOwner(someone);
-		Book[] somebooks = {gula,kukur};
-		MockDatabase database=new MockDatabase();
-		JFrame frame = new JFrame();
-		frame.setSize(300,200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		MyPages mypages = new MyPages(frame,someone, somebooks,database);
-		mypages.mypagesForm();
-
+		mypagesForm();
 	}
 	
 //	Use: mypagesForm();
 //	Before: nothing
 //	After: mypagesForm has been created
 	public void mypagesForm() {
-		JPanel panel = new JPanel();
-		panel.setName("My Pages");
-		panel.setSize(400, 400);
-		displayBooks(panel, user, books);
-		frame.setVisible(true);
+		displayBooks(user, books);
 	}
 
 //	Use: displayBooks(x,y,z);
 //	Before: x is a JFrame, y is an Owner, z is a Book[]
 //	After: Shows information about the Owner and the books that he is selling.
-	private void displayBooks(JPanel panel, Owner user, Book[] books) {
+	private void displayBooks(Owner user, Book[] books) {
+		JTabbedPane tabbedPane=new JTabbedPane();
 		panel.setLayout(null);
 		
 		JLabel nameLabel = new JLabel("Name :");
@@ -144,9 +114,12 @@ public class MyPages extends JPanel{
 						JButton source = (JButton) e.getSource();
 						for(int i = 0; i< books.length; i++){
 							if(source.getText().equals("Update ISBN:"+ books[i].getIsbn())){
-								frame.remove(panel);
+								panel.setVisible(false);
+								JPanel updating= new JPanel();
 								Update updateForm=new Update(books[i],frame,database);
-								updateForm.initUI();
+								updating=updateForm.initUI();
+								frame.add(updating);
+								frame.setVisible(true);
 								break;
 							}
 						}
@@ -168,8 +141,6 @@ public class MyPages extends JPanel{
 		
 		
 		updateOwnerButton.addActionListener(updateOwnerButtonListener);
-		frame.add(panel);
-		
 		
 	}
 

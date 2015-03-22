@@ -21,5 +21,13 @@ public class MockDatabase implements Database {
 			return false;
 		}
 	}
+	public Book[] searchByUser(Owner user){
+		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
+		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02025");
+		gula.setOwner(user);
+		kukur.setOwner(user);
+		Book[] somebooks = {gula,kukur};
+		return somebooks;
+	}
 	
 }

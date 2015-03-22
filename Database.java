@@ -25,4 +25,6 @@ public interface Database {
 	 */
 	public Boolean isuser(String user, String password);
 	
+	public Book[] searchByUser(Owner user);
+	
 }
