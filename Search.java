@@ -108,13 +108,19 @@ public class Search extends JFrame
     searchButton.setBounds(10, 80, 80, 25);
     buttonpanel.add(searchButton);
 
-    ActionListener searchButton = new ActionListener()
+    ActionListener searchButtonListener = new ActionListener()
     {
+    	@Override
         public void actionPerformed(ActionEvent e)
         {
-            leit.leitarfunction();
+    		JButton source = (JButton) e.getSource();
+    		JOptionPane.showMessageDialog(source, source.getText() + " button has been pressed");	
+    		
+//            leit.leitarfunction();
         }
-    }
+    };
+    searchButton.addActionListener(searchButtonListener);
+
 
     frame.add(inputpanel);
     frame.add(buttonpanel,BorderLayout.SOUTH);
