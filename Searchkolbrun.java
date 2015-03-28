@@ -9,18 +9,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
-public class Search extends JFrame
+public class Searchkolbrun extends JFrame
 {
   private Owner user;
   
-  public Search(Owner loggedin){
+  public Searchkolbrun(Owner loggedin){
     this.user=loggedin;
   }
 
   public static void main(String[] args)
   { 
     Owner lol=new Owner();
-    new Search(lol).searchDialog();
+    new Searchkolbrun(lol).searchDialog();
   }
 
   public void searchDialog()
