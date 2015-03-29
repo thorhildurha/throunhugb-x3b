@@ -208,7 +208,7 @@ public class Login {
 //	Use: a.authenticate(x,y);
 //	Before: a is a class, x is a string, y is a char[]
 //	After: Check if x is the correct username and y is the correct password
-	public boolean authenticate(String username, String password) {
+	private boolean authenticate(String username, String password) {
 //		TODO: Tjékkum hvort username og lykilorð passi við eitthvað í gagnagrunninum, 
 //			  þá true annars false
 		
