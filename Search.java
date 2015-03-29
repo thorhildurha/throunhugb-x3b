@@ -12,36 +12,43 @@ import javax.swing.JOptionPane;
 public class Search extends JFrame
 {
   private Owner user;
+  private Database database;
+  private JPanel panel;
+  private JFrame frame; 
+  private Book[] books;
+  private JPanel results;
   
-  public Search(Owner loggedin){
+  public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
+    this.database=database;
+    this.frame=frame;
+    searchDialog();
   }
 
   public static void main(String[] args)
   { 
     Owner lol=new Owner();
-    new Search(lol).searchDialog();
+    JFrame frame = new JFrame();
+	frame.setSize(300, 150);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    MockDatabase database = new MockDatabase();
+    Search search = new Search(lol, database,frame);
   }
 
   public void searchDialog()
   {
-    JFrame frame = new JFrame ("Book search");
-    frame.setSize (400, 220);
-    placeSearchcomponents(frame);
-    frame.setVisible(true);
-  }
-  private static void placeSearchcomponents (JFrame frame)
-  {
-    JPanel buttonpanel=new JPanel();
-    JPanel inputpanel=new JPanel();
-    GroupLayout inputs=new GroupLayout(inputpanel);
+    panel=new JPanel();
+    JPanel searchpanel = new JPanel();
+    results = new JPanel();
+    GroupLayout inputs=new GroupLayout(searchpanel);
     inputs.setAutoCreateGaps(true);
     inputs.setAutoCreateContainerGaps(true);
     GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
-    inputpanel.setLayout(inputs);
+    searchpanel.setLayout(inputs);
     GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
     GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/fields
-
+    
+    JButton searchButton = new JButton("Search");
     JLabel titleLabel = new JLabel ("Book title");
     labels.addComponent(titleLabel);
     
@@ -71,6 +78,7 @@ public class Search extends JFrame
     
     JTextField priceText = new JTextField(6);
     fields.addComponent(priceText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    fields.addComponent(searchButton);
     
     hGroup.addGroup(labels);
     hGroup.addGroup(fields);
@@ -84,6 +92,7 @@ public class Search extends JFrame
     GroupLayout.ParallelGroup AuthorGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
     GroupLayout.ParallelGroup CourseGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
     GroupLayout.ParallelGroup PriceGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	GroupLayout.ParallelGroup buttonGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
     IsbnGroup.addComponent(isbnLabel);
     IsbnGroup.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     TitleGroup.addComponent(titleLabel);
@@ -94,36 +103,100 @@ public class Search extends JFrame
     CourseGroup.addComponent(courseText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
     PriceGroup.addComponent(priceLabel);
     PriceGroup.addComponent(priceText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
-    
+	buttonGroup.addComponent(searchButton);
+
     vGroup.addGroup(IsbnGroup);
     vGroup.addGroup(TitleGroup);
     vGroup.addGroup(AuthorGroup);
     vGroup.addGroup(CourseGroup);
     vGroup.addGroup(PriceGroup);
+    vGroup.addGroup(buttonGroup);
     inputs.setVerticalGroup(vGroup);
-    JButton searchButton = new JButton("Search");
-    searchButton.setBounds(10, 80, 80, 25);
-    buttonpanel.add(searchButton);
-
+    
+    
     ActionListener searchButtonListener = new ActionListener()
     {
     	@Override
         public void actionPerformed(ActionEvent e)
         {
     		JButton source = (JButton) e.getSource();
-    		if(priceText.getText().trim().isEmpty()) {
-    			JOptionPane.showMessageDialog(source, "Nú keyrum við venjulegt leitarfall");
-//    			leit.leitarfunction();
-    		} else {
-    			JOptionPane.showMessageDialog(source, "Nú keyrum við leitarfall sem finnur bækur sem kosta max "+ priceText.getText() + " krónur");
-    		}
+    		books = new Book[2];
+    		Book searchfor = new Book(titleText.getText(), authorText.getText(),isbnText.getText());
+    		books=database.search(searchfor);
+    		showbooks();
         }
     };
     searchButton.addActionListener(searchButtonListener);
+    panel.add(searchpanel);
+    panel.add(results);
+    frame.add(panel);
+    frame.setVisible(true);
+  }
+  public void showbooks(){
+	  GroupLayout result =new GroupLayout(results);
+	  results.setLayout(result);
+	  result.setAutoCreateGaps(true);
+	  result.setAutoCreateContainerGaps(true);
+	  
+	  GroupLayout.SequentialGroup hGroup = result.createSequentialGroup();
+	  GroupLayout.ParallelGroup labels=result.createParallelGroup(); //One for Labels
+	  GroupLayout.ParallelGroup values=result.createParallelGroup(); //One for Labels
+	  GroupLayout.ParallelGroup registerbutton = result.createParallelGroup();
+	  
+	  GroupLayout.SequentialGroup vGroup = result.createSequentialGroup();
+	  GroupLayout.ParallelGroup resultGroupTitle[]= new GroupLayout.ParallelGroup[books.length];
+	  GroupLayout.ParallelGroup resultGroupAuthor[]=new GroupLayout.ParallelGroup[books.length];
+	  GroupLayout.ParallelGroup resultGroupPrice[]=new GroupLayout.ParallelGroup[books.length];
+	  JLabel BookNameLabel[]=new JLabel[books.length];
+	  JLabel BookAuthorLabel[]=new JLabel[books.length];
+	  JLabel BookPriceLabel[]=new JLabel[books.length];
 
+	  String isbn="";
 
-    frame.add(inputpanel);
-    frame.add(buttonpanel,BorderLayout.SOUTH);
+	  for(int i = 0; i<books.length; i++){
+		  resultGroupTitle[i]=result.createParallelGroup();
+		  resultGroupAuthor[i]=result.createParallelGroup();
+		  resultGroupPrice[i]=result.createParallelGroup();
+		  resultGroupPrice[i].addGap(50);
+
+		  
+		  JLabel TitleLabel= new JLabel("Title:");
+		  JLabel AuthorLabel = new JLabel("Author:");
+		  JLabel PriceLabel= new JLabel("Price:");
+		  BookNameLabel[i] = new JLabel(books[i].getName());
+		  BookAuthorLabel[i] = new JLabel(books[i].getAuthor());
+		  BookPriceLabel[i] = new JLabel(books[i].getPrice());
+		  labels.addComponent(TitleLabel);
+		  labels.addComponent(AuthorLabel);
+		  labels.addComponent(PriceLabel);
+		  values.addComponent(BookNameLabel[i]);
+		  values.addComponent(BookAuthorLabel[i]);
+		  values.addComponent(BookPriceLabel[i]);
+		  
+		  resultGroupTitle[i].addComponent(TitleLabel);
+		  resultGroupTitle[i].addComponent(BookNameLabel[i]);
+		  resultGroupAuthor[i].addComponent(AuthorLabel);
+		  resultGroupAuthor[i].addComponent(BookAuthorLabel[i]);
+		  if(!isbn.equals(books[i].getIsbn())){
+			  JButton register = new JButton("register");
+			  isbn=books[i].getIsbn();
+			  registerbutton.addComponent(register);
+			  resultGroupAuthor[i].addComponent(register);
+		  }
+		  resultGroupPrice[i].addComponent(PriceLabel);
+		  resultGroupPrice[i].addComponent(BookPriceLabel[i]);
+		  vGroup.addGroup(resultGroupTitle[i]);
+		  vGroup.addGroup(resultGroupAuthor[i]);
+		  vGroup.addGroup(resultGroupPrice[i]);
+		  
+
+	  }
+	  hGroup.addGroup(labels);
+	  hGroup.addGroup(values);
+	  hGroup.addGroup(registerbutton);
+	  result.setHorizontalGroup(hGroup);
+	  result.setVerticalGroup(vGroup);
+	  
   }
   public Boolean isloggedin(){
     if(this.user!=null){

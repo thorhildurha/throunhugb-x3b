@@ -17,7 +17,7 @@ public interface Database {
 	 * 		   the empty string. These are the strings we want to search after.
 	 * After: returns an array of books which the input strings applied to.
 	 */
-	public Book[] search(String isbn, String name, String author, String condition);
+	public Book[] search(Book searchfor);
 	
 	/* Before: user, password are Strings
 	 * After: returns true if there is a user with the given password in database,
