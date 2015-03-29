@@ -25,19 +25,6 @@ public class Search extends JFrame implements ActionListener
     this.database=database;
   }
 
-  public static void main(String[] args)
-  { 
-    Owner lol=new Owner();
-    JFrame frame = new JFrame();
-	frame.setSize(300, 150);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    MockDatabase database = new MockDatabase();
-    Search search = new Search(lol, database,frame);
-    JPanel searchpanel=search.searchDialog();
-    frame.add(searchpanel);
-    frame.setVisible(true);
-  }
-
   public JPanel searchDialog()
   {
     panel=new JPanel();
@@ -116,6 +103,7 @@ public class Search extends JFrame implements ActionListener
     vGroup.addGroup(buttonGroup);
     inputs.setVerticalGroup(vGroup);
     
+    searchButton.setActionCommand("search");
     searchButton.addActionListener(this);
     panel.add(searchpanel);
     panel.add(results);
@@ -139,6 +127,7 @@ public class Search extends JFrame implements ActionListener
 	  JLabel BookNameLabel[]=new JLabel[books.length];
 	  JLabel BookAuthorLabel[]=new JLabel[books.length];
 	  JLabel BookPriceLabel[]=new JLabel[books.length];
+	  JButton RegisterButton[]=new JButton[books.length];
 
 	  String isbn="";
 
@@ -166,12 +155,11 @@ public class Search extends JFrame implements ActionListener
 		  resultGroupTitle[i].addComponent(BookNameLabel[i]);
 		  resultGroupAuthor[i].addComponent(AuthorLabel);
 		  resultGroupAuthor[i].addComponent(BookAuthorLabel[i]);
-		  if(!isbn.equals(books[i].getIsbn())){
-			  JButton register = new JButton("register");
-			  isbn=books[i].getIsbn();
-			  registerbutton.addComponent(register);
-			  resultGroupAuthor[i].addComponent(register);
-		  }
+		  RegisterButton[i] = new JButton("register");
+		  RegisterButton[i].setActionCommand("register"+i);
+		  RegisterButton[i].addActionListener(this);
+		  registerbutton.addComponent(RegisterButton[i]);
+		  resultGroupAuthor[i].addComponent(RegisterButton[i]);
 		  resultGroupPrice[i].addComponent(PriceLabel);
 		  resultGroupPrice[i].addComponent(BookPriceLabel[i]);
 		  vGroup.addGroup(resultGroupTitle[i]);
@@ -197,9 +185,19 @@ public class Search extends JFrame implements ActionListener
   }
   public void actionPerformed(ActionEvent e){
 	  JButton source = (JButton) e.getSource();
-	  books = new Book[2];
-	  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
-	  books=database.search(searchfor);
-	  showbooks();
+	  if("search".equals(source.getActionCommand())){
+		  books = new Book[2];
+		  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
+		  books=database.search(searchfor);
+		  showbooks();
+	  }
+	  for(int i=0; i<books.length; i++){
+		  if(("register"+i).equals(source.getActionCommand()))
+		  {
+			  RegistrationForm registerform = new RegistrationForm(books[i], View.frame, database);
+			  panel.setVisible(false);
+			  registerform.initUI();
+		  }
+	  }
   }
 }

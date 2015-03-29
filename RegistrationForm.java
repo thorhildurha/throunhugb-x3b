@@ -131,24 +131,5 @@ public class RegistrationForm extends JPanel{
 		frame.add(buttonpanel,BorderLayout.PAGE_END);
 		frame.setVisible(true);
 	}
-
 	
-	public static void main(String[] args){
-		MockDatabase database=new MockDatabase();
-		Book register=new Book("Litla gula hænan","Andrés Pétursson","02024");
-		JFrame frame = new JFrame("Your app");
-		frame.setSize(300,200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		EventQueue.invokeLater(new Runnable() {
-	        
-            @Override
-            public void run() {
-                RegistrationForm ex = new RegistrationForm(register,frame,database);
-                ex.initUI();
-            }
-        });
-	}
-	
-	
-
 }
