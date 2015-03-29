@@ -12,9 +12,11 @@ public class MockDatabase implements Database {
 	public Book[] search(Book searchforbook){
 		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
 		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02025");
+		Book gulatvo= new Book("Litla gula hænan", "Andrés Pétursson","02024");
+		gulatvo.setPrice("5000");
 		gula.setPrice("3000");
 		kukur.setPrice("4000");
-		Book[] somebooks = {gula,kukur};
+		Book[] somebooks = {gula,gulatvo,kukur};
 		return somebooks;
 	}
 	public Boolean isuser(String user, String password){

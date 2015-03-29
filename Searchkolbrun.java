@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
-public class Search extends JFrame
+public class SearchKolbrun extends JFrame
 {
 private Owner user;
 private Database database;
@@ -16,7 +16,7 @@ private JPanel panel;
 private JFrame frame;
 private Book[] books;
 private JPanel results;
-public Search(Owner loggedin,Database database, JFrame frame){
+public SearchKolbrun(Owner loggedin,Database database, JFrame frame){
 this.user=loggedin;
 this.database=database;
 this.frame=frame;

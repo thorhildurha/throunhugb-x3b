@@ -9,20 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
-public class Search extends JFrame
+public class Search extends JFrame implements ActionListener
 {
   private Owner user;
   private Database database;
   private JPanel panel;
-  private JFrame frame; 
   private Book[] books;
   private JPanel results;
+  private JTextField TitleText;
+  private JTextField AuthorText;
+  private JTextField isbnText;
   
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
     this.database=database;
-    this.frame=frame;
-    searchDialog();
   }
 
   public static void main(String[] args)
@@ -33,9 +33,12 @@ public class Search extends JFrame
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     MockDatabase database = new MockDatabase();
     Search search = new Search(lol, database,frame);
+    JPanel searchpanel=search.searchDialog();
+    frame.add(searchpanel);
+    frame.setVisible(true);
   }
 
-  public void searchDialog()
+  public JPanel searchDialog()
   {
     panel=new JPanel();
     JPanel searchpanel = new JPanel();
@@ -64,13 +67,13 @@ public class Search extends JFrame
     JLabel priceLabel= new JLabel ("Price (optional) <=");
     labels.addComponent(priceLabel);
     
-    JTextField titleText = new JTextField(20);
-    fields.addComponent(titleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    TitleText = new JTextField(20);
+    fields.addComponent(TitleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    JTextField authorText = new JTextField(20);
-    fields.addComponent(authorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    AuthorText = new JTextField(20);
+    fields.addComponent(AuthorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    JTextField isbnText = new JTextField(20);
+    isbnText = new JTextField(20);
     fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
     JTextField courseText = new JTextField(20);
@@ -96,9 +99,9 @@ public class Search extends JFrame
     IsbnGroup.addComponent(isbnLabel);
     IsbnGroup.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     TitleGroup.addComponent(titleLabel);
-    TitleGroup.addComponent(titleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    TitleGroup.addComponent(TitleText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     AuthorGroup.addComponent(authorLabel);
-    AuthorGroup.addComponent(authorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    AuthorGroup.addComponent(AuthorText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     CourseGroup.addComponent(courseLabel);
     CourseGroup.addComponent(courseText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
     PriceGroup.addComponent(priceLabel);
@@ -113,24 +116,10 @@ public class Search extends JFrame
     vGroup.addGroup(buttonGroup);
     inputs.setVerticalGroup(vGroup);
     
-    
-    ActionListener searchButtonListener = new ActionListener()
-    {
-    	@Override
-        public void actionPerformed(ActionEvent e)
-        {
-    		JButton source = (JButton) e.getSource();
-    		books = new Book[2];
-    		Book searchfor = new Book(titleText.getText(), authorText.getText(),isbnText.getText());
-    		books=database.search(searchfor);
-    		showbooks();
-        }
-    };
-    searchButton.addActionListener(searchButtonListener);
+    searchButton.addActionListener(this);
     panel.add(searchpanel);
     panel.add(results);
-    frame.add(panel);
-    frame.setVisible(true);
+    return panel;
   }
   public void showbooks(){
 	  GroupLayout result =new GroupLayout(results);
@@ -205,5 +194,12 @@ public class Search extends JFrame
     else{
       return false;
     }
+  }
+  public void actionPerformed(ActionEvent e){
+	  JButton source = (JButton) e.getSource();
+	  books = new Book[2];
+	  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
+	  books=database.search(searchfor);
+	  showbooks();
   }
 }
