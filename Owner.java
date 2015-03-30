@@ -5,6 +5,7 @@ public class Owner {
 	private String email;
 	private String phone;
 	private String username;
+	private Boolean isloggedin;
 	
 	public Owner(){
 		this.name = name;
@@ -12,6 +13,7 @@ public class Owner {
 		this.email = email;
 		this.phone = phone;
 		this.username = username;
+		this.isloggedin=false;
 	}
 	
 	//Use: String[] info=owner.getinfo();
@@ -93,6 +95,13 @@ public class Owner {
 	public void setPhone(String phone){
 		this.phone = phone;
 	}
-
+	
+	public Boolean isloggedin(){
+		return this.isloggedin;
+	}
+	
+	public void setloggedin(){
+		this.isloggedin=true;
+	}
 
 }

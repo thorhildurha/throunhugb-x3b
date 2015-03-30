@@ -1,111 +1,137 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Login {
+public class Login extends JDialog implements ActionListener{
 	private Database database;
 	private Owner newuser;
+	private JDialog dialog;
+	private JPanel loginpanel;
+	private JPanel newuserpanel;
+	private JTextField userText;
+	private JPasswordField passwordText;
 	
 	public Login(Owner owner, Database data){
-		this.newuser = owner;
+		this.newuser=owner;
 		this.database = data;
+		this.loginpanel=new JPanel();
+		this.dialog=new JDialog();		
 		loginDialog();
+		owner=newuser;
 	}
-	public static void main(String[] args) {
-		Owner someone=null;
-		MockDatabase database = new MockDatabase();
-		Login login = new Login(someone, database);
-	}
-	
 //	Use: new Login().loginDialog();
 //	Before: nothing
 //	After: loginDialog has been created
 	public void loginDialog() {
-		JFrame frame = new JFrame("Login application");
-		frame.setSize(300, 150);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		placeLoginComponents(frame, newuser);
-		frame.setVisible(true);
+		dialog.setSize(250,200);
+
+		JLabel userLabel = new JLabel("User");
+		userLabel.setBounds(10, 10, 80, 25);
+		loginpanel.add(userLabel);
+		
+		userText = new JTextField(20);
+		userText.setBounds(100, 10, 160, 25);
+		loginpanel.add(userText);
+
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setBounds(10, 40, 80, 25);
+		loginpanel.add(passwordLabel);
+
+		passwordText = new JPasswordField(20);
+		passwordText.setBounds(100, 40, 160, 25);
+		loginpanel.add(passwordText);
+
+		JButton loginButton = new JButton("login");
+		loginButton.setBounds(10, 80, 80, 25);
+		loginpanel.add(loginButton);
+
+		JButton registerButton = new JButton("sign up");
+		registerButton.setBounds(180, 80, 80, 25);
+		loginpanel.add(registerButton);
+		
+		loginButton.setActionCommand("login");
+		loginButton.addActionListener(this);
+		
+		registerButton.setActionCommand("newuser");
+		registerButton.addActionListener(this);
+		
+		dialog.add(loginpanel);
+		dialog.setVisible(true);
+		
 	}
 	
 //	Use: new Login().NewUserForm();
 //	Before: nothing
 //	After: NewUserForm has been created
 	public void NewUserForm() {
-		JFrame frame = new JFrame("New user application");
-		frame.setSize(400, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		placeNewUserComponents(frame);
-		frame.setVisible(true);
-	}
-	
-//	Use: placeNewUserComponents(x);
-//	Before: x is a JFrame
-//	After: Components in NewUserForm have been placed 
-//	and a new user has been created
-	private void placeNewUserComponents(JFrame frame) {
-		frame.setLayout(null);
-	
+		dialog.setSize(250,450);
+
+		newuserpanel=new JPanel();
+		
 		JLabel nameLabel = new JLabel("Name *");
 		nameLabel.setBounds(10, 10, 80, 25);
-		frame.add(nameLabel);
+		newuserpanel.add(nameLabel);
 		
 		JTextField nameText = new JTextField(20);
 		nameText.setBounds(100, 10, 160, 25);
-		frame.add(nameText);
+		newuserpanel.add(nameText);
 		
 		JLabel emailLabel = new JLabel("Email *");
 		emailLabel.setBounds(10, 40, 80, 25);
-		frame.add(emailLabel);
+		newuserpanel.add(emailLabel);
 		
 		JTextField emailText = new JTextField(20);
 		emailText.setBounds(100, 40, 160, 25);
-		frame.add(emailText);
+		newuserpanel.add(emailText);
 		
 		JLabel locationLabel = new JLabel("Location");
 		locationLabel.setBounds(10, 70, 80, 25);
-		frame.add(locationLabel);
+		newuserpanel.add(locationLabel);
 		
 		JTextField locationText = new JTextField(20);
 		locationText.setBounds(100, 70, 160, 25);
-		frame.add(locationText);
+		newuserpanel.add(locationText);
 		
 		JLabel phoneLabel = new JLabel("Phone");
 		phoneLabel.setBounds(10, 100, 80, 25);
-		frame.add(phoneLabel);
+		newuserpanel.add(phoneLabel);
 		
 		JTextField phoneText = new JTextField(20);
 		phoneText.setBounds(100, 100, 160, 25);
-		frame.add(phoneText);
+		newuserpanel.add(phoneText);
 		
 		JLabel usernameLabel = new JLabel("Username *");
 		usernameLabel.setBounds(10, 130, 80, 25);
-		frame.add(usernameLabel);
+		newuserpanel.add(usernameLabel);
 		
 		JTextField userText = new JTextField(20);
 		userText.setBounds(100, 130, 160, 25);
-		frame.add(userText);
+		newuserpanel.add(userText);
 		
 		JLabel passwordLabel = new JLabel("Password *");
 		passwordLabel.setBounds(10, 160, 80, 25);
-		frame.add(passwordLabel);
+		newuserpanel.add(passwordLabel);
 
 		JPasswordField passwordText = new JPasswordField(20);
 		passwordText.setBounds(100, 160, 160, 25);
-		frame.add(passwordText);
+		newuserpanel.add(passwordText);
 
 		JButton submitButton = new JButton("submit");
 		submitButton.setBounds(180, 200, 80, 25);
-		frame.add(submitButton);
+		newuserpanel.add(submitButton);
 
 		JButton cancelButton = new JButton("cancel");
 		cancelButton.setBounds(10, 200, 80, 25);
-		frame.add(cancelButton);
+		newuserpanel.add(cancelButton);
 		
 		ActionListener submitButtonListener = new ActionListener() {
 			@Override
@@ -114,6 +140,7 @@ public class Login {
 				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
 					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
 				} else {
+					newuser=new Owner();
 					newuser.setName(nameText.getText());
 					newuser.setLocation(locationText.getText());
 					newuser.setEmail(emailText.getText());
@@ -124,8 +151,7 @@ public class Login {
 //					TODO: Setja newuser inn í gagnagrunn
 					
 					JOptionPane.showMessageDialog(source, newuser.getinfo());
-					frame.setVisible(false);
-					frame.dispose();
+					dialog.remove(newuserpanel);
 					loginDialog();
 				}
 			}
@@ -137,72 +163,41 @@ public class Login {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				JButton source = (JButton) e.getSource();
+				dialog.remove(newuserpanel);
 				loginDialog();
-				frame.setVisible(false);
-				frame.dispose();
 			}
 		};
 		
 		cancelButton.addActionListener(cancelButtonListener);
+		dialog.add(newuserpanel);
+		dialog.setVisible(true);
 	}
 	
-//	Use: placeLoginComponents(x);
-//	Before: x is a JFrame
-//	After: Components in loginDialog have been placed
-	private void placeLoginComponents(JFrame frame, Owner newuser) {
-		frame.setLayout(null);
-
-		JLabel userLabel = new JLabel("User");
-		userLabel.setBounds(10, 10, 80, 25);
-		frame.add(userLabel);
-		
-		JTextField userText = new JTextField(20);
-		userText.setBounds(100, 10, 160, 25);
-		frame.add(userText);
-
-		JLabel passwordLabel = new JLabel("Password");
-		passwordLabel.setBounds(10, 40, 80, 25);
-		frame.add(passwordLabel);
-
-		JPasswordField passwordText = new JPasswordField(20);
-		passwordText.setBounds(100, 40, 160, 25);
-		frame.add(passwordText);
-
-		JButton loginButton = new JButton("login");
-		loginButton.setBounds(10, 80, 80, 25);
-		frame.add(loginButton);
-
-		JButton registerButton = new JButton("sign up");
-		registerButton.setBounds(180, 80, 80, 25);
-		frame.add(registerButton);
-		
-		ActionListener loginButtonListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton source = (JButton) e.getSource();
-				if (authenticate(userText.getText(), passwordText.getPassword().toString())) {
-					JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
-				} else {
-					JOptionPane.showMessageDialog(source, "Invalid username or password");	
-				}
+	
+	public void actionPerformed(ActionEvent e){
+		JButton source = (JButton) e.getSource();
+		String command = source.getActionCommand();
+		if("login".equals(command)){
+			if (authenticate(userText.getText(), passwordText.getPassword().toString())) {
+			JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
+			View.frame.remove((View.search).panel);
+			View.search.searchDialog();
+			View.frame.add(View.search.panel);
+			View.frame.setVisible(true);
+			dialog.dispose();
+			} 
+		else {
+			JOptionPane.showMessageDialog(source, "Invalid username or password");	
 			}
-		};
+		}
+		else if("newuser".equals(command)){
+			dialog.remove(loginpanel);
+			NewUserForm();
+			
+//			JOptionPane.showMessageDialog(source, source.getText()
+//					+ " button has been pressed");
+		}
 		
-		loginButton.addActionListener(loginButtonListener);
-		
-		ActionListener registerButtonListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				JButton source = (JButton) e.getSource();
-				NewUserForm();
-				frame.setVisible(false);
-				frame.dispose();
-//				JOptionPane.showMessageDialog(source, source.getText()
-//						+ " button has been pressed");
-			}
-		};
-		
-		registerButton.addActionListener(registerButtonListener);
 	}
 
 //	Use: a.authenticate(x,y);
@@ -216,6 +211,7 @@ public class Login {
 		
 		Boolean correctpw=database.isuser(username, password);
 		if(correctpw){
+			newuser.setloggedin();
 			newuser.setUsername(username);
 			return true;	
 		}

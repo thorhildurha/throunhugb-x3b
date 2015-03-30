@@ -11,12 +11,13 @@ import javax.swing.JOptionPane;
 
 public class Search extends JFrame implements ActionListener
 {
+
   private Owner user;
   private Database database;
-  private JPanel panel;
+  public static JPanel panel;
   private Book[] books;
   private JPanel results;
-  private JTextField TitleText;
+  private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
   
@@ -24,12 +25,14 @@ public class Search extends JFrame implements ActionListener
     this.user=loggedin;
     this.database=database;
   }
-
-  public JPanel searchDialog()
+  
+  //Before: nothing
+  //After: returns the Panel for the Search Form
+  public void searchDialog()
   {
-    panel=new JPanel();
+	panel=new JPanel();
+	results=new JPanel();
     JPanel searchpanel = new JPanel();
-    results = new JPanel();
     GroupLayout inputs=new GroupLayout(searchpanel);
     inputs.setAutoCreateGaps(true);
     inputs.setAutoCreateContainerGaps(true);
@@ -38,6 +41,18 @@ public class Search extends JFrame implements ActionListener
     GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
     GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/fields
     
+    if(this.isloggedin()){
+    	JButton mypages = new JButton("My Pages");
+    	mypages.setActionCommand("mypages");
+    	mypages.addActionListener(this);
+    	panel.add(mypages,BorderLayout.WEST);
+    }
+    else{
+    	JButton login = new JButton("Login");
+    	login.setActionCommand("login");
+    	login.addActionListener(this);
+    	panel.add(login,BorderLayout.WEST);
+    }
     JButton searchButton = new JButton("Search");
     JLabel titleLabel = new JLabel ("Book title");
     labels.addComponent(titleLabel);
@@ -107,7 +122,8 @@ public class Search extends JFrame implements ActionListener
     searchButton.addActionListener(this);
     panel.add(searchpanel);
     panel.add(results);
-    return panel;
+    View.frame.add(panel);
+    View.frame.setVisible(true);
   }
   public void showbooks(){
 	  GroupLayout result =new GroupLayout(results);
@@ -176,7 +192,7 @@ public class Search extends JFrame implements ActionListener
 	  
   }
   public Boolean isloggedin(){
-    if(this.user!=null){
+    if(user.isloggedin()){
       return true;
     }
     else{
@@ -185,18 +201,32 @@ public class Search extends JFrame implements ActionListener
   }
   public void actionPerformed(ActionEvent e){
 	  JButton source = (JButton) e.getSource();
-	  if("search".equals(source.getActionCommand())){
+	  String command=source.getActionCommand();
+	  if("search".equals(command)){
 		  books = new Book[2];
 		  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
 		  books=database.search(searchfor);
 		  showbooks();
 	  }
-	  for(int i=0; i<books.length; i++){
-		  if(("register"+i).equals(source.getActionCommand()))
-		  {
-			  RegistrationForm registerform = new RegistrationForm(books[i], View.frame, database);
-			  panel.setVisible(false);
-			  registerform.initUI();
+	  if("login".equals(command)){
+		  Login loginform = new Login(user,database);
+	  }
+	  if(books!=null){
+		  for(int i=0; i<books.length; i++){
+			  if(("register"+i).equals(command))
+			  {	
+				  if(isloggedin()){
+					  RegistrationForm registerform = new RegistrationForm(books[i], View.frame, database);
+					  panel.setVisible(false);
+					  registerform.initUI();
+				  }
+				  else{
+					  JOptionPane.showMessageDialog(View.frame,
+							    "You need to be signed in!",
+							    "Registration Error",
+							    JOptionPane.ERROR_MESSAGE);
+				  }
+			  }
 		  }
 	  }
   }

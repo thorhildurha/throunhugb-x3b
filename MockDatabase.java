@@ -20,12 +20,7 @@ public class MockDatabase implements Database {
 		return somebooks;
 	}
 	public Boolean isuser(String user, String password){
-		if(password=="secret"){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return true;
 	}
 	public Book[] searchByUser(Owner user){
 		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
