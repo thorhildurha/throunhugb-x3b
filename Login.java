@@ -164,7 +164,8 @@ public class Login extends JDialog implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 //				JButton source = (JButton) e.getSource();
 				dialog.remove(newuserpanel);
-				loginDialog();
+				dialog.add(loginpanel);
+				dialog.setVisible(true);
 			}
 		};
 		

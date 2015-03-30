@@ -23,14 +23,12 @@ public class MyPages extends JPanel{
 //		this.database = data;
 		this.user=owner;
 		this.books = View.database.searchByUser(user);
-		mypagesForm();
 	}
 	
 //	Use: displayBooks(x,y,z);
 //	Before: x is a JFrame, y is an Owner, z is a Book[]
 //	After: Shows information about the Owner and the books that he is selling.
-	private void mypagesForm() {
-		panel.setLayout(null);
+	public JPanel mypagesForm() {
 		
 		JLabel nameLabel = new JLabel("Name :");
 		nameLabel.setBounds(10, 10, 80, 25);
@@ -129,9 +127,9 @@ public class MyPages extends JPanel{
 		
 		
 		updateOwnerButton.addActionListener(updateOwnerButtonListener);
-		
-	}
+		return panel;
 
+	}
 	
 	
 }

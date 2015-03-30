@@ -18,12 +18,15 @@ import java.awt.Container;
 import javax.swing.JComponent;
 import javax.swing.GroupLayout;
 //This class draws a UI interface for a registration form
-public class RegistrationForm extends JPanel{
+public class RegistrationForm extends JPanel implements ActionListener{
 	private Database database;
 	private Book registerbook; //The book to register
 	private JFrame frame; //The frame for the program 
 	private JPanel buttonpanel;
 	private JPanel center;
+	private JTextField pricefield;
+	private JComboBox conditionField;
+	
 	
 	public RegistrationForm(Book x, JFrame frame, Database data){
 		this.registerbook=x;
@@ -48,35 +51,12 @@ public class RegistrationForm extends JPanel{
 		JLabel IsbnVal=new JLabel(this.registerbook.getIsbn());
 		JLabel price=new JLabel("Price:");
 		JLabel conditionLabel = new JLabel("Condition:");
-		JTextField pricefield=new JTextField();
+		pricefield=new JTextField();
 		String[] conditions={"like new","very good","good","fair","bad","very bad"};
-		JComboBox conditionField=new JComboBox(conditions);
+		conditionField=new JComboBox(conditions);
 		JButton register=new JButton("Register");
-		register.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				String inputprice=pricefield.getText();
-				String inputcondition=conditionField.getSelectedItem().toString();
-				Boolean updated=registerbook.update(inputprice,inputcondition);
-				Boolean registered = database.register(registerbook);
-				if(updated&&registered){
-					frame.remove(buttonpanel);
-					frame.remove(center);
-					frame.validate();
-					frame.repaint();
-					JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully registered your book");
-				}
-				else{
-					JOptionPane.showMessageDialog(frame,
-						    "Something went wrong! \n Please try again",
-						    "Registration Error",
-						    JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-		});
+		register.setActionCommand("register");
+		register.addActionListener(this);
 		
 		//Create Groups for Labels and values/inputfields
 		GroupLayout inputs=new GroupLayout(labelpane);
@@ -130,6 +110,25 @@ public class RegistrationForm extends JPanel{
 		frame.add(center);
 		frame.add(buttonpanel,BorderLayout.PAGE_END);
 		frame.setVisible(true);
+	}
+	public void actionPerformed(ActionEvent e){
+		String inputprice=pricefield.getText();
+		String inputcondition=conditionField.getSelectedItem().toString();
+		Boolean updated=registerbook.update(inputprice,inputcondition);
+		Boolean registered = database.register(registerbook);
+		if(updated&&registered){
+			frame.remove(buttonpanel);
+			frame.remove(center);
+			(Search.panel).setVisible(true);
+			frame.setVisible(true);
+			JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully registered your book");
+		}
+		else{
+			JOptionPane.showMessageDialog(frame,
+				    "Something went wrong! \n Please try again",
+				    "Registration Error",
+				    JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 }

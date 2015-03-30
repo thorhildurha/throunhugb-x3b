@@ -212,6 +212,13 @@ public class Search extends JFrame implements ActionListener
 	  if("login".equals(command)){
 		  Login loginform = new Login(user,database);
 	  }
+	  if("mypages".equals(command)){
+		MyPages mypage = new MyPages(user);  
+		JPanel mypagePanel=	mypage.mypagesForm();
+		panel.setVisible(false);
+		View.frame.add(mypagePanel);
+		View.frame.setVisible(true);
+	  }
 	  if(books!=null){
 		  for(int i=0; i<books.length; i++){
 			  if(("register"+i).equals(command))
