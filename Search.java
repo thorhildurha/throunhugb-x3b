@@ -24,6 +24,8 @@ public class Search extends JFrame implements ActionListener
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
     this.database=database;
+	this.results=new JPanel();
+
   }
   
   //Before: nothing
@@ -31,7 +33,6 @@ public class Search extends JFrame implements ActionListener
   public void searchDialog()
   {
 	panel=new JPanel();
-	results=new JPanel();
     JPanel searchpanel = new JPanel();
     GroupLayout inputs=new GroupLayout(searchpanel);
     inputs.setAutoCreateGaps(true);
