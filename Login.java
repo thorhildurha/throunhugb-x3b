@@ -94,72 +94,110 @@ public class Login extends JDialog implements ActionListener{
 //	Before: nothing
 //	After: NewUserForm has been created
 	public void NewUserForm() {
-		dialog.setSize(250,450);
-
+		dialog.setSize(350,450);
 		newuserpanel=new JPanel();
 		
-		JLabel nameLabel = new JLabel("Name *");
-		nameLabel.setBounds(10, 10, 80, 25);
-		newuserpanel.add(nameLabel);
-		
-		JTextField nameText = new JTextField(20);
-		nameText.setBounds(100, 10, 160, 25);
-		newuserpanel.add(nameText);
-		
-		JLabel emailLabel = new JLabel("Email *");
-		emailLabel.setBounds(10, 40, 80, 25);
-		newuserpanel.add(emailLabel);
-		
-		JTextField emailText = new JTextField(20);
-		emailText.setBounds(100, 40, 160, 25);
-		newuserpanel.add(emailText);
-		
-		JLabel locationLabel = new JLabel("Location");
-		locationLabel.setBounds(10, 70, 80, 25);
-		newuserpanel.add(locationLabel);
-		
-		JTextField locationText = new JTextField(20);
-		locationText.setBounds(100, 70, 160, 25);
-		newuserpanel.add(locationText);
-		
-		JLabel phoneLabel = new JLabel("Phone");
-		phoneLabel.setBounds(10, 100, 80, 25);
-		newuserpanel.add(phoneLabel);
-		
-		JTextField phoneText = new JTextField(20);
-		phoneText.setBounds(100, 100, 160, 25);
-		newuserpanel.add(phoneText);
-		
-		JLabel usernameLabel = new JLabel("Username *");
-		usernameLabel.setBounds(10, 130, 80, 25);
-		newuserpanel.add(usernameLabel);
-		
-		JTextField userText = new JTextField(20);
-		userText.setBounds(100, 130, 160, 25);
-		newuserpanel.add(userText);
-		
-		JLabel passwordLabel = new JLabel("Password *");
-		passwordLabel.setBounds(10, 160, 80, 25);
-		newuserpanel.add(passwordLabel);
-
-		JPasswordField passwordText = new JPasswordField(20);
-		passwordText.setBounds(100, 160, 160, 25);
-		newuserpanel.add(passwordText);
-
+		GroupLayout newinputs = new GroupLayout(newuserpanel);
+	    newinputs.setAutoCreateGaps(true);
+	    newinputs.setAutoCreateContainerGaps(true);
+	    GroupLayout.SequentialGroup newhGroup = newinputs.createSequentialGroup();
+	    newuserpanel.setLayout(newinputs);
+	    GroupLayout.ParallelGroup newlabels = newinputs.createParallelGroup(); //One for Labels
+	    GroupLayout.ParallelGroup newfields = newinputs.createParallelGroup(); //Other for values/fields
+	    
+	    JLabel nameLabel = new JLabel("Name *");
+	    newlabels.addComponent(nameLabel);
+	    
+	    JTextField nameText = new JTextField(20);
+	    newfields.addComponent(nameText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JLabel emailLabel = new JLabel("Email *");
+	    newlabels.addComponent(emailLabel);
+	    
+	    JTextField emailText = new JTextField(20);
+	    newfields.addComponent(emailText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JLabel locationLabel = new JLabel("Location");
+	    newlabels.addComponent(locationLabel);
+	    
+	    JTextField locationText = new JTextField(20);
+	    newfields.addComponent(locationText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JLabel phoneLabel = new JLabel("Phone");
+	    newlabels.addComponent(phoneLabel);
+	    
+	    JTextField phoneText = new JTextField(20);
+	    newfields.addComponent(phoneText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JLabel usernameLabel = new JLabel("Username *");
+	    newlabels.addComponent(usernameLabel);
+	    
+	    JTextField userText = new JTextField(20);
+	    newfields.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JLabel passwordLabel = new JLabel("Password *");
+	    newlabels.addComponent(passwordLabel);
+	    
+	    JPasswordField passwordText = new JPasswordField(20);
+	    newfields.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
 		JButton submitButton = new JButton("submit");
-		submitButton.setBounds(180, 200, 80, 25);
+		submitButton.setBounds(225, 200, 80, 25);
 		newuserpanel.add(submitButton);
 
 		JButton cancelButton = new JButton("cancel");
 		cancelButton.setBounds(10, 200, 80, 25);
 		newuserpanel.add(cancelButton);
 		
+		submitButton.setActionCommand("login");
+	    submitButton.addActionListener(this);
+	    cancelButton.setActionCommand("cancel");
+	    cancelButton.addActionListener(this);
+	    
+	    newhGroup.addGroup(newlabels);
+	    newhGroup.addGroup(newfields);
+	    
+	    newinputs.setHorizontalGroup(newhGroup);
+	    
+	    GroupLayout.SequentialGroup newvGroup = newinputs.createSequentialGroup();  
+	    GroupLayout.ParallelGroup NameGroup = newinputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    GroupLayout.ParallelGroup EmailGroup = newinputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    GroupLayout.ParallelGroup LocationGroup = newinputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    GroupLayout.ParallelGroup PhoneGroup = newinputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    GroupLayout.ParallelGroup UsernameGroup = newinputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    GroupLayout.ParallelGroup PasswordGroup = newinputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    
+	    NameGroup.addComponent(nameLabel);
+	    NameGroup.addComponent(nameText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    EmailGroup.addComponent(emailLabel);
+	    EmailGroup.addComponent(emailText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    LocationGroup.addComponent(locationLabel);
+	    LocationGroup.addComponent(locationText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    PhoneGroup.addComponent(phoneLabel);
+	    PhoneGroup.addComponent(phoneText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    UsernameGroup.addComponent(usernameLabel);
+	    UsernameGroup.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    PasswordGroup.addComponent(passwordLabel);
+	    PasswordGroup.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    newvGroup.addGroup(NameGroup);
+	    newvGroup.addGroup(EmailGroup);
+	    newvGroup.addGroup(LocationGroup);
+	    newvGroup.addGroup(PhoneGroup);
+	    newvGroup.addGroup(UsernameGroup);
+	    newvGroup.addGroup(PasswordGroup);
+
+	    newinputs.setVerticalGroup(newvGroup);
+	    
+
+
+		
 		ActionListener submitButtonListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton source = (JButton) e.getSource();
 				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
-					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");	
+					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");
 				} else {
 					newuser=new Owner();
 					newuser.setName(nameText.getText());
@@ -167,11 +205,11 @@ public class Login extends JDialog implements ActionListener{
 					newuser.setEmail(emailText.getText());
 					newuser.setPhone(phoneText.getText());
 					newuser.setUsername(userText.getText());
-//					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
+					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
 				
 //					TODO: Setja newuser inn í gagnagrunn
 					
-					JOptionPane.showMessageDialog(source, newuser.getinfo());
+//					JOptionPane.showMessageDialog(source, newuser.getinfo());
 					dialog.remove(newuserpanel);
 					loginDialog();
 				}
@@ -212,7 +250,7 @@ public class Login extends JDialog implements ActionListener{
 			JOptionPane.showMessageDialog(source, "Invalid username or password");	
 			}
 		}
-		else if("newuser".equals(command)){
+		if("newuser".equals(command)){
 			dialog.remove(loginpanel);
 			NewUserForm();
 			
