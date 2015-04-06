@@ -1,6 +1,8 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,8 +25,8 @@ public class Login extends JDialog implements ActionListener{
 	public Login(Owner owner, Database data){
 		this.newuser=owner;
 		this.database = data;
-		this.loginpanel=new JPanel();
-		this.dialog=new JDialog();		
+		this.loginpanel = new JPanel();
+		this.dialog = new JDialog();		
 		loginDialog();
 		owner=newuser;
 	}
@@ -32,37 +34,56 @@ public class Login extends JDialog implements ActionListener{
 //	Before: nothing
 //	After: loginDialog has been created
 	public void loginDialog() {
-		dialog.setSize(250,200);
+		dialog.setSize(350,200);
+	    GroupLayout inputs = new GroupLayout(loginpanel);
+	    inputs.setAutoCreateGaps(true);
+	    inputs.setAutoCreateContainerGaps(true);
+	    GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
+	    loginpanel.setLayout(inputs);
+	    GroupLayout.ParallelGroup labels = inputs.createParallelGroup(); //One for Labels
+	    GroupLayout.ParallelGroup fields = inputs.createParallelGroup(); //Other for values/fields
+	    
+	    JLabel userLabel = new JLabel("User");
+	    labels.addComponent(userLabel);
+	    
+	    userText = new JTextField(20);
+	    fields.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JLabel passwordLabel = new JLabel("Password");
+	    labels.addComponent(passwordLabel);
+	    
+	    passwordText = new JPasswordField(20);
+	    fields.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    
+	    JButton loginButton = new JButton("login");
+	    loginButton.setBounds(225, 80, 80, 25);
+	    loginpanel.add(loginButton);
+	    JButton signupButton = new JButton("sign up");
+	    signupButton.setBounds(10, 80, 80, 25);
+	    loginpanel.add(signupButton);
+	    loginButton.setActionCommand("login");
+	    loginButton.addActionListener(this);
+	    signupButton.setActionCommand("newuser");
+	    signupButton.addActionListener(this);
+	    
+	    hGroup.addGroup(labels);
+	    hGroup.addGroup(fields);
+	    
+	    inputs.setHorizontalGroup(hGroup);
+	    
+	    GroupLayout.SequentialGroup vGroup = inputs.createSequentialGroup();  
+	    GroupLayout.ParallelGroup UserGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    GroupLayout.ParallelGroup PasswordGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+	    
+	    UserGroup.addComponent(userLabel);
+	    UserGroup.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    PasswordGroup.addComponent(passwordLabel);
+	    PasswordGroup.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE); 
+	    
+	    vGroup.addGroup(UserGroup);
+	    vGroup.addGroup(PasswordGroup);
 
-		JLabel userLabel = new JLabel("User");
-		userLabel.setBounds(10, 10, 80, 25);
-		loginpanel.add(userLabel);
-		
-		userText = new JTextField(20);
-		userText.setBounds(100, 10, 160, 25);
-		loginpanel.add(userText);
-
-		JLabel passwordLabel = new JLabel("Password");
-		passwordLabel.setBounds(10, 40, 80, 25);
-		loginpanel.add(passwordLabel);
-
-		passwordText = new JPasswordField(20);
-		passwordText.setBounds(100, 40, 160, 25);
-		loginpanel.add(passwordText);
-
-		JButton loginButton = new JButton("login");
-		loginButton.setBounds(10, 80, 80, 25);
-		loginpanel.add(loginButton);
-
-		JButton registerButton = new JButton("sign up");
-		registerButton.setBounds(180, 80, 80, 25);
-		loginpanel.add(registerButton);
-		
-		loginButton.setActionCommand("login");
-		loginButton.addActionListener(this);
-		
-		registerButton.setActionCommand("newuser");
-		registerButton.addActionListener(this);
+	    inputs.setVerticalGroup(vGroup);
 		
 		dialog.add(loginpanel);
 		dialog.setVisible(true);
