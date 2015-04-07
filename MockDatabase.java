@@ -19,7 +19,8 @@ public class MockDatabase implements Database {
 		kukur.setPrice("4000");
 		gamli.setPrice("2200");
 		Book[] somebooks = {gula,bleikur,kukur, gamli};
-		return somebooks;
+		Book[] books={};
+		return books;
 	}
 	public Boolean isuser(String user, String password){
 		return true;

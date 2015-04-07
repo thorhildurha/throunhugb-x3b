@@ -14,8 +14,9 @@ public class Search extends JFrame implements ActionListener
 
   private Owner user;
   private Database database;
+  private JFrame frame;
   public static JPanel panel;
-  private Book[] books;
+  private Book[] books;  //stores the books that the user searched for
   private JPanel results;
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
@@ -24,14 +25,16 @@ public class Search extends JFrame implements ActionListener
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
     this.database=database;
-	this.results=new JPanel();
+    this.results=new JPanel();
+    this.frame=frame;
+    this.books=new Book[0];
 
   }
-  
   //Before: nothing
-  //After: returns the Panel for the Search Form
+  //After: creates the JPanel for the Search Form and displays it
   public void searchDialog()
   {
+	panel = null;
 	panel=new JPanel();
     JPanel searchpanel = new JPanel();
     GroupLayout inputs=new GroupLayout(searchpanel);
@@ -123,10 +126,15 @@ public class Search extends JFrame implements ActionListener
     searchButton.addActionListener(this);
     panel.add(searchpanel);
     panel.add(results);
-    View.frame.add(panel);
-    View.frame.setVisible(true);
+    frame.add(panel);
+    frame.setVisible(true);
   }
+  //Use: showbooks();
+  //Before: Nothing
+  //After: The results in Search.books[] has been displayed on the JPanel
   public void showbooks(){
+	  results=null; //delete the previous results panel
+	  results=new JPanel(); //create a new one;
 	  GroupLayout result =new GroupLayout(results);
 	  results.setLayout(result);
 	  result.setAutoCreateGaps(true);
@@ -147,7 +155,6 @@ public class Search extends JFrame implements ActionListener
 	  JButton RegisterButton[]=new JButton[books.length];
 
 	  String isbn="";
-
 	  for(int i = 0; i<books.length; i++){
 		  resultGroupTitle[i]=result.createParallelGroup();
 		  resultGroupAuthor[i]=result.createParallelGroup();
@@ -190,8 +197,13 @@ public class Search extends JFrame implements ActionListener
 	  hGroup.addGroup(registerbutton);
 	  result.setHorizontalGroup(hGroup);
 	  result.setVerticalGroup(vGroup);
-	  
+	  panel.add(results); 
+	  frame.setVisible(true);
   }
+  
+  //Use: b=isloggedin();
+  //Before: nothing
+  //After: 
   public Boolean isloggedin(){
     if(user.isloggedin()){
       return true;
@@ -200,36 +212,48 @@ public class Search extends JFrame implements ActionListener
       return false;
     }
   }
+  //
+  //Before: 
+  //After: 
+  public void search(){
+	  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
+	  books=database.search(searchfor);
+	  if(books.length==0){
+		  JOptionPane.showMessageDialog(frame,
+				    "No search results!",
+				    "No results",
+				    JOptionPane.INFORMATION_MESSAGE);
+	  }
+	  else{
+		  showbooks();
+	  }
+  }
   public void actionPerformed(ActionEvent e){
 	  JButton source = (JButton) e.getSource();
 	  String command=source.getActionCommand();
 	  if("search".equals(command)){
-		  books = new Book[2];
-		  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
-		  books=database.search(searchfor);
-		  showbooks();
+		  search();
 	  }
 	  if("login".equals(command)){
 		  Login loginform = new Login(user,database);
 	  }
 	  if("mypages".equals(command)){
-		MyPages mypage = new MyPages(user);  
-		JPanel mypagePanel=	mypage.mypagesForm();
-		panel.setVisible(false);
-		View.frame.add(mypagePanel);
-		View.frame.setVisible(true);
+		  frame.remove(panel);
+		  panel=null;
+		  MyPages mypage = new MyPages(user,frame,database);  
+		  mypage.mypagesForm();
 	  }
 	  if(books!=null){
 		  for(int i=0; i<books.length; i++){
 			  if(("register"+i).equals(command))
 			  {	
 				  if(isloggedin()){
-					  RegistrationForm registerform = new RegistrationForm(books[i], View.frame, database);
+					  RegistrationForm registerform = new RegistrationForm(books[i], frame, database);
 					  panel.setVisible(false);
 					  registerform.initUI();
 				  }
 				  else{
-					  JOptionPane.showMessageDialog(View.frame,
+					  JOptionPane.showMessageDialog(frame,
 							    "You need to be signed in!",
 							    "Registration Error",
 							    JOptionPane.ERROR_MESSAGE);

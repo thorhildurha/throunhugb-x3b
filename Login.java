@@ -26,9 +26,10 @@ public class Login extends JDialog implements ActionListener{
 		this.newuser=owner;
 		this.database = data;
 		this.loginpanel = new JPanel();
+		this.newuserpanel=new JPanel();
 		this.dialog = new JDialog();		
 		loginDialog();
-		owner=newuser;
+		NewUserForm();
 	}
 //	Use: new Login().loginDialog();
 //	Before: nothing
@@ -96,7 +97,6 @@ public class Login extends JDialog implements ActionListener{
 	public void NewUserForm() {
 		dialog.setSize(350,450);
 		newuserpanel=new JPanel();
-		
 		GroupLayout newinputs = new GroupLayout(newuserpanel);
 	    newinputs.setAutoCreateGaps(true);
 	    newinputs.setAutoCreateContainerGaps(true);
@@ -221,7 +221,7 @@ public class Login extends JDialog implements ActionListener{
 		ActionListener cancelButtonListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				JButton source = (JButton) e.getSource();
+				newuserpanel.setVisible(false);
 				dialog.remove(newuserpanel);
 				dialog.add(loginpanel);
 				dialog.setVisible(true);
@@ -229,8 +229,6 @@ public class Login extends JDialog implements ActionListener{
 		};
 		
 		cancelButton.addActionListener(cancelButtonListener);
-		dialog.add(newuserpanel);
-		dialog.setVisible(true);
 	}
 	
 	
@@ -252,10 +250,9 @@ public class Login extends JDialog implements ActionListener{
 		}
 		if("newuser".equals(command)){
 			dialog.remove(loginpanel);
-			NewUserForm();
-			
-//			JOptionPane.showMessageDialog(source, source.getText()
-//					+ " button has been pressed");
+			dialog.add(newuserpanel);
+			newuserpanel.setVisible(true);
+			dialog.setVisible(true);
 		}
 		
 	}
