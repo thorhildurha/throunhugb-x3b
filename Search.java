@@ -1,13 +1,16 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ScrollPaneConstants;
 
 public class Search extends JFrame implements ActionListener
 {
@@ -21,6 +24,7 @@ public class Search extends JFrame implements ActionListener
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
+  private JScrollPane scrollpane;
   
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
@@ -36,7 +40,29 @@ public class Search extends JFrame implements ActionListener
   {
 	panel = null;
 	panel=new JPanel();
+	GroupLayout panels= new GroupLayout(panel);
+	panels.setAutoCreateGaps(true);
+	panels.setAutoCreateContainerGaps(true);
+	panel.setLayout(panels);
+	GroupLayout.SequentialGroup horiGroup=panels.createSequentialGroup();
+	GroupLayout.ParallelGroup pan = panels.createParallelGroup();
+	
+	
     JPanel searchpanel = new JPanel();
+	pan.addComponent(searchpanel);
+	pan.addComponent(results);
+	horiGroup.addGroup(pan);
+	panels.setHorizontalGroup(horiGroup);
+    GroupLayout.SequentialGroup vertGroup = panels.createSequentialGroup();
+    GroupLayout.ParallelGroup searchpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
+    GroupLayout.ParallelGroup resultpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
+    
+    searchpan.addComponent(searchpanel);
+    resultpan.addComponent(results);
+    vertGroup.addGroup(searchpan);
+    vertGroup.addGroup(resultpan);
+    panels.setVerticalGroup(vertGroup);
+    
     GroupLayout inputs=new GroupLayout(searchpanel);
     inputs.setAutoCreateGaps(true);
     inputs.setAutoCreateContainerGaps(true);
@@ -44,6 +70,7 @@ public class Search extends JFrame implements ActionListener
     searchpanel.setLayout(inputs);
     GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
     GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/fields
+    
     
     if(this.isloggedin()){
     	JButton mypages = new JButton("My Pages");
@@ -124,17 +151,18 @@ public class Search extends JFrame implements ActionListener
     
     searchButton.setActionCommand("search");
     searchButton.addActionListener(this);
-    panel.add(searchpanel);
-    panel.add(results);
-    frame.add(panel);
+
+    scrollpane = new JScrollPane(panel);
+    frame.add(scrollpane);
     frame.setVisible(true);
   }
   //Use: showbooks();
   //Before: Nothing
   //After: The results in Search.books[] has been displayed on the JPanel
   public void showbooks(){
-	  results=null; //delete the previous results panel
-	  results=new JPanel(); //create a new one;
+	 // results=null; //delete the previous results panel
+	  //results=new JPanel(); //create a new one;
+	  results.removeAll();
 	  GroupLayout result =new GroupLayout(results);
 	  results.setLayout(result);
 	  result.setAutoCreateGaps(true);
@@ -189,21 +217,19 @@ public class Search extends JFrame implements ActionListener
 		  vGroup.addGroup(resultGroupTitle[i]);
 		  vGroup.addGroup(resultGroupAuthor[i]);
 		  vGroup.addGroup(resultGroupPrice[i]);
-		  
-
 	  }
 	  hGroup.addGroup(labels);
 	  hGroup.addGroup(values);
 	  hGroup.addGroup(registerbutton);
 	  result.setHorizontalGroup(hGroup);
 	  result.setVerticalGroup(vGroup);
-	  panel.add(results); 
+	  panel.revalidate();
 	  frame.setVisible(true);
   }
   
   //Use: b=isloggedin();
   //Before: nothing
-  //After: 
+  //After: returns true if there is someone logged in, false otherwise
   public Boolean isloggedin(){
     if(user.isloggedin()){
       return true;
