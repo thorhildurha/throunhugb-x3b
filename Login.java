@@ -16,18 +16,20 @@ import javax.swing.JTextField;
 public class Login extends JDialog implements ActionListener{
 	private Database database;
 	private Owner newuser;
+	private JFrame frame;
 	private JDialog dialog;
 	private JPanel loginpanel;
 	private JPanel newuserpanel;
 	private JTextField userText;
 	private JPasswordField passwordText;
 	
-	public Login(Owner owner, Database data){
+	public Login(Owner owner, Database data,JFrame frame){
 		this.newuser=owner;
 		this.database = data;
 		this.loginpanel = new JPanel();
 		this.newuserpanel=new JPanel();
-		this.dialog = new JDialog();		
+		this.dialog = new JDialog();	
+		this.frame=frame;
 		loginDialog();
 		NewUserForm();
 	}
@@ -238,10 +240,8 @@ public class Login extends JDialog implements ActionListener{
 		if("login".equals(command)){
 			if (authenticate(userText.getText(), passwordText.getPassword().toString())) {
 			JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
-			View.frame.remove((View.search).panel);
+			frame.remove(View.search.scrollpane);
 			View.search.searchDialog();
-			View.frame.add(View.search.panel);
-			View.frame.setVisible(true);
 			dialog.dispose();
 			} 
 		else {

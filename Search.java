@@ -18,13 +18,13 @@ public class Search extends JFrame implements ActionListener
   private Owner user;
   private Database database;
   private JFrame frame;
-  public static JPanel panel;
+  private JPanel panel;
+  public static JScrollPane scrollpane;
   private Book[] books;  //stores the books that the user searched for
   private JPanel results;
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
-  private JScrollPane scrollpane;
   
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
@@ -38,8 +38,11 @@ public class Search extends JFrame implements ActionListener
   //After: creates the JPanel for the Search Form and displays it
   public void searchDialog()
   {
-	panel = null;
-	panel=new JPanel();
+	panel=null; //First we clear the panel just in case
+	panel=new JPanel(); 
+    JPanel searchpanel = new JPanel(); //The panel that shows the search conditions
+    
+	//We create the group Layout for the panels and buttons
 	GroupLayout panels= new GroupLayout(panel);
 	panels.setAutoCreateGaps(true);
 	panels.setAutoCreateContainerGaps(true);
@@ -47,43 +50,45 @@ public class Search extends JFrame implements ActionListener
 	GroupLayout.SequentialGroup horiGroup=panels.createSequentialGroup();
 	GroupLayout.ParallelGroup pan = panels.createParallelGroup();
 	
-	
-    JPanel searchpanel = new JPanel();
+    GroupLayout.ParallelGroup buttonpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
+
+	if(this.isloggedin()){ //If a user is loggedin then show mypages button
+    	JButton mypages = new JButton("My Pages");
+    	mypages.setActionCommand("mypages");
+    	mypages.addActionListener(this);
+    	pan.addComponent(mypages);
+    	buttonpan.addComponent(mypages);
+    }
+    else{ //if he is not loggedin show login button
+    	JButton login = new JButton("Login");
+    	login.setActionCommand("login");
+    	login.addActionListener(this);
+    	pan.addComponent(login);
+    	buttonpan.addComponent(login);
+    }
 	pan.addComponent(searchpanel);
 	pan.addComponent(results);
 	horiGroup.addGroup(pan);
 	panels.setHorizontalGroup(horiGroup);
-    GroupLayout.SequentialGroup vertGroup = panels.createSequentialGroup();
-    GroupLayout.ParallelGroup searchpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
+	GroupLayout.SequentialGroup vertGroup = panels.createSequentialGroup();
+	GroupLayout.ParallelGroup searchpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
     GroupLayout.ParallelGroup resultpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
-    
     searchpan.addComponent(searchpanel);
     resultpan.addComponent(results);
+    vertGroup.addGroup(buttonpan);
     vertGroup.addGroup(searchpan);
     vertGroup.addGroup(resultpan);
     panels.setVerticalGroup(vertGroup);
     
+    //Next we create the GroupLayout for the search conditions
     GroupLayout inputs=new GroupLayout(searchpanel);
     inputs.setAutoCreateGaps(true);
     inputs.setAutoCreateContainerGaps(true);
     GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
     searchpanel.setLayout(inputs);
     GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
-    GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/fields
-    
-    
-    if(this.isloggedin()){
-    	JButton mypages = new JButton("My Pages");
-    	mypages.setActionCommand("mypages");
-    	mypages.addActionListener(this);
-    	panel.add(mypages,BorderLayout.WEST);
-    }
-    else{
-    	JButton login = new JButton("Login");
-    	login.setActionCommand("login");
-    	login.addActionListener(this);
-    	panel.add(login,BorderLayout.WEST);
-    }
+    GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/field
+   
     JButton searchButton = new JButton("Search");
     JLabel titleLabel = new JLabel ("Book title");
     labels.addComponent(titleLabel);
@@ -261,10 +266,10 @@ public class Search extends JFrame implements ActionListener
 		  search();
 	  }
 	  if("login".equals(command)){
-		  Login loginform = new Login(user,database);
+		  Login loginform = new Login(user,database,frame);
 	  }
 	  if("mypages".equals(command)){
-		  frame.remove(panel);
+		  frame.remove(scrollpane);
 		  panel=null;
 		  MyPages mypage = new MyPages(user,frame,database);  
 		  mypage.mypagesForm();
