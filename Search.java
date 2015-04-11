@@ -25,6 +25,7 @@ public class Search extends JFrame implements ActionListener
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
+  private JTextField courseText;
   
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
@@ -114,7 +115,7 @@ public class Search extends JFrame implements ActionListener
     isbnText = new JTextField(20);
     fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    JTextField courseText = new JTextField(20);
+    courseText = new JTextField(20);
     fields.addComponent(courseText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
     JTextField priceText = new JTextField(6);
@@ -163,11 +164,9 @@ public class Search extends JFrame implements ActionListener
   }
   //Use: showbooks();
   //Before: Nothing
-  //After: The results in Search.books[] has been displayed on the JPanel
+  //After: The information in Search.books[] has been displayed on the JPanel
   public void showbooks(){
-	 // results=null; //delete the previous results panel
-	  //results=new JPanel(); //create a new one;
-	  results.removeAll();
+	  results.removeAll(); //remove previous results
 	  GroupLayout result =new GroupLayout(results);
 	  results.setLayout(result);
 	  result.setAutoCreateGaps(true);
@@ -228,7 +227,7 @@ public class Search extends JFrame implements ActionListener
 	  hGroup.addGroup(registerbutton);
 	  result.setHorizontalGroup(hGroup);
 	  result.setVerticalGroup(vGroup);
-	  panel.revalidate();
+	  panel.revalidate(); //let the scroll pane know that changes have been made
 	  frame.setVisible(true);
   }
   
@@ -247,16 +246,29 @@ public class Search extends JFrame implements ActionListener
   //Before: 
   //After: 
   public void search(){
-	  Book searchfor = new Book(TitleText.getText(), AuthorText.getText(),isbnText.getText());
-	  books=database.search(searchfor);
-	  if(books.length==0){
+	  String Title = TitleText.getText();
+	  String Author=AuthorText.getText();
+	  String isbn =isbnText.getText();
+	  String Course=courseText.getText();
+	  //if there are no fields filled out, there is nothing to look for
+	  if(Title.isEmpty()&&Author.isEmpty()&&isbn.isEmpty()&&Course.isEmpty()){
 		  JOptionPane.showMessageDialog(frame,
-				    "No search results!",
-				    "No results",
+				    "Please type in search conditions!",
+				    "Missing search conditions",
 				    JOptionPane.INFORMATION_MESSAGE);
 	  }
 	  else{
-		  showbooks();
+		  Book searchfor = new Book(Title, Author, isbn);
+		  books=database.search(searchfor);
+		  if(books.length==0){
+			  JOptionPane.showMessageDialog(frame,
+					  "No search results!",
+					  "No results",
+					  JOptionPane.INFORMATION_MESSAGE);
+		  }
+		  else{
+			  showbooks();
+		  }
 	  }
   }
   public void actionPerformed(ActionEvent e){
@@ -280,7 +292,7 @@ public class Search extends JFrame implements ActionListener
 			  {	
 				  if(isloggedin()){
 					  RegistrationForm registerform = new RegistrationForm(books[i], frame, database);
-					  panel.setVisible(false);
+					  frame.remove(scrollpane);
 					  registerform.initUI();
 				  }
 				  else{

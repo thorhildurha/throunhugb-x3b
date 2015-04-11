@@ -22,7 +22,6 @@ public class RegistrationForm extends JPanel implements ActionListener{
 	private Database database;
 	private Book registerbook; //The book to register
 	private JFrame frame; //The frame for the program 
-	private JPanel buttonpanel;
 	private JPanel center;
 	private JTextField pricefield;
 	private JComboBox conditionField;
@@ -37,7 +36,6 @@ public class RegistrationForm extends JPanel implements ActionListener{
 	public void initUI(){
 		frame.setTitle("Registration Form"); // Set a new title to the frame
 		//Create elements
-		buttonpanel=new JPanel();
 		JPanel labelpane=new JPanel();
 		center=new JPanel();
 		BoxLayout centering=new BoxLayout(center,BoxLayout.Y_AXIS);
@@ -66,6 +64,7 @@ public class RegistrationForm extends JPanel implements ActionListener{
 		GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
 		GroupLayout.ParallelGroup labels=inputs.createParallelGroup(); //One for Labels
 		GroupLayout.ParallelGroup fields=inputs.createParallelGroup(); //Other for values/fields
+		GroupLayout.ParallelGroup buttongroup = inputs.createParallelGroup();
 		labels.addComponent(IsbnLabel);
 		labels.addComponent(NameLabel);
 		labels.addComponent(AuthorLabel);
@@ -76,6 +75,7 @@ public class RegistrationForm extends JPanel implements ActionListener{
 		fields.addComponent(AuthorVal);
 		fields.addComponent(pricefield,GroupLayout.DEFAULT_SIZE,100,GroupLayout.PREFERRED_SIZE);
 		fields.addComponent(conditionField,GroupLayout.DEFAULT_SIZE,100,GroupLayout.PREFERRED_SIZE);
+		fields.addComponent(register);
 		hGroup.addGroup(labels);
 		hGroup.addGroup(fields);
 		//Then horizontal Group
@@ -87,6 +87,7 @@ public class RegistrationForm extends JPanel implements ActionListener{
 		GroupLayout.ParallelGroup AuthorGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup priceGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup conditionGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
+		GroupLayout.ParallelGroup buttonGroup=inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		IsbnGroup.addComponent(IsbnLabel);
 		IsbnGroup.addComponent(IsbnVal);
 		NameGroup.addComponent(NameLabel);
@@ -97,18 +98,16 @@ public class RegistrationForm extends JPanel implements ActionListener{
 		priceGroup.addComponent(pricefield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);		
 		conditionGroup.addComponent(conditionLabel);
 		conditionGroup.addComponent(conditionField,GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
+		buttonGroup.addComponent(register);
 		vGroup.addGroup(IsbnGroup);
 		vGroup.addGroup(NameGroup);
 		vGroup.addGroup(AuthorGroup);
 		vGroup.addGroup(priceGroup);
 		vGroup.addGroup(conditionGroup);
+		vGroup.addGroup(buttonGroup);
 		inputs.setVerticalGroup(vGroup);
-		
-		buttonpanel.setSize(50, 30);
-		buttonpanel.add(register);
 		center.add(labelpane);
 		frame.add(center);
-		frame.add(buttonpanel,BorderLayout.PAGE_END);
 		frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e){
@@ -117,10 +116,8 @@ public class RegistrationForm extends JPanel implements ActionListener{
 		Boolean updated=registerbook.update(inputprice,inputcondition);
 		Boolean registered = database.register(registerbook);
 		if(updated&&registered){
-			frame.remove(buttonpanel);
 			frame.remove(center);
-			(Search.panel).setVisible(true);
-			frame.setVisible(true);
+			View.search.searchDialog();
 			JOptionPane.showMessageDialog(frame, "Thank you! \n We have successfully registered your book");
 		}
 		else{
