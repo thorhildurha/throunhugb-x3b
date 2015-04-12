@@ -52,13 +52,19 @@ public class Search extends JFrame implements ActionListener
 	GroupLayout.ParallelGroup pan = panels.createParallelGroup();
 	
     GroupLayout.ParallelGroup buttonpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
+    GroupLayout.ParallelGroup logoutpan=panels.createParallelGroup(GroupLayout.Alignment.CENTER);
 
-	if(this.isloggedin()){ //If a user is loggedin then show mypages button
+	if(this.isloggedin()){ //If a user is loggedin then show mypages button and logout button
     	JButton mypages = new JButton("My Pages");
     	mypages.setActionCommand("mypages");
     	mypages.addActionListener(this);
     	pan.addComponent(mypages);
     	buttonpan.addComponent(mypages);
+    	JButton logout = new JButton("Logout");
+    	logout.setActionCommand("logout");
+    	logout.addActionListener(this);
+    	pan.addComponent(logout);
+    	logoutpan.addComponent(logout);
     }
     else{ //if he is not loggedin show login button
     	JButton login = new JButton("Login");
@@ -77,6 +83,7 @@ public class Search extends JFrame implements ActionListener
     searchpan.addComponent(searchpanel);
     resultpan.addComponent(results);
     vertGroup.addGroup(buttonpan);
+    vertGroup.addGroup(logoutpan);
     vertGroup.addGroup(searchpan);
     vertGroup.addGroup(resultpan);
     panels.setVerticalGroup(vertGroup);
@@ -285,6 +292,18 @@ public class Search extends JFrame implements ActionListener
 		  panel=null;
 		  MyPages mypage = new MyPages(user,frame,database);  
 		  mypage.mypagesForm();
+	  }
+	  if("logout".equals(command)){
+//		  user = null;
+//		  Search newsearch = new Search(null,database,frame);
+//		  newsearch.searchDialog();
+//		  frame.remove(scrollpane);
+//		  panel=null;
+//		  View.search.searchDialog();
+		  JOptionPane.showMessageDialog(frame, "Ég er frekar pirripú því þetta virkar ekki hjá mér :(",
+				    "Þórhildur sár",
+				    JOptionPane.ERROR_MESSAGE);
+		  
 	  }
 	  if(books!=null){
 		  for(int i=0; i<books.length; i++){
