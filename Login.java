@@ -22,21 +22,24 @@ public class Login extends JDialog implements ActionListener{
 	private JPanel newuserpanel;
 	private JTextField userText;
 	private JPasswordField passwordText;
+	private JTextField nameText;
+	private JTextField emailText;
+	private JTextField phoneText;
+	private JTextField locationText;
 	
 	public Login(Owner owner, Database data,JFrame frame){
 		this.newuser=owner;
 		this.database = data;
-		this.loginpanel = new JPanel();
-		this.newuserpanel=new JPanel();
 		this.dialog = new JDialog();	
 		this.frame=frame;
 		loginDialog();
-		NewUserForm();
 	}
+	
 //	Use: new Login().loginDialog();
 //	Before: nothing
 //	After: loginDialog has been created
 	public void loginDialog() {
+		loginpanel = new JPanel();
 		dialog.setSize(350,200);
 	    GroupLayout inputs = new GroupLayout(loginpanel);
 	    inputs.setAutoCreateGaps(true);
@@ -97,6 +100,7 @@ public class Login extends JDialog implements ActionListener{
 //	Before: nothing
 //	After: NewUserForm has been created
 	public void NewUserForm() {
+		this.newuserpanel=new JPanel();
 		dialog.setSize(350,450);
 		newuserpanel=new JPanel();
 		GroupLayout newinputs = new GroupLayout(newuserpanel);
@@ -110,37 +114,37 @@ public class Login extends JDialog implements ActionListener{
 	    JLabel nameLabel = new JLabel("Name *");
 	    newlabels.addComponent(nameLabel);
 	    
-	    JTextField nameText = new JTextField(20);
+	    nameText = new JTextField(20);
 	    newfields.addComponent(nameText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    JLabel emailLabel = new JLabel("Email *");
 	    newlabels.addComponent(emailLabel);
 	    
-	    JTextField emailText = new JTextField(20);
+	    emailText = new JTextField(20);
 	    newfields.addComponent(emailText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    JLabel locationLabel = new JLabel("Location");
 	    newlabels.addComponent(locationLabel);
 	    
-	    JTextField locationText = new JTextField(20);
+	    locationText = new JTextField(20);
 	    newfields.addComponent(locationText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    JLabel phoneLabel = new JLabel("Phone");
 	    newlabels.addComponent(phoneLabel);
 	    
-	    JTextField phoneText = new JTextField(20);
+	    phoneText = new JTextField(20);
 	    newfields.addComponent(phoneText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    JLabel usernameLabel = new JLabel("Username *");
 	    newlabels.addComponent(usernameLabel);
 	    
-	    JTextField userText = new JTextField(20);
+	    userText = new JTextField(20);
 	    newfields.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    JLabel passwordLabel = new JLabel("Password *");
 	    newlabels.addComponent(passwordLabel);
 	    
-	    JPasswordField passwordText = new JPasswordField(20);
+	    passwordText = new JPasswordField(20);
 	    newfields.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 		JButton submitButton = new JButton("submit");
@@ -193,39 +197,16 @@ public class Login extends JDialog implements ActionListener{
 	    
 
 
+		submitButton.setActionCommand("submituser");
 		
-		ActionListener submitButtonListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton source = (JButton) e.getSource();
-				if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
-					JOptionPane.showMessageDialog(source, "You have to fill out the required fields (*)");
-				} else {
-					newuser=new Owner();
-					newuser.setName(nameText.getText());
-					newuser.setLocation(locationText.getText());
-					newuser.setEmail(emailText.getText());
-					newuser.setPhone(phoneText.getText());
-					newuser.setUsername(userText.getText());
-					JOptionPane.showMessageDialog(source, "Welcome "+ nameText.getText() + " you have been registered");
-				
-//					TODO: Setja newuser inn í gagnagrunn
-					
-//					JOptionPane.showMessageDialog(source, newuser.getinfo());
-					dialog.remove(newuserpanel);
-					loginDialog();
-				}
-			}
-		};
-		
-		submitButton.addActionListener(submitButtonListener);
+		submitButton.addActionListener(this);
 		
 		ActionListener cancelButtonListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loginDialog();
 				newuserpanel.setVisible(false);
 				dialog.remove(newuserpanel);
-				dialog.add(loginpanel);
 				dialog.setVisible(true);
 			}
 		};
@@ -245,14 +226,36 @@ public class Login extends JDialog implements ActionListener{
 			dialog.dispose();
 			} 
 		else {
-			JOptionPane.showMessageDialog(source, "Invalid username or password");	
+			JOptionPane.showMessageDialog(dialog, "Invalid username or password");	
 			}
 		}
-		if("newuser".equals(command)){
-			dialog.remove(loginpanel);
+		else if("newuser".equals(command)){
+			NewUserForm();
+			loginpanel.setVisible(false);
 			dialog.add(newuserpanel);
 			newuserpanel.setVisible(true);
 			dialog.setVisible(true);
+		}
+		
+		else if("submituser".equals(command)){
+			if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
+				JOptionPane.showMessageDialog(dialog,"You have to fill out the required fields (*)");
+			} 
+			else {
+				newuser=new Owner();
+				newuser.setName(nameText.getText());
+				newuser.setLocation(locationText.getText());
+				newuser.setEmail(emailText.getText());
+				newuser.setPhone(phoneText.getText());
+				newuser.setUsername(userText.getText());
+				JOptionPane.showMessageDialog(dialog, "Welcome "+ nameText.getText() + " you have been registered");
+			
+//				TODO: Setja newuser inn í gagnagrunn
+				
+//				JOptionPane.showMessageDialog(source, newuser.getinfo());
+				dialog.remove(newuserpanel);
+				loginDialog();
+			}
 		}
 		
 	}

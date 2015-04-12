@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,23 +15,30 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
 import java.awt.Container;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.GroupLayout;
+
 //This class draws a UI interface for a registration form
+
 public class RegistrationForm extends JPanel implements ActionListener{
 	private Database database;
 	private Book registerbook; //The book to register
 	private JFrame frame; //The frame for the program 
-	private JPanel center;
-	private JTextField pricefield;
+	private JPanel center; //The panel for the registration form
+	private JTextField pricefield; 
 	private JComboBox conditionField;
+	private NumberFormat priceFormat;
 	
 	
 	public RegistrationForm(Book x, JFrame frame, Database data){
 		this.registerbook=x;
 		this.frame=frame;
 		this.database=data;
+		this.priceFormat = NumberFormat.getNumberInstance();
 
 	}
 	public void initUI(){
@@ -48,8 +56,8 @@ public class RegistrationForm extends JPanel implements ActionListener{
 		JLabel IsbnLabel=new JLabel("ISBN: ");
 		JLabel IsbnVal=new JLabel(this.registerbook.getIsbn());
 		JLabel price=new JLabel("Price:");
-		JLabel conditionLabel = new JLabel("Condition:");
-		pricefield=new JTextField();
+		JLabel conditionLabel = new JLabel("Condition:");	
+		pricefield = new JTextField();
 		String[] conditions={"like new","very good","good","fair","bad","very bad"};
 		conditionField=new JComboBox(conditions);
 		JButton register=new JButton("Register");
@@ -113,8 +121,8 @@ public class RegistrationForm extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		String inputprice=pricefield.getText();
 		String inputcondition=conditionField.getSelectedItem().toString();
-		Boolean updated=registerbook.update(inputprice,inputcondition);
-		Boolean registered = database.register(registerbook);
+		Boolean updated=registerbook.update(inputprice,inputcondition); //Update the book for registration
+		Boolean registered = database.register(registerbook); //register the book
 		if(updated&&registered){
 			frame.remove(center);
 			View.search.searchDialog();
