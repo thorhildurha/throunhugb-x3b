@@ -36,6 +36,7 @@ public class MyPages extends JPanel implements ActionListener{
 		panel.setLayout(paneling);
 		
 		JButton back=new JButton("Back to Search");
+		back.addActionListener(this);
 		
 		JLabel nameLabel = new JLabel("Name :");
 		JLabel nameVal = new JLabel(user.getName());
@@ -51,9 +52,6 @@ public class MyPages extends JPanel implements ActionListener{
 		
 		JLabel usernameLabel = new JLabel("Username :");
 		JLabel userVal = new JLabel(user.getUsername());
-		
-		JButton updateOwnerButton = new JButton("Update Owner");
-		updateOwnerButton.addActionListener(this);
 		
 		GroupLayout inputs=new GroupLayout(labelpanel);
 		labelpanel.setLayout(inputs);
@@ -73,7 +71,6 @@ public class MyPages extends JPanel implements ActionListener{
 		fields.addComponent(locationVal);
 		fields.addComponent(phoneVal);
 		fields.addComponent(userVal);
-		fields.addComponent(updateOwnerButton);
 		
 		hGroup.addGroup(labels);
 		hGroup.addGroup(fields);
@@ -86,7 +83,6 @@ public class MyPages extends JPanel implements ActionListener{
 		GroupLayout.ParallelGroup locationGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup phoneGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup usernameGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
-		GroupLayout.ParallelGroup buttonGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		
 		nameGroup.addComponent(nameLabel);
 		nameGroup.addComponent(nameVal);
@@ -98,13 +94,11 @@ public class MyPages extends JPanel implements ActionListener{
 		phoneGroup.addComponent(phoneVal);
 		usernameGroup.addComponent(usernameLabel);
 		usernameGroup.addComponent(userVal);
-		buttonGroup.addComponent(updateOwnerButton);
 		vGroup.addGroup(nameGroup);
 		vGroup.addGroup(emailGroup);
 		vGroup.addGroup(locationGroup);
 		vGroup.addGroup(phoneGroup);
 		vGroup.addGroup(usernameGroup);
-		vGroup.addGroup(buttonGroup);
 		inputs.setVerticalGroup(vGroup);
 		
 		GroupLayout bookslayout =new GroupLayout(bookspanel);
@@ -155,9 +149,9 @@ public class MyPages extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		JButton source = (JButton) e.getSource();
 		String command = source.getActionCommand();
-		if(source.getText().equals("Update Owner")){
-		  JOptionPane.showMessageDialog(source, "Viljum við leyfa þetta?");  
-		  }
+//		if(source.getText().equals("Update Owner")){
+//		  JOptionPane.showMessageDialog(source, "Viljum við leyfa þetta?");  
+//		  }
 		if(books!=null){
 			  for(int i=0; i<books.length; i++){
 				  if(("update"+i).equals(command))
@@ -172,6 +166,11 @@ public class MyPages extends JPanel implements ActionListener{
 				  }
 				}  
 			 }
+		if(source.getText().equals("Back to Search")){
+			frame.remove(panel);
+			View.search.searchDialog();
+
+		}
 	}
 	
 
