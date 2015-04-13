@@ -201,17 +201,8 @@ public class Login extends JDialog implements ActionListener{
 		
 		submitButton.addActionListener(this);
 		
-		ActionListener cancelButtonListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loginDialog();
-				newuserpanel.setVisible(false);
-				dialog.remove(newuserpanel);
-				dialog.setVisible(true);
-			}
-		};
-		
-		cancelButton.addActionListener(cancelButtonListener);
+		cancelButton.setActionCommand("cancel");
+		cancelButton.addActionListener(this);
 	}
 	
 	
@@ -256,6 +247,12 @@ public class Login extends JDialog implements ActionListener{
 				dialog.remove(newuserpanel);
 				loginDialog();
 			}
+		}
+		else if("cancel".equals(command)){
+			loginDialog();
+			newuserpanel.setVisible(false);
+			dialog.remove(newuserpanel);
+			dialog.setVisible(true);
 		}
 		
 	}
