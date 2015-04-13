@@ -32,6 +32,8 @@ public class Login extends JDialog implements ActionListener{
 		this.database = data;
 		this.dialog = new JDialog();	
 		this.frame=frame;
+		this.loginpanel=new JPanel();
+		this.newuserpanel=new JPanel();
 		loginDialog();
 	}
 	
@@ -90,17 +92,17 @@ public class Login extends JDialog implements ActionListener{
 	    vGroup.addGroup(PasswordGroup);
 
 	    inputs.setVerticalGroup(vGroup);
-		
-		dialog.add(loginpanel);
+	    
+	    dialog.add(loginpanel);
 		dialog.setVisible(true);
-		
+				
 	}
 	
 //	Use: new Login().NewUserForm();
 //	Before: nothing
 //	After: NewUserForm has been created
 	public void NewUserForm() {
-		this.newuserpanel=new JPanel();
+		newuserpanel=new JPanel();
 		dialog.setSize(350,450);
 		newuserpanel=new JPanel();
 		GroupLayout newinputs = new GroupLayout(newuserpanel);
@@ -195,14 +197,16 @@ public class Login extends JDialog implements ActionListener{
 
 	    newinputs.setVerticalGroup(newvGroup);
 	    
-
-
 		submitButton.setActionCommand("submituser");
 		
 		submitButton.addActionListener(this);
 		
 		cancelButton.setActionCommand("cancel");
 		cancelButton.addActionListener(this);
+		
+		dialog.add(newuserpanel);
+		dialog.setVisible(true);
+		
 	}
 	
 	
@@ -221,11 +225,9 @@ public class Login extends JDialog implements ActionListener{
 			}
 		}
 		else if("newuser".equals(command)){
-			NewUserForm();
 			loginpanel.setVisible(false);
-			dialog.add(newuserpanel);
-			newuserpanel.setVisible(true);
-			dialog.setVisible(true);
+			dialog.remove(loginpanel);
+			NewUserForm();
 		}
 		
 		else if("submituser".equals(command)){
@@ -244,15 +246,15 @@ public class Login extends JDialog implements ActionListener{
 //				TODO: Setja newuser inn í gagnagrunn
 				
 //				JOptionPane.showMessageDialog(source, newuser.getinfo());
+				newuserpanel.setVisible(false);
 				dialog.remove(newuserpanel);
 				loginDialog();
 			}
 		}
 		else if("cancel".equals(command)){
-			loginDialog();
 			newuserpanel.setVisible(false);
 			dialog.remove(newuserpanel);
-			dialog.setVisible(true);
+			loginDialog();
 		}
 		
 	}
