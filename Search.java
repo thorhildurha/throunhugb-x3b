@@ -187,10 +187,8 @@ public class Search extends JFrame implements ActionListener
     frame.add(scrollpane);
     frame.setVisible(true);
   }
-  //Use: showbooks();
-  //Before: Nothing
-  //After: The information in Search.books[] has been displayed on the JPanel
-  public void showbooks(Boolean register){
+  
+  public void shownewbooks(){
 	  results.removeAll(); //remove previous results
 	  GroupLayout result =new GroupLayout(results);
 	  results.setLayout(result);
@@ -203,13 +201,80 @@ public class Search extends JFrame implements ActionListener
 	  GroupLayout.ParallelGroup registerbutton = result.createParallelGroup();
 	  
 	  GroupLayout.SequentialGroup vGroup = result.createSequentialGroup();
+	  GroupLayout.ParallelGroup resultGroupTitle[]= new GroupLayout.ParallelGroup[newbooks.size()];
+	  GroupLayout.ParallelGroup resultGroupAuthor[]=new GroupLayout.ParallelGroup[newbooks.size()];
+	  GroupLayout.ParallelGroup resultGroupPrice[]=new GroupLayout.ParallelGroup[newbooks.size()];
+	  JLabel BookNameLabel[]=new JLabel[newbooks.size()];
+	  JLabel BookAuthorLabel[]=new JLabel[newbooks.size()];
+	  JLabel BookPriceLabel[]=new JLabel[newbooks.size()];
+	  JButton RegisterButton[]=new JButton[newbooks.size()];
+
+	  String isbn="";
+	  for(int i = 0; i<newbooks.size(); i++){
+		  resultGroupTitle[i]=result.createParallelGroup();
+		  resultGroupAuthor[i]=result.createParallelGroup();
+		  resultGroupPrice[i]=result.createParallelGroup();
+		  resultGroupPrice[i].addGap(50);
+
+		  
+		  JLabel TitleLabel= new JLabel("Title:");
+		  JLabel AuthorLabel = new JLabel("Author:");
+		  JLabel PriceLabel= new JLabel("Price:");
+		  BookNameLabel[i] = new JLabel(newbooks.get(i).getName());
+		  BookAuthorLabel[i] = new JLabel(newbooks.get(i).getAuthor());
+		  BookPriceLabel[i] = new JLabel(newbooks.get(i).getPrice());
+		  labels.addComponent(TitleLabel);
+		  labels.addComponent(AuthorLabel);
+		  labels.addComponent(PriceLabel);
+		  values.addComponent(BookNameLabel[i]);
+		  values.addComponent(BookAuthorLabel[i]);
+		  values.addComponent(BookPriceLabel[i]);
+		  
+		  resultGroupTitle[i].addComponent(TitleLabel);
+		  resultGroupTitle[i].addComponent(BookNameLabel[i]);
+		  resultGroupAuthor[i].addComponent(AuthorLabel);
+		  resultGroupAuthor[i].addComponent(BookAuthorLabel[i]);
+		  RegisterButton[i] = new JButton("register");
+		  RegisterButton[i].setActionCommand("register"+i);
+		  RegisterButton[i].addActionListener(this);
+		  registerbutton.addComponent(RegisterButton[i]);
+		  resultGroupAuthor[i].addComponent(RegisterButton[i]);
+		  resultGroupPrice[i].addComponent(PriceLabel);
+		  resultGroupPrice[i].addComponent(BookPriceLabel[i]);
+		  vGroup.addGroup(resultGroupTitle[i]);
+		  vGroup.addGroup(resultGroupAuthor[i]);
+		  vGroup.addGroup(resultGroupPrice[i]);
+	  }
+	  hGroup.addGroup(labels);
+	  hGroup.addGroup(values);
+	  hGroup.addGroup(registerbutton);
+	  result.setHorizontalGroup(hGroup);
+	  result.setVerticalGroup(vGroup);
+	  panel.revalidate(); //let the scroll pane know that changes have been made
+	  frame.setVisible(true);
+	  
+  }
+  //Use: showbooks();
+  //Before: Nothing
+  //After: The information in Search.books[] has been displayed on the JPanel
+  public void showbooks(){
+	  results.removeAll(); //remove previous results
+	  GroupLayout result =new GroupLayout(results);
+	  results.setLayout(result);
+	  result.setAutoCreateGaps(true);
+	  result.setAutoCreateContainerGaps(true);
+	  
+	  GroupLayout.SequentialGroup hGroup = result.createSequentialGroup();
+	  GroupLayout.ParallelGroup labels=result.createParallelGroup(); //One for Labels
+	  GroupLayout.ParallelGroup values=result.createParallelGroup(); //One for Labels
+	  
+	  GroupLayout.SequentialGroup vGroup = result.createSequentialGroup();
 	  GroupLayout.ParallelGroup resultGroupTitle[]= new GroupLayout.ParallelGroup[usedbooks.size()];
 	  GroupLayout.ParallelGroup resultGroupAuthor[]=new GroupLayout.ParallelGroup[usedbooks.size()];
 	  GroupLayout.ParallelGroup resultGroupPrice[]=new GroupLayout.ParallelGroup[usedbooks.size()];
 	  JLabel BookNameLabel[]=new JLabel[usedbooks.size()];
 	  JLabel BookAuthorLabel[]=new JLabel[usedbooks.size()];
 	  JLabel BookPriceLabel[]=new JLabel[usedbooks.size()];
-	  JButton RegisterButton[]=new JButton[usedbooks.size()];
 
 	  String isbn="";
 	  for(int i = 0; i<usedbooks.size(); i++){
@@ -236,13 +301,6 @@ public class Search extends JFrame implements ActionListener
 		  resultGroupTitle[i].addComponent(BookNameLabel[i]);
 		  resultGroupAuthor[i].addComponent(AuthorLabel);
 		  resultGroupAuthor[i].addComponent(BookAuthorLabel[i]);
-		  if(register){
-			  RegisterButton[i] = new JButton("register");
-			  RegisterButton[i].setActionCommand("register"+i);
-			  RegisterButton[i].addActionListener(this);
-			  registerbutton.addComponent(RegisterButton[i]);
-			  resultGroupAuthor[i].addComponent(RegisterButton[i]);
-		  }
 		  resultGroupPrice[i].addComponent(PriceLabel);
 		  resultGroupPrice[i].addComponent(BookPriceLabel[i]);
 		  vGroup.addGroup(resultGroupTitle[i]);
@@ -251,7 +309,6 @@ public class Search extends JFrame implements ActionListener
 	  }
 	  hGroup.addGroup(labels);
 	  hGroup.addGroup(values);
-	  hGroup.addGroup(registerbutton);
 	  result.setHorizontalGroup(hGroup);
 	  result.setVerticalGroup(vGroup);
 	  panel.revalidate(); //let the scroll pane know that changes have been made
@@ -288,10 +345,11 @@ public class Search extends JFrame implements ActionListener
 	  }
 	  else{
 		  Book searchfor = new Book(Title, Author, isbn);
-		  if(register){
+		  newbooks=database.search(searchfor);
+		  if(!register){
 			  usedbooks=database.search(searchfor);
 		  }
-		  if(usedbooks.size()==0){
+		  if(usedbooks.size()==0 && newbooks.size()==0){
 			  JOptionPane.showMessageDialog(frame,
 					  "No search results!",
 					  "No results",
@@ -306,7 +364,21 @@ public class Search extends JFrame implements ActionListener
 			            return  book1.getPrice().compareTo(book2.getPrice());
 			        }
 			    });
-			  showbooks(register);
+			  Collections.sort(newbooks, new Comparator<Book>() {
+			        @Override
+			        public int compare(Book  book1, Book  book2)
+			        {
+
+			            return  book1.getPrice().compareTo(book2.getPrice());
+			        }
+			    });
+			  if(register){
+				  shownewbooks();
+			  }
+			  else{
+				  showbooks();
+			  }
+
 		  }
 	  }
   }
