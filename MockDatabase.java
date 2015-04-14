@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 public class MockDatabase implements Database {
 
@@ -9,7 +11,7 @@ public class MockDatabase implements Database {
 	public Boolean update(Book x){
 		return true;
 	}
-	public Book[] search(Book searchforbook){
+	public ArrayList<Book> search(Book searchforbook){
 		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
 		Book kukur = new Book("Litli kúkurinn","Þórhildur Hafsteinsdóttir","02025");
 		Book bleikur= new Book("Bleiki fíllinn", "Jón Jónsson","02026");
@@ -18,8 +20,12 @@ public class MockDatabase implements Database {
 		gula.setPrice("3000");
 		kukur.setPrice("4000");
 		gamli.setPrice("2200");
-		Book[] somebooks = {gula,bleikur,kukur, gamli};
-		Book[] books={};
+		ArrayList<Book> somebooks=new ArrayList<Book>();
+		somebooks.add(bleikur);
+		somebooks.add(gamli);
+		somebooks.add(kukur);
+		somebooks.add(gula);
+		ArrayList<Book> books=new ArrayList<Book>();
 		return somebooks;
 	}
 	public Boolean isuser(String user, String password){
