@@ -100,8 +100,8 @@ public class Owner {
 		return this.isloggedin;
 	}
 	
-	public void setloggedin(){
-		this.isloggedin=true;
+	public void setloggedin(Boolean set){
+		this.isloggedin=set;
 	}
 
 }

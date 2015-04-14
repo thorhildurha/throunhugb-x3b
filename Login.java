@@ -270,7 +270,7 @@ public class Login extends JDialog implements ActionListener{
 		
 		Boolean correctpw=database.isuser(username, password);
 		if(correctpw){
-			newuser.setloggedin();
+			newuser.setloggedin(true);
 			newuser.setUsername(username);
 			return true;	
 		}

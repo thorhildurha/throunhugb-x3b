@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ScrollPaneConstants;
-
 public class Search extends JFrame implements ActionListener
 {
 
@@ -266,6 +265,7 @@ public class Search extends JFrame implements ActionListener
 	  }
 	  else{
 		  Book searchfor = new Book(Title, Author, isbn);
+		  DatabaseBookTable.get().getBook(TitleText);
 		  books=database.search(searchfor);
 		  if(books.length==0){
 			  JOptionPane.showMessageDialog(frame,
@@ -278,6 +278,8 @@ public class Search extends JFrame implements ActionListener
 		  }
 	  }
   }
+  
+  //Action Listener actionPerformed
   public void actionPerformed(ActionEvent e){
 	  JButton source = (JButton) e.getSource();
 	  String command=source.getActionCommand();
@@ -294,16 +296,14 @@ public class Search extends JFrame implements ActionListener
 		  mypage.mypagesForm();
 	  }
 	  if("logout".equals(command)){
-//		  user = null;
 //		  Search newsearch = new Search(null,database,frame);
 //		  newsearch.searchDialog();
 //		  frame.remove(scrollpane);
 //		  panel=null;
 //		  View.search.searchDialog();
-		  JOptionPane.showMessageDialog(frame, "Ég er frekar pirripú því þetta virkar ekki hjá mér :(",
-				    "Þórhildur sár",
-				    JOptionPane.ERROR_MESSAGE);
-		  
+		  user.setloggedin(false);
+		  frame.remove(scrollpane);
+		  searchDialog();		  
 	  }
 	  if(books!=null){
 		  for(int i=0; i<books.length; i++){
