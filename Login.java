@@ -22,6 +22,8 @@ public class Login extends JDialog implements ActionListener{
 	private JPanel newuserpanel;
 	private JTextField userText;
 	private JPasswordField passwordText;
+	private JTextField usernameText;
+	private JPasswordField newpasswordText;
 	private JTextField nameText;
 	private JTextField emailText;
 	private JTextField phoneText;
@@ -34,6 +36,7 @@ public class Login extends JDialog implements ActionListener{
 		this.frame=frame;
 		this.loginpanel=new JPanel();
 		this.newuserpanel=new JPanel();
+		dialog.add(loginpanel);
 		loginDialog();
 	}
 	
@@ -41,7 +44,6 @@ public class Login extends JDialog implements ActionListener{
 //	Before: nothing
 //	After: loginDialog has been created
 	public void loginDialog() {
-		loginpanel = new JPanel();
 		dialog.setSize(350,200);
 	    GroupLayout inputs = new GroupLayout(loginpanel);
 	    inputs.setAutoCreateGaps(true);
@@ -93,8 +95,8 @@ public class Login extends JDialog implements ActionListener{
 
 	    inputs.setVerticalGroup(vGroup);
 	    
-	    dialog.add(loginpanel);
-		dialog.setVisible(true);
+	    loginpanel.setVisible(true);
+	    dialog.setVisible(true);
 				
 	}
 	
@@ -102,7 +104,6 @@ public class Login extends JDialog implements ActionListener{
 //	Before: nothing
 //	After: NewUserForm has been created
 	public void NewUserForm() {
-		newuserpanel=new JPanel();
 		dialog.setSize(350,450);
 		newuserpanel=new JPanel();
 		GroupLayout newinputs = new GroupLayout(newuserpanel);
@@ -140,14 +141,14 @@ public class Login extends JDialog implements ActionListener{
 	    JLabel usernameLabel = new JLabel("Username *");
 	    newlabels.addComponent(usernameLabel);
 	    
-	    userText = new JTextField(20);
-	    newfields.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    usernameText = new JTextField(20);
+	    newfields.addComponent(usernameText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    JLabel passwordLabel = new JLabel("Password *");
 	    newlabels.addComponent(passwordLabel);
 	    
-	    passwordText = new JPasswordField(20);
-	    newfields.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    newpasswordText = new JPasswordField(20);
+	    newfields.addComponent(newpasswordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 		JButton submitButton = new JButton("submit");
 		submitButton.setBounds(225, 200, 80, 25);
@@ -184,9 +185,9 @@ public class Login extends JDialog implements ActionListener{
 	    PhoneGroup.addComponent(phoneLabel);
 	    PhoneGroup.addComponent(phoneText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    UsernameGroup.addComponent(usernameLabel);
-	    UsernameGroup.addComponent(userText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    UsernameGroup.addComponent(usernameText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    PasswordGroup.addComponent(passwordLabel);
-	    PasswordGroup.addComponent(passwordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+	    PasswordGroup.addComponent(newpasswordText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
 	    
 	    newvGroup.addGroup(NameGroup);
 	    newvGroup.addGroup(EmailGroup);
@@ -210,11 +211,11 @@ public class Login extends JDialog implements ActionListener{
 	}
 	
 	
-	public void actionPerformed(ActionEvent e){
+public void actionPerformed(ActionEvent e){
 		JButton source = (JButton) e.getSource();
 		String command = source.getActionCommand();
 		if("login".equals(command)){
-			if (authenticate(userText.getText(), passwordText.getPassword().toString())) {
+			if (authenticate(userText.getText(),passwordText.getPassword())) {
 			JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
 			frame.remove(View.search.scrollpane);
 			View.search.searchDialog();
@@ -226,12 +227,11 @@ public class Login extends JDialog implements ActionListener{
 		}
 		else if("newuser".equals(command)){
 			loginpanel.setVisible(false);
-			dialog.remove(loginpanel);
 			NewUserForm();
 		}
 		
 		else if("submituser".equals(command)){
-			if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||userText.getText().trim().isEmpty() || passwordText.getPassword().length == 0 ) {
+			if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||usernameText.getText().trim().isEmpty() || newpasswordText.getPassword().length == 0 ) {
 				JOptionPane.showMessageDialog(dialog,"You have to fill out the required fields (*)");
 			} 
 			else {
@@ -240,7 +240,7 @@ public class Login extends JDialog implements ActionListener{
 				newuser.setLocation(locationText.getText());
 				newuser.setEmail(emailText.getText());
 				newuser.setPhone(phoneText.getText());
-				newuser.setUsername(userText.getText());
+				newuser.setUsername(usernameText.getText());
 				JOptionPane.showMessageDialog(dialog, "Welcome "+ nameText.getText() + " you have been registered");
 			
 //				TODO: Setja newuser inn í gagnagrunn
@@ -248,13 +248,13 @@ public class Login extends JDialog implements ActionListener{
 //				JOptionPane.showMessageDialog(source, newuser.getinfo());
 				newuserpanel.setVisible(false);
 				dialog.remove(newuserpanel);
-				loginDialog();
+				loginpanel.setVisible(true);
 			}
 		}
 		else if("cancel".equals(command)){
 			newuserpanel.setVisible(false);
 			dialog.remove(newuserpanel);
-			loginDialog();
+			loginpanel.setVisible(true);
 		}
 		
 	}
@@ -262,7 +262,7 @@ public class Login extends JDialog implements ActionListener{
 //	Use: a.authenticate(x,y);
 //	Before: a is a class, x is a string, y is a char[]
 //	After: Check if x is the correct username and y is the correct password
-	private boolean authenticate(String username, String password) {
+	private boolean authenticate(String username, char[] password) {
 //		TODO: Tjékkum hvort username og lykilorð passi við eitthvað í gagnagrunninum, 
 //			  þá true annars false
 		
@@ -272,6 +272,9 @@ public class Login extends JDialog implements ActionListener{
 		if(correctpw){
 			newuser.setloggedin(true);
 			newuser.setUsername(username);
+			newuser.setName("Guðrún Erla Ólafsdóttir");
+			newuser.setEmail("gudrunerlao@gmail.com");
+			newuser.setPhone("");
 			return true;	
 		}
 		else{

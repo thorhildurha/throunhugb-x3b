@@ -32,8 +32,24 @@ public class MyPages extends JPanel implements ActionListener{
 		JPanel labelpanel = new JPanel();
 		JPanel bookspanel = new JPanel();
 		panel=new JPanel();
-		BoxLayout paneling = new BoxLayout(panel,BoxLayout.Y_AXIS);
-		panel.setLayout(paneling);
+		GroupLayout pan=new GroupLayout(panel);
+		panel.setLayout(pan);
+		GroupLayout.SequentialGroup horiGroup = pan.createSequentialGroup();
+		GroupLayout.ParallelGroup panels=pan.createParallelGroup();		panels.addComponent(labelpanel);
+		panels.addComponent(bookspanel);
+		horiGroup.addGroup(panels);
+		GroupLayout.SequentialGroup vertGroup = pan.createSequentialGroup();
+		GroupLayout.ParallelGroup labelGroup=pan.createParallelGroup();
+		labelGroup.addGap(150);
+		GroupLayout.ParallelGroup bookGroup=pan.createParallelGroup();
+		bookGroup.addGap(150);
+		labelGroup.addComponent(labelpanel);
+		bookGroup.addComponent(bookspanel);
+		vertGroup.addGroup(labelGroup);
+		vertGroup.addGroup(bookGroup);
+		
+		pan.setHorizontalGroup(horiGroup);
+		pan.setVerticalGroup(vertGroup);
 		
 		JButton back=new JButton("Back to Search");
 		back.addActionListener(this);
@@ -44,8 +60,6 @@ public class MyPages extends JPanel implements ActionListener{
 		JLabel emailLabel = new JLabel("Email :");
 		JLabel emailVal = new JLabel(user.getEmail());
 		
-		JLabel locationLabel = new JLabel("Location :");
-		JLabel locationVal = new JLabel(user.getLocation());
 		
 		JLabel phoneLabel = new JLabel("Phone :");
 		JLabel phoneVal = new JLabel(user.getPhone());
@@ -56,19 +70,19 @@ public class MyPages extends JPanel implements ActionListener{
 		GroupLayout inputs=new GroupLayout(labelpanel);
 		labelpanel.setLayout(inputs);
 		inputs.setAutoCreateGaps(true);
+		inputs.setAutoCreateContainerGaps(true);
 		//First Sequential Group
 		GroupLayout.SequentialGroup hGroup = inputs.createSequentialGroup();
 		GroupLayout.ParallelGroup labels = inputs.createParallelGroup(); //One for Labels
 		GroupLayout.ParallelGroup fields = inputs.createParallelGroup(); //Other for values/fields
-		
+		labels.addGap(75);
+		fields.addGap(75);
 		labels.addComponent(nameLabel);
 		labels.addComponent(emailLabel);
-		labels.addComponent(locationLabel);
 		labels.addComponent(phoneLabel);
 		labels.addComponent(usernameLabel);
 		fields.addComponent(nameVal);
 		fields.addComponent(emailVal);
-		fields.addComponent(locationVal);
 		fields.addComponent(phoneVal);
 		fields.addComponent(userVal);
 		
@@ -83,13 +97,10 @@ public class MyPages extends JPanel implements ActionListener{
 		GroupLayout.ParallelGroup locationGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup phoneGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
 		GroupLayout.ParallelGroup usernameGroup = inputs.createParallelGroup(GroupLayout.Alignment.CENTER);
-		
 		nameGroup.addComponent(nameLabel);
 		nameGroup.addComponent(nameVal);
 		emailGroup.addComponent(emailLabel);
 		emailGroup.addComponent(emailVal);
-		locationGroup.addComponent(locationLabel);
-		locationGroup.addComponent(locationVal);
 		phoneGroup.addComponent(phoneLabel);
 		phoneGroup.addComponent(phoneVal);
 		usernameGroup.addComponent(usernameLabel);
@@ -110,6 +121,8 @@ public class MyPages extends JPanel implements ActionListener{
 		GroupLayout.ParallelGroup labelstwo = bookslayout.createParallelGroup(); //One for Labels
 		GroupLayout.ParallelGroup valuestwo = bookslayout.createParallelGroup(); //One for Labels
 		GroupLayout.ParallelGroup updatebutton = bookslayout.createParallelGroup();
+		valuestwo.addGap(100);
+		updatebutton.addGap(100);
 		GroupLayout.SequentialGroup vGrouptwo = bookslayout.createSequentialGroup();
 		GroupLayout.ParallelGroup booksGroupTitle[]= new GroupLayout.ParallelGroup[books.length];
 		JLabel BookNameLabel[]=new JLabel[books.length];
@@ -133,6 +146,7 @@ public class MyPages extends JPanel implements ActionListener{
 			}
 		GroupLayout.ParallelGroup backGroup=bookslayout.createParallelGroup(GroupLayout.Alignment.CENTER);
 		backGroup.addComponent(back);
+		backGroup.addGap(100);
 		vGrouptwo.addGroup(backGroup);
 		valuestwo.addComponent(back);
 		hGrouptwo.addGroup(labelstwo);

@@ -7,13 +7,13 @@ public interface Database {
 	 * After: returns true if the database registration was successful, 
 	 * 		  false otherwise
 	 */
-	public Boolean register(Book x);
+	public boolean register(Book x);
 	
 	/* Before: Book x is a Book with the information we want to update
 	 * After: returns true if the database registration was successful,
 	 * 		  false otherwise
 	 */
-	public Boolean update(Book x);
+	public boolean update(Book x);
 	
 	/* Before: At least one of the strings, isbn, name, author, condtion is not 
 	 * 		   the empty string. These are the strings we want to search after.
@@ -25,7 +25,7 @@ public interface Database {
 	 * After: returns true if there is a user with the given password in database,
 	 * 		  false otherwise
 	 */
-	public Boolean isuser(String user, String password);
+	public boolean isuser(String user, char[] password);
 	
 	public Book[] searchByUser(Owner user);
 	

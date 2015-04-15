@@ -48,6 +48,7 @@ public class Search extends JFrame implements ActionListener
   //After: creates the JPanel for the Search Form and displays it
   public void searchDialog()
   {
+	frame.setTitle("Search");
 	panel=null; //First we clear the panel just in case
 	panel=new JPanel(); 
     JPanel searchpanel = new JPanel(); //The panel that shows the search conditions
@@ -117,10 +118,10 @@ public class Search extends JFrame implements ActionListener
     JLabel isbnLabel = new JLabel ("ISBN");
     labels.addComponent(isbnLabel);
     
-    JLabel categoryLabel= new JLabel ("Category");
+    JLabel categoryLabel= new JLabel ("Faculty");
     labels.addComponent(categoryLabel);
     
-    JLabel subcategoryLabel =new JLabel("Subcategory");
+    JLabel subcategoryLabel =new JLabel("Programme");
     labels.addComponent(subcategoryLabel);
         
     TitleText = new JTextField(20);
@@ -258,6 +259,7 @@ public class Search extends JFrame implements ActionListener
   //Before: Nothing
   //After: The information in Search.books[] has been displayed on the JPanel
   public void showbooks(){
+	  frame.setTitle("Search");
 	  results.removeAll(); //remove previous results
 	  GroupLayout result =new GroupLayout(results);
 	  results.setLayout(result);

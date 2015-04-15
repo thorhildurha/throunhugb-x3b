@@ -1,3 +1,4 @@
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,7 +20,7 @@ public class View {
 		View view = new View();
 	}
 	public void Setup(){
-		frame.setSize(600, 600);
+		frame.setSize(500, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    search = new Search(loggedin, database, frame);
 	    search.searchDialog();
