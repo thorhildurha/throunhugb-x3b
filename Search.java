@@ -8,6 +8,7 @@ import java.util.Comparator;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,7 +31,8 @@ public class Search extends JFrame implements ActionListener
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
-  private JTextField categoryText;
+//  private JTextField categoryText;
+  private JComboBox categoryText;
   private JTextField subcategoryText;
   private JCheckBox wanttoregister;
   
@@ -133,7 +135,9 @@ public class Search extends JFrame implements ActionListener
     isbnText = new JTextField(20);
     fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    categoryText = new JTextField(20);
+    String[] faculty = {" ","School of Education","School of Engineering and Natural Sciences", "School of Health Sciences", "School of Humanities","School of Social Sciences", "Interdisciplinary Studies"};
+    categoryText = new JComboBox(faculty);
+//    categoryText = new JTextField(20);
     fields.addComponent(categoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
     subcategoryText=new JTextField(20);
@@ -352,7 +356,7 @@ public class Search extends JFrame implements ActionListener
   //Use: b=isloggedin();
   //Before: nothing
   //After: returns true if there is someone logged in, false otherwise
-  public Boolean isloggedin(){
+  public boolean isloggedin(){
     if(user.isloggedin()){
       return true;
     }
