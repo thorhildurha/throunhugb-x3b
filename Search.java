@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -295,7 +296,7 @@ public class Search extends JFrame implements ActionListener
 		  resultGroupAuthor[i]=result.createParallelGroup();
 		  resultGroupPrice[i]=result.createParallelGroup();
 		  resultGroupCondition[i]=result.createParallelGroup();
-		  seller[i]=result.createParallelGroup();
+		  seller[i]=result.createParallelGroup(GroupLayout.Alignment.BASELINE);
 		  email[i]=result.createParallelGroup();
 		  email[i].addGap(50);
 
@@ -311,6 +312,7 @@ public class Search extends JFrame implements ActionListener
 		  BookPriceLabel[i] = new JLabel(usedbooks.get(i).getPrice());
 		  BookSellerLabel[i]=new JButton(usedbooks.get(i).getOwner().getName());
 		  BookSellerLabel[i].setBorderPainted(false);
+		  BookSellerLabel[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
 		  BookConditionLabel[i]=new JLabel(usedbooks.get(i).getCondition());
 		  labels.addComponent(TitleLabel);
 		  labels.addComponent(AuthorLabel);
@@ -366,7 +368,7 @@ public class Search extends JFrame implements ActionListener
 	  String Title = TitleText.getText();
 	  String Author=AuthorText.getText();
 	  String isbn =isbnText.getText();
-	  String category=categoryText.getText();
+	  String category=categoryText.getSelectedItem().toString();
 	  String subcategory=subcategoryText.getText();
 	  Boolean register= wanttoregister.isSelected();
 	  //if there are no fields filled out, there is nothing to look for
