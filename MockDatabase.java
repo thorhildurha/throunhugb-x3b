@@ -13,13 +13,30 @@ public class MockDatabase implements Database {
 		return true;
 	}
 	public ArrayList<Book> search(Book searchforbook){
+		Owner gudrun = new Owner();
+		gudrun.setName("Guðrún Erla");
+		gudrun.setEmail("gudrunerlao@gmail.com");
+		Owner eiiki=new Owner();
+		eiiki.setName("Eiríkur Ingi");
+		eiiki.setEmail("eiiki@gmail.com");
+		Owner toto=new Owner();
+		toto.setName("Þórhildur");
+		toto.setEmail("toto@gmail.com");
 		Book gula = new Book("Litla gula hænan","Andrés Pétursson","02024");
+		gula.setOwner(toto);
+		gula.setCondition("like new");
 		Book gula2 = new Book("Litla gula hænan","Andrés Pétursson","02024");
+		gula2.setOwner(gudrun);
+		gula2.setCondition("very good");
 		Book gula3 = new Book("Litla gula hænan","Andrés Pétursson","02024");
+		gula3.setOwner(eiiki);
+		gula3.setCondition("bad");
 
 		Book bleikur= new Book("Bleiki fíllinn", "Jón Jónsson","02026");
 		Book gamli = new Book("Hundraåringen", "Jonas Jonasson", "02030");
 		bleikur.setPrice("5000");
+		bleikur.setOwner(eiiki);
+		bleikur.setCondition("like new");
 		gula.setPrice("3000");
 		gula2.setPrice("2000");
 		gula3.setPrice("5000");

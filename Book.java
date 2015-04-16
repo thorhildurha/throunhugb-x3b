@@ -18,6 +18,12 @@ public class Book {
 		this.condition=condition;
 		return true;
 	}
+	public String getCondition(){
+		return this.condition;
+	}
+	public void setCondition(String cond){
+		this.condition=cond;
+	}
 	
 	public String getName(){
 		return this.Name;
