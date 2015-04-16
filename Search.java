@@ -3,10 +3,14 @@ import java.awt.Button;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Hashtable;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ScrollPaneConstants;
 
-public class Search extends JFrame implements ActionListener
+public class Search extends JFrame implements ActionListener, ItemListener
 {
 
   private Owner user;
@@ -35,8 +39,10 @@ public class Search extends JFrame implements ActionListener
   private JTextField isbnText;
 //  private JTextField categoryText;
   private JComboBox categoryText;
-  private JTextField subcategoryText;
+  private JComboBox subcategoryText;
+//  private JTextField subcategoryText;
   private JCheckBox wanttoregister;
+  private Hashtable<Object, Object> subItems = new Hashtable<Object, Object>();
   
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
@@ -137,14 +143,39 @@ public class Search extends JFrame implements ActionListener
     isbnText = new JTextField(20);
     fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    String[] faculty = {" ","School of Education","School of Engineering and Natural Sciences", "School of Health Sciences", "School of Humanities","School of Social Sciences", "Interdisciplinary Studies"};
+    String[] faculty = {"","School of Education","School of Engineering and Natural Sciences", "School of Health Sciences", "School of Humanities","School of Social Sciences", "Interdisciplinary Studies"};
     categoryText = new JComboBox(faculty);
 //    categoryText = new JTextField(20);
     fields.addComponent(categoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    categoryText.addActionListener(this);
+    categoryText.addItemListener(this);
     
-    subcategoryText=new JTextField(20);
+//    String[] programmes  = {"","fullt af dóti!"};
+    subcategoryText = new JComboBox();
+    subcategoryText.setPrototypeDisplayValue("XXXXXXXXXX");
+//    subcategoryText=new JTextField(20);
     fields.addComponent(subcategoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
+    subcategoryText.addActionListener(this);
+    subcategoryText.addItemListener(this);
+    
+    String[] subItems0 = {" ", "öll subcategory"};
+    subItems.put(faculty[0], subItems0);
+    String[] subItems1 = {"Select Color", "Red", "Blue", "Green"};
+    subItems.put(faculty[1], subItems1);
+    String[] subItems2 = {"Select Shape", "Circle", "Square", "Triangle"};
+    subItems.put(faculty[2], subItems2);
+    String[] subItems3 = {"Select Fruit", "Apple", "Orange", "Banana"};
+    subItems.put(faculty[3], subItems3);
+    String[] subItems4 = {"Select BLABLA4", "Apple", "Orange", "Banana"};
+    subItems.put(faculty[4], subItems4);
+    String[] subItems5 = {"Select BLABLA5", "Apple", "Orange", "Banana"};
+    subItems.put(faculty[5], subItems5);
+    String[] subItems6 = {"Select BLABLA6", "Apple", "Orange", "Banana"};
+    subItems.put(faculty[6], subItems6);
 
+    
+    
+    
     labels.addComponent(Iwanttoregister);
     fields.addComponent(wanttoregister);
     fields.addComponent(searchButton);
@@ -368,11 +399,15 @@ public class Search extends JFrame implements ActionListener
 	  String Title = TitleText.getText();
 	  String Author=AuthorText.getText();
 	  String isbn =isbnText.getText();
+
+//	  String category=categoryText.getText();
+//	  String subcategory=subcategoryText.getText();
+
 	  String category=categoryText.getSelectedItem().toString();
-	  String subcategory=subcategoryText.getText();
+
 	  Boolean register= wanttoregister.isSelected();
 	  //if there are no fields filled out, there is nothing to look for
-	  if(Title.isEmpty()&&Author.isEmpty()&&isbn.isEmpty()&&category.isEmpty()){
+	  if(Title.isEmpty()&&Author.isEmpty()&&isbn.isEmpty()){
 		  JOptionPane.showMessageDialog(frame,
 				    "Please type in search conditions!",
 				    "Missing search conditions",
@@ -417,7 +452,16 @@ public class Search extends JFrame implements ActionListener
 		  }
 	  }
   }
+  
   public void actionPerformed(ActionEvent e){
+	  String item = (String) categoryText.getSelectedItem();
+      Object o = subItems.get(item);
+      if (o == null) {
+          subcategoryText.setModel(new DefaultComboBoxModel());
+      } else {
+          subcategoryText.setModel(new DefaultComboBoxModel((String[]) o));
+      }
+	  
 	  JButton source = (JButton) e.getSource();
 	  String command=source.getActionCommand();
 	  if("search".equals(command)){
@@ -461,4 +505,9 @@ public class Search extends JFrame implements ActionListener
 		  }
 	  }
   }
+@Override
+public void itemStateChanged(ItemEvent arg0) {
+	// TODO Auto-generated method stub
+	
+}
 }

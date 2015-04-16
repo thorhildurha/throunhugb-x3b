@@ -1,4 +1,4 @@
-public class Book {
+	public class Book {
 	private String Name; //same as prototype, available search input
 	private String Author; //same as prototype, available search input
 	private String ISBN; //same as prototype, available search input
