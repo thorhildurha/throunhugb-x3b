@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -286,8 +287,7 @@ public class Search extends JFrame implements ActionListener
 	  JLabel BookAuthorLabel[]=new JLabel[usedbooks.size()];
 	  JLabel BookPriceLabel[]=new JLabel[usedbooks.size()];
 	  JLabel BookConditionLabel[] = new JLabel[usedbooks.size()];
-	  JLabel BookSellerLabel[]=new JLabel[usedbooks.size()];
-	  JLabel BookEmailLabel[]=new JLabel[usedbooks.size()];
+	  JButton[] BookSellerLabel=new JButton[usedbooks.size()];
 
 	  String isbn="";
 	  for(int i = 0; i<usedbooks.size(); i++){
@@ -304,27 +304,24 @@ public class Search extends JFrame implements ActionListener
 		  JLabel AuthorLabel = new JLabel("Author:");
 		  JLabel PriceLabel= new JLabel("Price:");
 		  JLabel SellerLabel=new JLabel("Owner:");
-		  JLabel EmailLabel = new JLabel("Email:");
 		  JLabel ConditionLabel = new JLabel("Condition:");
 		  
 		  BookNameLabel[i] = new JLabel(usedbooks.get(i).getName());
 		  BookAuthorLabel[i] = new JLabel(usedbooks.get(i).getAuthor());
 		  BookPriceLabel[i] = new JLabel(usedbooks.get(i).getPrice());
-		  BookSellerLabel[i]=new JLabel(usedbooks.get(i).getOwner().getName());
-		  BookEmailLabel[i] =new JLabel(usedbooks.get(i).getOwner().getEmail());
+		  BookSellerLabel[i]=new JButton(usedbooks.get(i).getOwner().getName());
+		  BookSellerLabel[i].setBorderPainted(false);
 		  BookConditionLabel[i]=new JLabel(usedbooks.get(i).getCondition());
 		  labels.addComponent(TitleLabel);
 		  labels.addComponent(AuthorLabel);
 		  labels.addComponent(PriceLabel);
 		  labels.addComponent(ConditionLabel);
 		  labels.addComponent(SellerLabel);
-		  labels.addComponent(EmailLabel);
 		  values.addComponent(BookNameLabel[i]);
 		  values.addComponent(BookAuthorLabel[i]);
 		  values.addComponent(BookPriceLabel[i]);
 		  values.addComponent(BookConditionLabel[i]);
 		  values.addComponent(BookSellerLabel[i]);
-		  values.addComponent(BookEmailLabel[i]);
 		  
 		  resultGroupTitle[i].addComponent(TitleLabel);
 		  resultGroupTitle[i].addComponent(BookNameLabel[i]);
@@ -336,8 +333,6 @@ public class Search extends JFrame implements ActionListener
 		  resultGroupCondition[i].addComponent(BookConditionLabel[i]);
 		  seller[i].addComponent(SellerLabel);
 		  seller[i].addComponent(BookSellerLabel[i]);
-		  email[i].addComponent(EmailLabel);
-		  email[i].addComponent(BookEmailLabel[i]);
 		  vGroup.addGroup(resultGroupTitle[i]);
 		  vGroup.addGroup(resultGroupAuthor[i]);
 		  vGroup.addGroup(resultGroupPrice[i]);
