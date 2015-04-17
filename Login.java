@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import database.client.UserAccountTable;
+//import database.client.UserAccountTable;
 
 public class Login extends JDialog implements ActionListener{
 	private Database database;

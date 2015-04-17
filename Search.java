@@ -36,17 +36,18 @@ public class Search extends JFrame implements ActionListener
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
-//  private JTextField categoryText;
+
   private JComboBox categoryText;
   private JComboBox subcategoryText;
-  private DefaultComboBoxModel everything;
-  private DefaultComboBoxModel education;
-  private DefaultComboBoxModel engineering;
-  private DefaultComboBoxModel health;
-  private DefaultComboBoxModel inter;
-  private DefaultComboBoxModel humanity;
-  private DefaultComboBoxModel social;
-//  private JTextField subcategoryText;
+  private ComboBoxModel[] models = new ComboBoxModel[7];
+//  private DefaultComboBoxModel everything;
+//  private DefaultComboBoxModel education;
+//  private DefaultComboBoxModel engineering;
+//  private DefaultComboBoxModel health;
+//  private DefaultComboBoxModel inter;
+//  private DefaultComboBoxModel humanity;
+//  private DefaultComboBoxModel social;
+
   private JCheckBox wanttoregister;
 
   
@@ -149,28 +150,35 @@ public class Search extends JFrame implements ActionListener
     isbnText = new JTextField(20);
     fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    String[] faculty = {"", "All faculties","Education","Engineering", "Health", "Humanity","Social", "Inter"};
+    String[] faculty = {"","Education","Engineering", "Health", "Humanity","Social", "Inter"};
     categoryText = new JComboBox(faculty);
 
     fields.addComponent(categoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     categoryText.addActionListener(this);
     subcategoryText = new JComboBox();
     fields.addComponent(subcategoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
-//    subcategoryText.addActionListener(this);
     
-    everything = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
-    education = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
-    engineering = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
-    health = new DefaultComboBoxModel(new String[]{"","health 1", "health 2", "health 3"});
-    humanity = new DefaultComboBoxModel(new String[]{"","humanity 1", "humanity 2", "humanity 3"});
-    inter = new DefaultComboBoxModel(new String[]{"","inter 1", "inter 2", " inter 3"});
-    social = new DefaultComboBoxModel(new String[]{"","social 1", "social 2", "social 3"});
+    models[0] = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
+    models[1] = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
+    models[2] = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
+    models[3] = new DefaultComboBoxModel(new String[]{"","health 1", "health 2", "health 3"});
+    models[4] = new DefaultComboBoxModel(new String[]{"","humanity 1", "humanity 2", "humanity 3"});
+    models[5] = new DefaultComboBoxModel(new String[]{"","inter 1", "inter 2", " inter 3"});
+    models[6] = new DefaultComboBoxModel(new String[]{"","social 1", "social 2", "social 3"});
+    
+    subcategoryText.setModel(models[0]);
+
 
     
+//    everything = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
+//    education = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
+//    engineering = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
+//    health = new DefaultComboBoxModel(new String[]{"","health 1", "health 2", "health 3"});
+//    humanity = new DefaultComboBoxModel(new String[]{"","humanity 1", "humanity 2", "humanity 3"});
+//    inter = new DefaultComboBoxModel(new String[]{"","inter 1", "inter 2", " inter 3"});
+//    social = new DefaultComboBoxModel(new String[]{"","social 1", "social 2", "social 3"});
 
-    
-    
-    
+
     labels.addComponent(Iwanttoregister);
     fields.addComponent(wanttoregister);
     fields.addComponent(searchButton);
@@ -449,27 +457,29 @@ public class Search extends JFrame implements ActionListener
   }
   
   public void actionPerformed(ActionEvent e){
-	  if ("All faculties".equals(categoryText.getSelectedItem())){
-			subcategoryText.setModel(everything);    
-	      }
-	  if ("Education".equals(categoryText.getSelectedItem())){
-		subcategoryText.setModel(education);    
-      }
-	  if ("Health".equals(categoryText.getSelectedItem())){
-			subcategoryText.setModel(health);    
-	      }
-	  if ("Engineering".equals(categoryText.getSelectedItem())){
-			subcategoryText.setModel(engineering);    
-	      }
-	  if ("Inter".equals(categoryText.getSelectedItem())){
-			subcategoryText.setModel(inter);    
-	      }
-	  if ("Humanity".equals(categoryText.getSelectedItem())){
-			subcategoryText.setModel(humanity);    
-	      }
-	  if ("Social".equals(categoryText.getSelectedItem())){
-			subcategoryText.setModel(social);    
-	      }
+	  int k = categoryText.getSelectedIndex();
+	  subcategoryText.setModel(models[k]);
+//	  if ("All faculties".equals(categoryText.getSelectedItem())){
+//			subcategoryText.setModel(everything);    
+//	      }
+//	  if ("Education".equals(categoryText.getSelectedItem())){
+//		subcategoryText.setModel(education);    
+//      }
+//	  if ("Health".equals(categoryText.getSelectedItem())){
+//			subcategoryText.setModel(health);    
+//	      }
+//	  if ("Engineering".equals(categoryText.getSelectedItem())){
+//			subcategoryText.setModel(engineering);    
+//	      }
+//	  if ("Inter".equals(categoryText.getSelectedItem())){
+//			subcategoryText.setModel(inter);    
+//	      }
+//	  if ("Humanity".equals(categoryText.getSelectedItem())){
+//			subcategoryText.setModel(humanity);    
+//	      }
+//	  if ("Social".equals(categoryText.getSelectedItem())){
+//			subcategoryText.setModel(social);    
+//	      }
 	  
 
 	  String command=e.getActionCommand();
