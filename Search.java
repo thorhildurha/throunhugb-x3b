@@ -158,19 +158,19 @@ public class Search extends JFrame implements ActionListener, ItemListener
     subcategoryText.addActionListener(this);
     subcategoryText.addItemListener(this);
     
-    String[] subItems0 = {" ", "öll subcategory"};
+    String[] subItems0 = {"", "öll subcategory"};
     subItems.put(faculty[0], subItems0);
-    String[] subItems1 = {"Select Color", "Red", "Blue", "Green"};
+    String[] subItems1 = {"", "education 1", "education 2", "education 3"};
     subItems.put(faculty[1], subItems1);
-    String[] subItems2 = {"Select Shape", "Circle", "Square", "Triangle"};
+    String[] subItems2 = {"", "engineering 1", "engineering 2", "engineering 3"};
     subItems.put(faculty[2], subItems2);
-    String[] subItems3 = {"Select Fruit", "Apple", "Orange", "Banana"};
+    String[] subItems3 = {"", "health 1", "health 2", "health 3"};
     subItems.put(faculty[3], subItems3);
-    String[] subItems4 = {"Select BLABLA4", "Apple", "Orange", "Banana"};
+    String[] subItems4 = {"", "humanity 1", "humanity 2", "humanity 3"};
     subItems.put(faculty[4], subItems4);
-    String[] subItems5 = {"Select BLABLA5", "Apple", "Orange", "Banana"};
+    String[] subItems5 = {"", "social 1", "social 2", "social 3"};
     subItems.put(faculty[5], subItems5);
-    String[] subItems6 = {"Select BLABLA6", "Apple", "Orange", "Banana"};
+    String[] subItems6 = {"", "inter 1", "inter 2", "inter 3"};
     subItems.put(faculty[6], subItems6);
 
     
