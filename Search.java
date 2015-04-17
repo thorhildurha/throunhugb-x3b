@@ -36,18 +36,9 @@ public class Search extends JFrame implements ActionListener
   private JTextField TitleText; //Needs to be accessible in all the class
   private JTextField AuthorText;
   private JTextField isbnText;
-
-  private JComboBox categoryText;
-  private JComboBox subcategoryText;
-  private ComboBoxModel[] models = new ComboBoxModel[7];
-//  private DefaultComboBoxModel everything;
-//  private DefaultComboBoxModel education;
-//  private DefaultComboBoxModel engineering;
-//  private DefaultComboBoxModel health;
-//  private DefaultComboBoxModel inter;
-//  private DefaultComboBoxModel humanity;
-//  private DefaultComboBoxModel social;
-
+  private JComboBox<String> categoryText;
+  private JComboBox<String> subcategoryText;
+  private ComboBoxModel[] models;
   private JCheckBox wanttoregister;
 
   
@@ -158,6 +149,7 @@ public class Search extends JFrame implements ActionListener
     subcategoryText = new JComboBox();
     fields.addComponent(subcategoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
+    models = new ComboBoxModel[categoryText.getItemCount()];
     models[0] = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
     models[1] = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
     models[2] = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
@@ -167,17 +159,6 @@ public class Search extends JFrame implements ActionListener
     models[6] = new DefaultComboBoxModel(new String[]{"","inter 1", "inter 2", " inter 3"});
     
     subcategoryText.setModel(models[0]);
-
-
-    
-//    everything = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
-//    education = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
-//    engineering = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
-//    health = new DefaultComboBoxModel(new String[]{"","health 1", "health 2", "health 3"});
-//    humanity = new DefaultComboBoxModel(new String[]{"","humanity 1", "humanity 2", "humanity 3"});
-//    inter = new DefaultComboBoxModel(new String[]{"","inter 1", "inter 2", " inter 3"});
-//    social = new DefaultComboBoxModel(new String[]{"","social 1", "social 2", "social 3"});
-
 
     labels.addComponent(Iwanttoregister);
     fields.addComponent(wanttoregister);
