@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import database.client.UserAccountTable;
+
 public class Login extends JDialog implements ActionListener{
 	private Database database;
 	private Owner newuser;
@@ -215,7 +217,7 @@ public void actionPerformed(ActionEvent e){
 		JButton source = (JButton) e.getSource();
 		String command = source.getActionCommand();
 		if("login".equals(command)){
-			if (authenticate(userText.getText(),passwordText.getPassword())) {
+			if (authenticate(userText.getText(),passwordText.getText())) {
 			JOptionPane.showMessageDialog(source, "Welcome "+ userText.getText() + " you have been logged in");	
 			frame.remove(View.search.scrollpane);
 			View.search.searchDialog();
@@ -231,21 +233,10 @@ public void actionPerformed(ActionEvent e){
 		}
 		
 		else if("submituser".equals(command)){
-			if (nameText.getText().trim().isEmpty()||emailText.getText().trim().isEmpty() ||usernameText.getText().trim().isEmpty() || newpasswordText.getPassword().length == 0 ) {
-				JOptionPane.showMessageDialog(dialog,"You have to fill out the required fields (*)");
-			} 
-			else {
-				newuser=new Owner();
-				newuser.setName(nameText.getText());
-				newuser.setLocation(locationText.getText());
-				newuser.setEmail(emailText.getText());
-				newuser.setPhone(phoneText.getText());
-				newuser.setUsername(usernameText.getText());
-				JOptionPane.showMessageDialog(dialog, "Welcome "+ nameText.getText() + " you have been registered");
+			Boolean created=createaccount();
 			
-//				TODO: Setja newuser inn í gagnagrunn
-				
-//				JOptionPane.showMessageDialog(source, newuser.getinfo());
+			//If new account created, show login panel again
+			if(created){
 				newuserpanel.setVisible(false);
 				dialog.remove(newuserpanel);
 				loginpanel.setVisible(true);
@@ -258,11 +249,34 @@ public void actionPerformed(ActionEvent e){
 		}
 		
 	}
+public boolean createaccount(){
+	String name = nameText.getText().trim();
+	String email = emailText.getText().trim();
+	String username=usernameText.getText().trim();
+	String phonenumber = phoneText.getText().trim();
+	String pw=newpasswordText.getText().trim();
 
+	int phone=0;
+	
+	//If user does not fill in phonenumber, phone must be 0
+	if(!phonenumber.isEmpty()){
+		phone=Integer.parseInt(phonenumber);
+	}
+
+	if (name.isEmpty()||email.isEmpty() ||username.isEmpty() || pw.isEmpty()) {
+		JOptionPane.showMessageDialog(dialog,"You have to fill out the required fields (*)");
+		return false;
+	}
+	else {
+		//UserAccountTable.get().createAccount(username,pw,phone,name,email);
+		JOptionPane.showMessageDialog(dialog, "Thank you "+ name + " you have been registered!");
+		return true;
+	}
+}
 //	Use: a.authenticate(x,y);
 //	Before: a is a class, x is a string, y is a char[]
 //	After: Check if x is the correct username and y is the correct password
-	private boolean authenticate(String username, char[] password) {
+	private boolean authenticate(String username, String password) {
 //		TODO: Tjékkum hvort username og lykilorð passi við eitthvað í gagnagrunninum, 
 //			  þá true annars false
 		

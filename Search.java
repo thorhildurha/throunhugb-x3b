@@ -462,8 +462,7 @@ public class Search extends JFrame implements ActionListener, ItemListener
           subcategoryText.setModel(new DefaultComboBoxModel((String[]) o));
       }
 	  
-	  JButton source = (JButton) e.getSource();
-	  String command=source.getActionCommand();
+	  String command=e.getActionCommand();
 	  if("search".equals(command)){
 		  search();
 	  }

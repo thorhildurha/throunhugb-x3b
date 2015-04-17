@@ -53,8 +53,8 @@ public class MockDatabase implements Database {
 		}
 		return somebooks;
 	}
-	public boolean isuser(String user, char[] password){
-		if(user.equals("Gudrun")&&Arrays.equals(password,new char[]{'s','e'})){
+	public boolean isuser(String user, String password){
+		if(user.equals("Gudrun")&&password.equals("se")){
 			return true;
 		}
 		else{
