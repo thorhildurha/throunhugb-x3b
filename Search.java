@@ -3,13 +3,12 @@ import java.awt.Button;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -23,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ScrollPaneConstants;
 
-public class Search extends JFrame implements ActionListener, ItemListener
+public class Search extends JFrame implements ActionListener
 {
 
   private Owner user;
@@ -40,9 +39,16 @@ public class Search extends JFrame implements ActionListener, ItemListener
 //  private JTextField categoryText;
   private JComboBox categoryText;
   private JComboBox subcategoryText;
+  private DefaultComboBoxModel everything;
+  private DefaultComboBoxModel education;
+  private DefaultComboBoxModel engineering;
+  private DefaultComboBoxModel health;
+  private DefaultComboBoxModel inter;
+  private DefaultComboBoxModel humanity;
+  private DefaultComboBoxModel social;
 //  private JTextField subcategoryText;
   private JCheckBox wanttoregister;
-  private Hashtable<Object, Object> subItems = new Hashtable<Object, Object>();
+
   
   public Search(Owner loggedin,Database database, JFrame frame){
     this.user=loggedin;
@@ -143,35 +149,24 @@ public class Search extends JFrame implements ActionListener, ItemListener
     isbnText = new JTextField(20);
     fields.addComponent(isbnText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
-    String[] faculty = {"","School of Education","School of Engineering and Natural Sciences", "School of Health Sciences", "School of Humanities","School of Social Sciences", "Interdisciplinary Studies"};
+    String[] faculty = {"", "All faculties","Education","Engineering", "Health", "Humanity","Social", "Inter"};
     categoryText = new JComboBox(faculty);
-//    categoryText = new JTextField(20);
+
     fields.addComponent(categoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     categoryText.addActionListener(this);
-    categoryText.addItemListener(this);
-    
-//    String[] programmes  = {"","fullt af dóti!"};
     subcategoryText = new JComboBox();
-    subcategoryText.setPrototypeDisplayValue("XXXXXXXXXX");
-//    subcategoryText=new JTextField(20);
     fields.addComponent(subcategoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
-    subcategoryText.addActionListener(this);
-    subcategoryText.addItemListener(this);
+//    subcategoryText.addActionListener(this);
     
-    String[] subItems0 = {"", "öll subcategory"};
-    subItems.put(faculty[0], subItems0);
-    String[] subItems1 = {"", "education 1", "education 2", "education 3"};
-    subItems.put(faculty[1], subItems1);
-    String[] subItems2 = {"", "engineering 1", "engineering 2", "engineering 3"};
-    subItems.put(faculty[2], subItems2);
-    String[] subItems3 = {"", "health 1", "health 2", "health 3"};
-    subItems.put(faculty[3], subItems3);
-    String[] subItems4 = {"", "humanity 1", "humanity 2", "humanity 3"};
-    subItems.put(faculty[4], subItems4);
-    String[] subItems5 = {"", "social 1", "social 2", "social 3"};
-    subItems.put(faculty[5], subItems5);
-    String[] subItems6 = {"", "inter 1", "inter 2", "inter 3"};
-    subItems.put(faculty[6], subItems6);
+    everything = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
+    education = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
+    engineering = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
+    health = new DefaultComboBoxModel(new String[]{"","health 1", "health 2", "health 3"});
+    humanity = new DefaultComboBoxModel(new String[]{"","humanity 1", "humanity 2", "humanity 3"});
+    inter = new DefaultComboBoxModel(new String[]{"","inter 1", "inter 2", " inter 3"});
+    social = new DefaultComboBoxModel(new String[]{"","social 1", "social 2", "social 3"});
+
+    
 
     
     
@@ -454,14 +449,29 @@ public class Search extends JFrame implements ActionListener, ItemListener
   }
   
   public void actionPerformed(ActionEvent e){
-	  String item = (String) categoryText.getSelectedItem();
-      Object o = subItems.get(item);
-      if (o == null) {
-          subcategoryText.setModel(new DefaultComboBoxModel());
-      } else {
-          subcategoryText.setModel(new DefaultComboBoxModel((String[]) o));
+	  if ("All faculties".equals(categoryText.getSelectedItem())){
+			subcategoryText.setModel(everything);    
+	      }
+	  if ("Education".equals(categoryText.getSelectedItem())){
+		subcategoryText.setModel(education);    
       }
+	  if ("Health".equals(categoryText.getSelectedItem())){
+			subcategoryText.setModel(health);    
+	      }
+	  if ("Engineering".equals(categoryText.getSelectedItem())){
+			subcategoryText.setModel(engineering);    
+	      }
+	  if ("Inter".equals(categoryText.getSelectedItem())){
+			subcategoryText.setModel(inter);    
+	      }
+	  if ("Humanity".equals(categoryText.getSelectedItem())){
+			subcategoryText.setModel(humanity);    
+	      }
+	  if ("Social".equals(categoryText.getSelectedItem())){
+			subcategoryText.setModel(social);    
+	      }
 	  
+
 	  String command=e.getActionCommand();
 	  if("search".equals(command)){
 		  search();
@@ -504,9 +514,5 @@ public class Search extends JFrame implements ActionListener, ItemListener
 		  }
 	  }
   }
-@Override
-public void itemStateChanged(ItemEvent arg0) {
-	// TODO Auto-generated method stub
-	
-}
+
 }
