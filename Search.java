@@ -150,7 +150,10 @@ public class Search extends JFrame implements ActionListener
     fields.addComponent(subcategoryText,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE);
     
     models = new ComboBoxModel[categoryText.getItemCount()];
-    models[0] = new DefaultComboBoxModel(new String[]{"","ÖLL FÖGIN"});
+    models[0] = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3","engineering 1", 
+    												"engineering 2", "engineering 3","health 1", "health 2", "health 3",
+    												"humanity 1", "humanity 2", "humanity 3","social 1", "social 2", "social 3",
+    												"inter 1", "inter 2", " inter 3"});
     models[1] = new DefaultComboBoxModel(new String[]{"","education 1", "education 2", "education 3"});
     models[2] = new DefaultComboBoxModel(new String[]{"","engineering 1", "engineering 2", "engineering 3"});
     models[3] = new DefaultComboBoxModel(new String[]{"","health 1", "health 2", "health 3"});
