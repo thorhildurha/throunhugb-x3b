@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import javax.swing.JFrame;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,9 +10,13 @@ import org.junit.Test;
 public class IsLoggedInTest {
 	private Owner loggedin;
 	private Search search;
+	private Database database;
+	private JFrame frame;
 	@Before
 	public void setUp() throws Exception {
-		search=new Search(loggedin);
+		database=new MockDatabase();
+		loggedin=new Owner();
+		search=new Search(loggedin, database, frame);
 	}
 
 	@After
@@ -33,8 +39,7 @@ public class IsLoggedInTest {
 	 */
 	@Test
 	public void testcorrect(){
-		loggedin=new Owner();
-		search=new Search(loggedin);
+		loggedin.setloggedin(true);
 		//However if someone is logged in, an owner exists and we want to be able to register
 		assertTrue(search.isloggedin());
 		

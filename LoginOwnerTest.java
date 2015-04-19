@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import javax.swing.JFrame;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,13 +12,14 @@ public class LoginOwnerTest {
 	private Owner user; 
 	private Login login;
 	private Database database;
+	private JFrame frame;
 
 	@Before
 	
 	public void setUp() throws Exception {
 		user=new Owner();											//The logged in user is no one at first 
 		database= new MockDatabase(); 				//We use a mock database
-		login=new Login(user,database);				//Create the new login form
+		login=new Login(user,database, frame);				//Create the new login form
 		
 	}
 
@@ -30,6 +33,8 @@ public class LoginOwnerTest {
 	//that the owner will in turn be the logged in user
 	@Test
 	public void testcorrect() {
+		user.setUsername("Gudrun");
+		
 		login.authenticate("dude", "secret");  
 		assertEquals("dude",user.getUsername());	
 	}
